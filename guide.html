@@ -3,1186 +3,1004 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Motorcycle Owner's Starter Guide</title>
+<title>OG Ladka — Beginner Rider's Survival Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --charcoal:#1c1a17;
-    --charcoal-soft:#2a2723;
-    --amber:#c89b3c;
-    --amber-deep:#a87d28;
-    --amber-light:#e6c46a;
-    --warm-gray:#7d756a;
-    --warm-gray-light:#a89f92;
-    --cream:#f4efe4;
-    --cream-deep:#ebe3d3;
-    --paper:#faf6ec;
-    --line:#d8cdb8;
-    --ink:#26221c;
+  :root {
+    --bg: #f7f5f0;
+    --paper: #faf9f6;
+    --card: #efece5;
+    --ink: #1c1a17;
+    --ink-soft: #3d3830;
+    --muted: #8a8378;
+    --muted-light: #b5ada2;
+    --accent: #b8922f;
+    --accent-light: #d4b560;
+    --accent-bg: rgba(184,146,47,0.07);
+    --line: #e2ddd3;
+    --danger: #b85a3a;
   }
 
-  *{box-sizing:border-box;margin:0;padding:0;}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
 
-  html{ -webkit-text-size-adjust:100%; }
-
-  body{
-    font-family:'Inter',sans-serif;
-    background:#3a352e;
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  /* ============ PAGE FRAME ============ */
-  .page{
-    width:210mm;
-    min-height:297mm;
-    margin:14px auto;
-    background:var(--paper);
-    background-image:
-      radial-gradient(circle at 12% 18%, rgba(200,155,60,0.025), transparent 30%),
-      radial-gradient(circle at 88% 82%, rgba(124,117,106,0.04), transparent 35%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    position:relative;
-    padding:24mm 20mm 22mm;
-    overflow:hidden;
-    box-shadow:0 18px 50px rgba(0,0,0,0.45);
-  }
-  .page::after{
-    content:"";
-    position:absolute;inset:9mm;
-    border:1px solid rgba(200,155,60,0.18);
-    pointer-events:none;
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .pagenum{
-    position:absolute;
-    bottom:11mm;left:0;right:0;
-    text-align:center;
-    font-family:'Montserrat',sans-serif;
-    font-weight:600;
-    font-size:10px;
-    letter-spacing:0.35em;
-    color:var(--warm-gray);
-    text-transform:uppercase;
-  }
-  .pagefoot{
-    position:absolute;
-    bottom:11mm;left:20mm;
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    font-size:9px;
-    letter-spacing:0.3em;
-    color:var(--amber-deep);
-    text-transform:uppercase;
+  /* ── PAGE ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 12px auto;
+    background: var(--paper);
+    padding: 26mm 22mm 18mm;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 30px rgba(0,0,0,0.06);
   }
 
-  /* ============ COVER ============ */
-  .cover{
-    background:var(--charcoal);
-    background-image:
-      radial-gradient(ellipse at 50% 0%, rgba(200,155,60,0.16), transparent 55%),
-      radial-gradient(ellipse at 50% 100%, rgba(168,125,40,0.10), transparent 50%);
-    color:var(--cream);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    padding:30mm 22mm;
-  }
-  .cover::after{ border-color:rgba(200,155,60,0.32); }
-  .cover-top{ display:flex; justify-content:space-between; align-items:flex-start; }
-  .brandmark{
-    font-family:'Montserrat',sans-serif;
-    font-weight:800;
-    font-size:11px;
-    letter-spacing:0.4em;
-    color:var(--amber-light);
-    text-transform:uppercase;
-  }
-  .editiontag{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    letter-spacing:0.2em;
-    color:var(--warm-gray-light);
-    text-align:right;
-    line-height:1.8;
-  }
-  .cover-center{ margin:auto 0; }
-  .cover-kicker{
-    font-family:'Montserrat',sans-serif;
-    font-weight:600;
-    font-size:13px;
-    letter-spacing:0.5em;
-    text-transform:uppercase;
-    color:var(--amber);
-    margin-bottom:18px;
-    display:flex;align-items:center;gap:14px;
-  }
-  .cover-kicker::before{ content:""; width:40px;height:2px;background:var(--amber); }
-  .cover h1{
-    font-family:'Montserrat',sans-serif;
-    font-weight:900;
-    font-size:62px;
-    line-height:0.98;
-    letter-spacing:-0.02em;
-    text-transform:uppercase;
-    color:var(--cream);
-    margin-bottom:6px;
-  }
-  .cover h1 .gold{
-    background:linear-gradient(100deg,var(--amber-light) 0%, var(--amber) 40%, var(--amber-deep) 70%, var(--amber-light) 100%);
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
-  .cover-sub{
-    font-family:'Inter',sans-serif;
-    font-weight:300;
-    font-size:18px;
-    color:var(--warm-gray-light);
-    max-width:62%;
-    margin-top:24px;
-    line-height:1.5;
-  }
-  .cover-rule{ height:1px;background:linear-gradient(90deg,var(--amber),transparent); margin:34px 0; }
-  .cover-bottom{ display:flex; justify-content:space-between; align-items:flex-end; }
-  .cover-count{ display:flex; align-items:baseline; gap:14px; }
-  .cover-count .big{
-    font-family:'Montserrat',sans-serif;
-    font-weight:900;
-    font-size:74px;
-    line-height:0.8;
-    color:var(--amber);
-  }
-  .cover-count .lbl{
-    font-family:'Montserrat',sans-serif;
-    font-weight:600;
-    font-size:12px;
-    letter-spacing:0.25em;
-    text-transform:uppercase;
-    color:var(--cream);
-    max-width:120px;
-  }
-  .cover-note{
-    font-family:'Inter',sans-serif;
-    font-style:italic;
-    font-size:13px;
-    color:var(--warm-gray-light);
-    text-align:right;
-    max-width:200px;
+  .page-content { flex: 1; }
+
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    margin-top: 24px;
+    border-top: 1px solid var(--line);
   }
 
-  /* ============ SHARED HEADER ============ */
-  .ch-head{ margin-bottom:26px; }
-  .ch-eyebrow{
-    display:flex;align-items:center;gap:12px;
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    font-size:11px;
-    letter-spacing:0.3em;
-    text-transform:uppercase;
-    color:var(--amber-deep);
-    margin-bottom:10px;
-  }
-  .ch-eyebrow .num{
-    font-family:'JetBrains Mono',monospace;
-    font-weight:500;
-    background:var(--charcoal);
-    color:var(--amber-light);
-    padding:3px 9px;
-    font-size:11px;
-    letter-spacing:0.1em;
-  }
-  .ch-eyebrow::after{ content:"";flex:1;height:1px;background:var(--line); }
-  .ch-title{
-    font-family:'Montserrat',sans-serif;
-    font-weight:800;
-    font-size:34px;
-    line-height:1.05;
-    letter-spacing:-0.01em;
-    color:var(--charcoal);
-  }
-  .ch-intro{
-    font-size:14px;
-    color:var(--warm-gray);
-    max-width:78%;
-    margin-top:10px;
-    font-weight:300;
+  .page-footer .brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 8px;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    text-transform: uppercase;
   }
 
-  /* ============ CONTENT BLOCKS ============ */
-  .block{ margin-bottom:22px; }
-  .block-title{
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    font-size:16px;
-    color:var(--charcoal);
-    margin-bottom:7px;
-    display:flex;align-items:center;gap:10px;
-  }
-  .block-title .dot{
-    width:7px;height:7px;background:var(--amber);
-    transform:rotate(45deg);flex-shrink:0;
-  }
-  .block p{ font-size:13.5px; color:var(--ink); }
-  .lead{ color:var(--charcoal-soft); }
-
-  .callout{
-    background:var(--cream);
-    border-left:3px solid var(--amber);
-    padding:14px 18px;
-    margin:16px 0;
-    font-size:13px;
-  }
-  .callout strong{ color:var(--amber-deep); font-family:'Montserrat',sans-serif; font-weight:700;}
-
-  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-
-  /* ============ DRIVETRAIN FLOWCHART ============ */
-  .flow{
-    background:var(--charcoal);
-    background-image:radial-gradient(ellipse at 30% 0%, rgba(200,155,60,0.12), transparent 60%);
-    border-radius:2px;
-    padding:30px 34px;
-    margin-top:6px;
-  }
-  .flow-row{ display:flex; align-items:center; gap:18px; padding:9px 0; }
-  .flow-node{
-    flex-shrink:0;
-    width:150px;
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    font-size:14px;
-    letter-spacing:0.04em;
-    color:var(--cream);
-    text-transform:uppercase;
-    display:flex;align-items:center;gap:12px;
-  }
-  .flow-node .ico{ width:24px;height:24px;flex-shrink:0;color:var(--amber-light);}
-  .flow-desc{
-    font-size:12.5px;
-    color:var(--warm-gray-light);
-    font-weight:300;
-    border-left:1px solid rgba(200,155,60,0.3);
-    padding-left:18px;
-  }
-  .flow-desc b{ color:var(--amber-light); font-weight:600; }
-  .flow-connector{ padding:2px 0 2px 73px; }
-  .flow-connector svg{ color:var(--amber); opacity:0.55; }
-
-  .flow-takeaway{
-    margin-top:22px;
-    padding-top:18px;
-    border-top:1px solid rgba(200,155,60,0.25);
-    display:flex;gap:16px;align-items:flex-start;
-  }
-  .flow-takeaway .tag{
-    font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;
-    letter-spacing:0.2em;color:var(--amber);text-transform:uppercase;
-    flex-shrink:0;padding-top:2px;
-  }
-  .flow-takeaway p{ font-size:13px;color:var(--cream);font-weight:300;line-height:1.55;}
-  .flow-takeaway b{ color:var(--amber-light);font-weight:600;}
-
-  /* ============ WEEKLY CHECK ============ */
-  .check-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:8px; }
-  .check-card{
-    background:var(--cream);
-    border:1px solid var(--line);
-    border-radius:2px;
-    padding:16px 18px;
-    display:flex;gap:14px;align-items:flex-start;
-    position:relative;
-  }
-  .check-card .icon{
-    width:38px;height:38px;flex-shrink:0;
-    background:var(--charcoal);
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    color:var(--amber-light);
-  }
-  .check-card .icon svg{ width:20px;height:20px; }
-  .check-card h4{
-    font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;
-    color:var(--charcoal);margin-bottom:3px;
-  }
-  .check-card p{ font-size:11.5px;color:var(--warm-gray);line-height:1.45;}
-  .check-card .tick{
-    position:absolute;top:14px;right:14px;
-    color:var(--amber);
+  .page-footer .num {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--muted-light);
   }
 
-  /* ============ GEAR ============ */
-  .gear-item{
-    display:flex;gap:18px;align-items:flex-start;
-    padding:15px 0;
-    border-bottom:1px solid var(--line);
-  }
-  .gear-item:last-child{ border-bottom:none; }
-  .gear-rank{
-    font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;
-    color:var(--amber);line-height:1;width:40px;flex-shrink:0;
-    text-align:center;
-  }
-  .gear-art{
-    width:54px;height:54px;flex-shrink:0;
-    color:var(--charcoal);
-  }
-  .gear-body h4{
-    font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;
-    color:var(--charcoal);margin-bottom:3px;
-  }
-  .gear-body p{ font-size:12.5px;color:var(--warm-gray);}
-
-  /* ============ TIMELINE MATRIX ============ */
-  .matrix{
-    width:100%;border-collapse:collapse;margin-top:8px;
-    font-size:13px;
-  }
-  .matrix th{
-    background:var(--charcoal);color:var(--amber-light);
-    font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;
-    letter-spacing:0.15em;text-transform:uppercase;
-    padding:13px 16px;text-align:left;
-  }
-  .matrix th:first-child{ width:34%; }
-  .matrix td{
-    padding:14px 16px;border-bottom:1px solid var(--line);
-    vertical-align:top;color:var(--ink);
-  }
-  .matrix tr:nth-child(even) td{ background:var(--cream); }
-  .matrix .freq{
-    font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;
-    color:var(--charcoal);
-  }
-  .matrix .freq small{
-    display:block;font-family:'JetBrains Mono',monospace;font-weight:400;
-    font-size:10px;color:var(--amber-deep);letter-spacing:0.05em;margin-top:2px;
-    text-transform:uppercase;
-  }
-  .task-chip{
-    display:inline-flex;align-items:center;gap:7px;
-    margin:3px 8px 3px 0;font-size:12.5px;
-  }
-  .task-chip .box{
-    width:14px;height:14px;border:1.5px solid var(--amber);
-    flex-shrink:0;border-radius:2px;
+  /* ── COVER ── */
+  .cover {
+    background: var(--ink);
+    color: var(--paper);
+    justify-content: space-between;
+    padding: 32mm 26mm;
   }
 
-  /* ============ MYTH VS FACT ============ */
-  .mf{ display:grid;grid-template-columns:1fr;gap:14px;margin-top:6px; }
-  .mf-card{
-    border:1px solid var(--line);border-radius:2px;overflow:hidden;
-    display:grid;grid-template-columns:1fr 1fr;
-  }
-  .mf-myth,.mf-fact{ padding:15px 18px; }
-  .mf-myth{ background:var(--cream-deep); }
-  .mf-fact{ background:var(--charcoal); }
-  .mf-label{
-    font-family:'Montserrat',sans-serif;font-weight:800;font-size:10px;
-    letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;
-    display:flex;align-items:center;gap:7px;
-  }
-  .mf-myth .mf-label{ color:#a8553e; }
-  .mf-fact .mf-label{ color:var(--amber-light); }
-  .mf-myth p{ font-size:12.5px;color:var(--charcoal-soft);}
-  .mf-fact p{ font-size:12.5px;color:var(--cream);font-weight:300;}
+  .cover .page-footer { border-top-color: rgba(184,146,47,0.2); }
+  .cover .page-footer .brand { color: var(--accent-light); }
+  .cover .page-footer .num { color: var(--muted); }
 
-  /* ============ MISTAKES / LISTS ============ */
-  .mistake{
-    display:flex;gap:14px;align-items:flex-start;padding:12px 0;
-    border-bottom:1px solid var(--line);
-  }
-  .mistake:last-child{border-bottom:none;}
-  .mistake .x{
-    width:26px;height:26px;flex-shrink:0;border-radius:50%;
-    background:rgba(168,85,62,0.12);color:#a8553e;
-    display:flex;align-items:center;justify-content:center;font-weight:700;
-    font-family:'Montserrat';font-size:14px;
-  }
-  .mistake-body h4{
-    font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;
-    color:var(--charcoal);margin-bottom:2px;
-  }
-  .mistake-body p{ font-size:12.5px;color:var(--warm-gray);}
-
-  /* ============ KIT GRID ============ */
-  .kit-grid{ display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:6px;}
-  .kit-card{
-    background:var(--cream);border:1px solid var(--line);
-    padding:14px 16px;display:flex;gap:13px;align-items:center;border-radius:2px;
-  }
-  .kit-card .ico{ width:30px;height:30px;color:var(--amber-deep);flex-shrink:0;}
-  .kit-card h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:var(--charcoal);margin-bottom:2px;}
-  .kit-card p{font-size:11px;color:var(--warm-gray);line-height:1.35;}
-
-  /* ============ INSPECTION STEPS ============ */
-  .steps{ display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px;}
-  .step{
-    background:var(--cream);border:1px solid var(--line);border-radius:2px;
-    padding:16px 14px;text-align:center;
-  }
-  .step .ico{ width:34px;height:34px;color:var(--amber-deep);margin:0 auto 10px;}
-  .step h4{font-family:'Montserrat';font-weight:700;font-size:12px;color:var(--charcoal);margin-bottom:3px;}
-  .step p{font-size:10.5px;color:var(--warm-gray);line-height:1.35;}
-
-  /* ============ PROMISE PAGE ============ */
-  .promise{
-    background:var(--charcoal);
-    background-image:radial-gradient(ellipse at 50% 0%, rgba(200,155,60,0.14), transparent 60%);
-    color:var(--cream);
-  }
-  .promise::after{ border-color:rgba(200,155,60,0.3); }
-  .promise .ch-title{ color:var(--cream); }
-  .promise .ch-intro{ color:var(--warm-gray-light); }
-  .promise-list{ margin-top:10px; }
-  .promise-item{
-    display:flex;gap:18px;align-items:flex-start;
-    padding:17px 0;border-bottom:1px solid rgba(200,155,60,0.18);
-  }
-  .promise-check{
-    width:36px;height:36px;flex-shrink:0;border-radius:50%;
-    border:2px solid var(--amber);color:var(--amber);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .promise-text h4{
-    font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;
-    color:var(--cream);margin-bottom:2px;
-  }
-  .promise-text p{ font-size:13px;color:var(--warm-gray-light);font-style:italic;font-weight:300;}
-  .promise-seal{
-    margin-top:28px;text-align:center;
-    font-family:'Montserrat',sans-serif;font-weight:600;font-size:11px;
-    letter-spacing:0.3em;text-transform:uppercase;color:var(--amber);
+  .cover-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--accent-light);
   }
 
-  .copyright{
-    margin-top:30px;
-    border:1px solid rgba(200,155,60,0.28);
-    background:rgba(0,0,0,0.18);
-    padding:22px 26px;
-    text-align:center;
-  }
-  .copyright .cr-brand{
-    font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;
-    letter-spacing:0.35em;text-transform:uppercase;color:var(--amber-light);
-    margin-bottom:8px;
-  }
-  .copyright .cr-line{
-    font-family:'Montserrat',sans-serif;font-weight:600;font-size:11.5px;
-    color:var(--cream);letter-spacing:0.04em;margin-bottom:10px;
-  }
-  .copyright .cr-body{
-    font-size:11px;color:var(--warm-gray-light);font-weight:300;
-    line-height:1.6;max-width:78%;margin:0 auto 10px;
-  }
-  .copyright .cr-contact{
-    font-family:'JetBrains Mono',monospace;font-size:10px;
-    letter-spacing:0.12em;color:var(--amber);
+  .cover-center {
+    margin: auto 0;
+    padding: 40px 0;
   }
 
-  /* ============ TOC ============ */
-  .toc-list{ margin-top:6px; }
-  .toc-row{
-    display:flex;align-items:baseline;gap:14px;
-    padding:13px 0;border-bottom:1px solid var(--line);
+  .cover-kicker {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
   }
-  .toc-num{
-    font-family:'JetBrains Mono',monospace;font-weight:500;font-size:13px;
-    color:var(--amber-deep);width:30px;flex-shrink:0;
-  }
-  .toc-name{
-    font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;
-    color:var(--charcoal);flex-shrink:0;
-  }
-  .toc-dots{ flex:1;border-bottom:1px dotted var(--warm-gray-light);transform:translateY(-4px);}
-  .toc-desc{ font-size:12px;color:var(--warm-gray);font-style:italic;flex-shrink:0;max-width:46%;text-align:right;}
 
-  /* ============ RESPONSIVE — TABLET & MOBILE ============ */
-  /* Screens narrower than A4: drop the fixed mm width so nothing crops. */
-  @media screen and (max-width:880px){
-    .page{
-      width:100%;
-      max-width:760px;
-      min-height:0;
-      margin:10px auto;
-      padding:34px 30px 46px;
+  .cover h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+  }
+
+  .cover h1 em {
+    font-style: normal;
+    color: var(--accent-light);
+  }
+
+  .cover-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted-light);
+    margin-top: 20px;
+    max-width: 75%;
+    line-height: 1.55;
+  }
+
+  .cover-rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent 60%);
+    margin: 30px 0;
+    opacity: 0.5;
+  }
+
+  .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .cover-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .cover-stat .n {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 0.85;
+    color: var(--accent);
+  }
+
+  .cover-stat .l {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--paper);
+    max-width: 110px;
+  }
+
+  .cover-handle {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── SECTION HEADER ── */
+  .sec-head { margin-bottom: 24px; }
+
+  .sec-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sec-eyebrow::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .sec-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .sec-intro {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 8px;
+    max-width: 82%;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  /* ── INTRO PROSE ── */
+  .prose {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 88%;
+  }
+
+  .prose p { margin-bottom: 14px; }
+  .prose p:last-child { margin-bottom: 0; }
+
+  .prose strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .prose em {
+    font-style: normal;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ── HABIT / ITEM ROWS ── */
+  .items { display: flex; flex-direction: column; gap: 14px; }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 16px;
+    background: var(--card);
+    border-radius: 3px;
+  }
+
+  .item-num {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--accent);
+    width: 28px;
+    flex-shrink: 0;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .item-text h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .item-text p {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  /* ── SENSE GRID ── */
+  .sense-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .sense-card {
+    padding: 18px;
+    background: var(--card);
+    border-radius: 3px;
+  }
+
+  .sense-card .icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+  }
+
+  .sense-card .icon svg { width: 20px; height: 20px; }
+
+  .sense-card h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+
+  .sense-card p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .sense-full {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 20px;
+    background: var(--accent-bg);
+    border: 1px solid var(--line);
+  }
+
+  .sense-full h4 { color: var(--accent); }
+  .sense-full p { color: var(--ink-soft); max-width: 70%; margin: 0 auto; }
+
+  /* ── CHECK GRID ── */
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .check-card {
+    padding: 18px;
+    background: var(--card);
+    border-radius: 3px;
+  }
+
+  .check-card .icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+  }
+
+  .check-card .icon svg { width: 20px; height: 20px; }
+
+  .check-card h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .check-card p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ── MYTH / FACT ── */
+  .myths { display: flex; flex-direction: column; gap: 14px; }
+
+  .myth-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .myth-side, .fact-side { padding: 16px 18px; }
+
+  .myth-side { background: var(--card); }
+
+  .fact-side { background: var(--ink); }
+
+  .myth-label, .fact-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .myth-label { color: var(--danger); }
+  .fact-label { color: var(--accent-light); }
+
+  .myth-side p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; }
+  .fact-side p { font-size: 12.5px; color: #d4cfc6; font-weight: 300; line-height: 1.45; }
+
+  /* ── FINAL LIST ── */
+  .final-list { display: flex; flex-direction: column; gap: 0; }
+
+  .final-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .final-item:last-child { border-bottom: none; }
+
+  .final-item .n {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--accent);
+    width: 24px;
+    flex-shrink: 0;
+    text-align: right;
+    padding-top: 1px;
+  }
+
+  .final-item p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ── TIP BOX ── */
+  .tip {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: var(--accent-bg);
+    border-left: 3px solid var(--accent);
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .tip strong {
+    color: var(--accent);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+
+  /* ── CLOSING ── */
+  .closing {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .closing .page-footer { border-top-color: rgba(184,146,47,0.2); }
+  .closing .page-footer .brand { color: var(--accent-light); }
+  .closing .page-footer .num { color: var(--muted); }
+
+  .closing .sec-title { color: var(--paper); }
+  .closing .sec-intro { color: var(--muted-light); }
+  .closing .sec-eyebrow { color: var(--accent-light); }
+  .closing .sec-eyebrow::after { background: rgba(184,146,47,0.2); }
+
+  .closing .final-item { border-bottom-color: rgba(184,146,47,0.12); }
+  .closing .final-item p { color: #d4cfc6; }
+
+  .closing-seal {
+    margin-top: 28px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(184,146,47,0.2);
+  }
+
+  .closing-seal .s1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .closing-seal .s2 {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── LEGAL PAGE ── */
+  .legal-page {
+    background: var(--ink);
+    justify-content: center;
+  }
+
+  .legal {
+    text-align: center;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  .legal-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 36px;
+  }
+
+  .legal-section {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(184,146,47,0.15);
+  }
+
+  .legal-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .legal-section p {
+    font-size: 11.5px;
+    color: var(--muted-light);
+    font-weight: 300;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .legal-section p:last-child { margin-bottom: 0; }
+
+  .legal-version {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .legal-handle {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media screen and (max-width: 880px) {
+    .page {
+      width: 100%;
+      max-width: 760px;
+      min-height: 0;
+      margin: 8px auto;
+      padding: 32px 28px 28px;
     }
-    .page::after{ inset:14px; }
-    .cover{ padding:44px 34px; min-height:88vh; }
-    .cover::after{ inset:14px; }
-    .pagenum,.promise .pagenum{ bottom:16px; }
-    .pagefoot{ bottom:16px; left:30px; }
-    .cover h1{ font-size:52px; }
-    .cover-sub{ max-width:100%; }
-    .ch-title{ font-size:30px; }
-    .ch-intro{ max-width:100%; }
+    .cover { padding: 38px 30px; min-height: 85vh; }
+    .cover h1 { font-size: 42px; }
+    .sec-title { font-size: 26px; }
+    .sec-intro { max-width: 100%; }
   }
 
-  /* Phones: stack every multi-column grid into one column. */
-  @media screen and (max-width:600px){
-    body{ background:#2e2a24; }
-    .page{
-      margin:0 0 8px;
-      padding:26px 18px 40px;
-      box-shadow:none;
-      border-bottom:2px solid rgba(200,155,60,0.25);
+  @media screen and (max-width: 600px) {
+    body { background: #edeae3; }
+    .page {
+      margin: 0 0 6px;
+      padding: 24px 18px 24px;
+      box-shadow: none;
     }
-    .page::after{ inset:9px; }
-    .cover{ padding:36px 22px; }
-    .cover::after{ inset:9px; }
-    .pagefoot{ left:22px; font-size:8px; }
-
-    /* Cover scales down */
-    .cover-top{ flex-direction:column; gap:14px; }
-    .editiontag{ text-align:left; }
-    .cover h1{ font-size:40px; }
-    .cover-kicker{ font-size:11px; letter-spacing:0.3em; }
-    .cover-sub{ font-size:15px; }
-    .cover-bottom{ flex-direction:column; align-items:flex-start; gap:18px; }
-    .cover-count .big{ font-size:58px; }
-    .cover-note{ text-align:left; max-width:100%; }
-
-    /* Headings */
-    .ch-title{ font-size:25px; }
-    .ch-eyebrow{ flex-wrap:wrap; }
-
-    /* All grids collapse to single column */
-    .two-col,
+    .cover { padding: 28px 20px; }
+    .cover h1 { font-size: 34px; }
+    .cover-sub { max-width: 100%; font-size: 14px; }
+    .cover-stat .n { font-size: 44px; }
+    .sec-title { font-size: 23px; }
+    .sense-grid,
     .check-grid,
-    .kit-grid,
-    .mf-card{ grid-template-columns:1fr; }
-    .steps{ grid-template-columns:1fr 1fr; }
-
-    /* Myth/fact: stack myth above fact, square off the join */
-    .mf-card{ border-radius:2px; }
-
-    /* Drivetrain flow: let long rows wrap gracefully */
-    .flow{ padding:22px 18px; }
-    .flow-node{ width:120px; font-size:12px; }
-    .flow-desc{ font-size:11px; padding-left:12px; }
-    .flow-connector{ padding-left:55px; }
-    .flow-takeaway{ flex-direction:column; gap:8px; }
-
-    /* Fuel two-pipe diagram stacks */
-    .flow .two-pipe-wrap{ flex-direction:column !important; gap:18px !important; }
-
-    /* Matrix: keep readable, allow horizontal scroll fallback */
-    .matrix th,.matrix td{ padding:11px 12px; }
-    .matrix .freq{ font-size:12px; }
-
-    /* Gear + mistakes tighten */
-    .gear-rank{ font-size:24px; width:30px; }
-    .gear-art{ width:44px; height:44px; }
-
-    /* Copyright box */
-    .copyright{ padding:18px 16px; }
-    .copyright .cr-body{ max-width:100%; }
-
-    /* TOC: stack name + description, drop dot leaders */
-    .toc-row{ flex-wrap:wrap; align-items:baseline; gap:6px 12px; }
-    .toc-name{ flex-shrink:1; font-size:14px; }
-    .toc-dots{ display:none; }
-    .toc-desc{ flex-basis:100%; max-width:100%; text-align:left; padding-left:42px; font-size:11.5px; }
+    .myth-card { grid-template-columns: 1fr; }
+    .prose { max-width: 100%; }
+    .legal { max-width: 100%; }
   }
 
-  /* Very small phones */
-  @media screen and (max-width:380px){
-    .steps{ grid-template-columns:1fr; }
-    .cover h1{ font-size:34px; }
-    .ch-title{ font-size:22px; }
+  @media screen and (max-width: 380px) {
+    .cover h1 { font-size: 28px; }
+    .sec-title { font-size: 20px; }
   }
 
-  @media print{
-    body{ background:#fff; }
-    .page{ margin:0; box-shadow:none; page-break-after:always; width:210mm;height:297mm; min-height:297mm; padding:24mm 20mm 22mm; border-bottom:none; }
-    .page::after{ inset:9mm; }
-    .page:last-child{ page-break-after:auto; }
+  @media print {
+    body { background: #fff; }
+    .page {
+      margin: 0; box-shadow: none;
+      page-break-after: always;
+      width: 210mm; height: 297mm; min-height: 297mm;
+      padding: 26mm 22mm 18mm;
+    }
   }
-  @page{ size:A4; margin:0; }
 </style>
 </head>
 <body>
 
-<!-- ============ COVER ============ -->
+<!-- ═══════ COVER ═══════ -->
 <section class="page cover">
-  <div class="cover-top">
-    <div class="brandmark">OG Ladka — Rider Series</div>
-    <div class="editiontag">VOL. 01<br>THE ESSENTIALS<br>EST. BANGALORE</div>
-  </div>
+  <div class="page-content">
+    <div class="cover-brand">OG Ladka</div>
 
-  <div class="cover-center">
-    <div class="cover-kicker">The Owner's Starter Guide</div>
-    <h1>Ride<br>Smart.<br><span class="gold">Stay Ready.</span></h1>
-    <div class="cover-rule"></div>
-    <p class="cover-sub">Ten simple things every new rider should know — explained in plain, easy words, the way a big brother would tell you.</p>
-  </div>
-
-  <div class="cover-bottom">
-    <div class="cover-count">
-      <span class="big">10</span>
-      <span class="lbl">Chapters to never get stranded</span>
+    <div class="cover-center">
+      <div class="cover-kicker">For New Riders</div>
+      <h1>The Beginner<br>Rider's<br><em>Survival<br>Guide.</em></h1>
+      <p class="cover-sub">25 things nobody tells you after buying a motorcycle. No myths. No jargon. Just practical advice.</p>
+      <div class="cover-rule"></div>
     </div>
-    <p class="cover-note">For the rider who loves the thrill — not the ego.</p>
+
+    <div class="cover-bottom">
+      <div class="cover-stat">
+        <span class="n">25</span>
+        <span class="l">Things you need to know</span>
+      </div>
+      <div class="cover-handle">@ogladkaa</div>
+    </div>
   </div>
-  <div class="pagefoot">OG Ladka &nbsp;·&nbsp; © 2026 · All Rights Reserved</div>
 </section>
 
-<!-- ============ TABLE OF CONTENTS ============ -->
+<!-- ═══════ PAGE 1 — BEFORE YOU READ ═══════ -->
 <section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span>What's Inside</span></div>
-    <h2 class="ch-title">Contents</h2>
-    <p class="ch-intro">No heavy engineering. Just the basics, in simple words, to make you a confident new rider.</p>
+  <div class="page-content">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Before You Read This</div>
+      <h2 class="sec-title">Buying a bike is easy.<br>Owning one properly<br>is harder.</h2>
+    </div>
+
+    <div class="prose">
+      <p>Most expensive repairs don't happen because someone crashed. They happen because <strong>small warning signs were ignored.</strong></p>
+      <p>A slightly loose chain. Tyres that stayed low on air for months. An engine that always ran with the wrong oil level. A strange vibration everyone assumed was "normal."</p>
+      <p>Bikes rarely stay healthy by accident. They stay healthy because their owners <em>notice small changes before they become expensive problems.</em></p>
+      <p>This guide won't make you a mechanic. It'll help you become the kind of owner who knows when something isn't right.</p>
+    </div>
   </div>
-  <div class="toc-list">
-    <div class="toc-row"><span class="toc-num">01</span><span class="toc-name">Before You Ride</span><span class="toc-dots"></span><span class="toc-desc">Starting right & the warm-up myth</span></div>
-    <div class="toc-row"><span class="toc-num">02</span><span class="toc-name">Your Bike in One Page</span><span class="toc-dots"></span><span class="toc-desc">What happens when you twist the throttle</span></div>
-    <div class="toc-row"><span class="toc-num">03</span><span class="toc-name">The 5-Minute Weekly Check</span><span class="toc-dots"></span><span class="toc-desc">Six things, one Sunday morning</span></div>
-    <div class="toc-row"><span class="toc-num">04</span><span class="toc-name">Fuel Basics</span><span class="toc-dots"></span><span class="toc-desc">Which petrol & the reserve myth</span></div>
-    <div class="toc-row"><span class="toc-num">05</span><span class="toc-name">Common Mistakes</span><span class="toc-dots"></span><span class="toc-desc">The costly habits to avoid</span></div>
-    <div class="toc-row"><span class="toc-num">06</span><span class="toc-name">Riding Gear Priority</span><span class="toc-dots"></span><span class="toc-desc">What to buy first on a budget</span></div>
-    <div class="toc-row"><span class="toc-num">07</span><span class="toc-name">Emergency Kit</span><span class="toc-dots"></span><span class="toc-desc">What to keep under your seat</span></div>
-    <div class="toc-row"><span class="toc-num">08</span><span class="toc-name">Maintenance Timeline</span><span class="toc-dots"></span><span class="toc-desc">The simple chart for your wall</span></div>
-    <div class="toc-row"><span class="toc-num">09</span><span class="toc-name">Myth vs Fact</span><span class="toc-dots"></span><span class="toc-desc">Clearing up common confusion</span></div>
-    <div class="toc-row"><span class="toc-num">10</span><span class="toc-name">Recommended Products</span><span class="toc-dots"></span><span class="toc-desc">Cheap things that save you money</span></div>
+
+  <div class="page-footer">
+    <span class="brand">OG Ladka</span>
+    <span class="num">01</span>
   </div>
-  <div class="pagenum">OG Ladka · Rider Series</div>
 </section>
 
-<!-- ============ CHAPTER 1 ============ -->
+<!-- ═══════ PAGE 2 — 7 HABITS ═══════ -->
 <section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">01</span><span>Before You Ride</span></div>
-    <h2 class="ch-title">Start it right,<br>every single time.</h2>
-  </div>
-
-  <div class="block">
-    <div class="block-title"><span class="dot"></span>Starting your bike, step by step</div>
-    <p>Turn the key. Push the small red switch to <b>"ON."</b> You may hear a soft <i>whirrr</i> for two seconds — that's normal, it's just the bike getting ready. Wait for it to go quiet, then press the start button. That's it.</p>
-  </div>
-
-  <div class="block">
-    <div class="block-title"><span class="dot"></span>Don't rev it the moment it starts</div>
-    <p>When a bike sits overnight, the oil settles at the bottom. If you rev hard straight away, the engine runs dry for a moment and wears out faster. Just wait a few seconds before you go. Easy.</p>
-  </div>
-
-  <div class="callout">
-    <strong>You don't need to "warm up" for 5 minutes.</strong> Old advice says let the bike sit and run before riding. New bikes don't need that. Start it, wait 20–30 seconds, then ride slowly for the first minute. The bike warms up best while you ride.
-  </div>
-
-  <div class="block">
-    <div class="block-title"><span class="dot"></span>A quick 2-minute check before you go</div>
-    <div class="steps">
-      <div class="step">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
-        <h4>Press the Tyres</h4><p>They should feel hard, not soft.</p>
-      </div>
-      <div class="step">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M5 12a4 4 0 0 1 4-4M19 12a4 4 0 0 0-4-4"/><circle cx="12" cy="16" r="3"/></svg>
-        <h4>Test the Brakes</h4><p>Squeeze both. They should grip.</p>
-      </div>
-      <div class="step">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12s3-7 9-7 9 7 9 7"/><path d="M7 18l2-3M17 18l-2-3M12 18v-3"/></svg>
-        <h4>Look Below</h4><p>No oily puddles under the bike.</p>
-      </div>
-      <div class="step">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2a6 6 0 0 0-6 6c0 4 6 11 6 11s6-7 6-11a6 6 0 0 0-6-6z"/><circle cx="12" cy="8" r="2"/></svg>
-        <h4>Helmet On</h4><p>All good? Now you ride.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="pagenum">Chapter 01 · Before You Ride</div>
-</section>
-
-<!-- ============ CHAPTER 2 — DRIVETRAIN FLOW ============ -->
-<section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">02</span><span>Your Motorcycle in One Page</span></div>
-    <h2 class="ch-title">From the tank<br>to the tyre.</h2>
-    <p class="ch-intro">No heavy engineering. Just enough to understand what happens when you twist the throttle (the handle grip you turn to go faster).</p>
-  </div>
-
-  <div class="flow">
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h12v10H4zM16 11h3l1 3v3h-4"/><path d="M7 8V5h6v3"/></svg>Fuel Tank</div>
-      <div class="flow-desc">Holds the petrol.</div>
-    </div>
-    <div class="flow-connector"><svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v15M2 12l5 5 5-5"/></svg></div>
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>Fuel Pump</div>
-      <div class="flow-desc">Pushes the petrol forward.</div>
-    </div>
-    <div class="flow-connector"><svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v15M2 12l5 5 5-5"/></svg></div>
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v6M9 8h6l-1 4H10zM10 12l-2 8M14 12l2 8"/></svg>Injector</div>
-      <div class="flow-desc">Mixes petrol with air into a fine <b>spray</b>.</div>
-    </div>
-    <div class="flow-connector"><svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v15M2 12l5 5 5-5"/></svg></div>
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="8" width="14" height="11" rx="1"/><path d="M9 8V4h6v4M12 11v4"/></svg>Engine</div>
-      <div class="flow-desc">A tiny <b>spark</b> lights the spray. The small blast pushes the engine.</div>
-    </div>
-    <div class="flow-connector"><svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v15M2 12l5 5 5-5"/></svg></div>
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v4M12 16v4"/></svg>Clutch</div>
-      <div class="flow-desc">The lever in your left hand. Squeeze it to <b>pause the power</b> when changing gears.</div>
-    </div>
-    <div class="flow-connector"><svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v15M2 12l5 5 5-5"/></svg></div>
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 6v12M9 6v12M13 6v12M17 6v12M3 6h16M3 18h16"/></svg>Gearbox</div>
-      <div class="flow-desc">Low gears give <b>power</b> to start. High gears give <b>speed</b>.</div>
-    </div>
-    <div class="flow-connector"><svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v15M2 12l5 5 5-5"/></svg></div>
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M6 9v6M10 9v6M14 9v6M18 9v6"/></svg>Chain / Belt</div>
-      <div class="flow-desc">Carries the power to the back wheel.</div>
-    </div>
-    <div class="flow-connector"><svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1v15M2 12l5 5 5-5"/></svg></div>
-    <div class="flow-row">
-      <div class="flow-node"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6"/></svg>Rear Wheel</div>
-      <div class="flow-desc">It spins, and the bike moves.</div>
+  <div class="page-content">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Bad Habits</div>
+      <h2 class="sec-title">7 things that quietly<br>shorten your bike's life.</h2>
     </div>
 
-    <div class="flow-takeaway">
-      <span class="tag">In<br>Short</span>
-      <p>Twisting the throttle doesn't just say <i>"go faster."</i> It lets <b>more petrol and air</b> into the engine. Bigger blasts, faster engine, more speed. That's the whole secret.</p>
-    </div>
-  </div>
-
-  <div class="pagenum">Chapter 02 · The Drivetrain</div>
-</section>
-
-<!-- ============ CHAPTER 3 — WEEKLY CHECK ============ -->
-<section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">03</span><span>The 5-Minute Weekly Check</span></div>
-    <h2 class="ch-title">Pick one day.<br>Sunday is perfect.</h2>
-    <p class="ch-intro">Six quick checks save you from getting stuck on the road. Do them when the bike is cold (before riding).</p>
-  </div>
-
-  <div class="check-grid">
-    <div class="check-card">
-      <span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div>
-      <div><h4>Tyre Pressure</h4><p>Low air makes the bike heavy and unsafe. Check when cold.</p></div>
-    </div>
-    <div class="check-card">
-      <span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M6 9v6M10 9v6M14 9v6M18 9v6"/></svg></div>
-      <div><h4>Chain</h4><p>Not too dry, not too loose. About one finger of slack is right.</p></div>
-    </div>
-    <div class="check-card">
-      <span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 4h10l-1 7H8zM9 11v9M15 11v9M9 20h6"/></svg></div>
-      <div><h4>Engine Oil</h4><p>Hold the bike straight up. Oil should sit between the two lines.</p></div>
-    </div>
-    <div class="check-card">
-      <span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="4" width="10" height="14" rx="1"/><path d="M9 8h6M9 11h6"/></svg></div>
-      <div><h4>Brake Fluid</h4><p>Look at the small window near the handle. Dark colour means change it.</p></div>
-    </div>
-    <div class="check-card">
-      <span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a5 5 0 0 0-5 5c0 3 5 9 5 9s5-6 5-9a5 5 0 0 0-5-5z"/><circle cx="12" cy="8" r="1.5"/></svg></div>
-      <div><h4>Lights</h4><p>Headlight, indicators, and brake light. All should work.</p></div>
-    </div>
-    <div class="check-card">
-      <span class="tick"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 9v6h4l5 4V5L9 9zM18 9a4 4 0 0 1 0 6"/></svg></div>
-      <div><h4>Horn</h4><p>One quick beep. If it works, you're done.</p></div>
-    </div>
-  </div>
-
-  <div class="callout">
-    <strong>Why check when cold?</strong> Tyres heat up while you ride, and warm tyres show a higher number than the real one. So always check before you start riding, not after.
-  </div>
-
-  <div class="pagenum">Chapter 03 · Weekly Check</div>
-</section>
-
-<!-- ============ CHAPTER 4 — FUEL ============ -->
-<section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">04</span><span>Fuel Basics</span></div>
-    <h2 class="ch-title">What actually<br>goes in the tank.</h2>
-  </div>
-
-  <div class="two-col">
-    <div>
-      <div class="block">
-        <div class="block-title"><span class="dot"></span>Which petrol to use</div>
-        <p>Do you need expensive "premium" petrol? For most everyday bikes, no. Use the normal petrol your bike's manual asks for. Premium won't make a regular bike faster — it only empties your wallet.</p>
-      </div>
-      <div class="block">
-        <div class="block-title"><span class="dot"></span>About ethanol</div>
-        <p>Today's petrol has a little ethanol mixed in. It's fine to ride with. The only catch: it slowly pulls water from the air, which can cause trouble if the bike sits unused.</p>
-      </div>
-    </div>
-    <div>
-      <div class="block">
-        <div class="block-title"><span class="dot"></span>Don't let the bike sit for months</div>
-        <p>If a bike is parked for many months, the petrol goes stale and turns sticky, blocking the fuel parts. If you must park it long-term, add a cheap "fuel stabiliser" to the tank first.</p>
-      </div>
-      <div class="block">
-        <div class="block-title"><span class="dot"></span>Full tank or half?</div>
-        <p>Parking a metal-tank bike for a long time? Fill it fully. Empty space inside the tank lets water form and causes rust.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="callout">
-    <strong>"Reserve" is not a secret fuel.</strong> Many beginners think reserve is a hidden extra tank. It isn't. It's the same tank — there are just two pipes inside. The normal pipe sits higher; the reserve pipe sits lower. When the higher pipe runs dry, you switch to reserve to use the last bit at the bottom. Time to refuel soon!
-  </div>
-
-  <div class="block">
-    <div class="block-title"><span class="dot"></span>The two-pipe picture</div>
-    <div class="flow" style="padding:24px 30px;">
-      <div class="two-pipe-wrap" style="display:flex;gap:30px;align-items:stretch;">
-        <div style="flex:1;text-align:center;">
-          <svg viewBox="0 0 120 130" style="width:100%;max-width:130px;" fill="none" stroke="#e6c46a" stroke-width="2">
-            <path d="M20 20h80v90a10 10 0 0 1-10 10H30a10 10 0 0 1-10-10z"/>
-            <rect x="18" y="80" width="84" height="40" fill="rgba(200,155,60,0.18)" stroke="none"/>
-            <path d="M45 25v60" stroke="#e6c46a"/><ellipse cx="45" cy="85" rx="4" ry="3" fill="#e6c46a" stroke="none"/>
-            <path d="M75 25v85" stroke="#a87d28"/><ellipse cx="75" cy="110" rx="4" ry="3" fill="#a87d28" stroke="none"/>
-          </svg>
-          <p style="color:#f4efe4;font-family:'Montserrat';font-weight:700;font-size:12px;margin-top:8px;letter-spacing:0.1em;">ONE TANK, TWO PIPES</p>
+    <div class="items">
+      <div class="item">
+        <div class="item-num">1</div>
+        <div class="item-text">
+          <h4>Skipping the first service</h4>
+          <p>New engine parts wear into each other and drop tiny metal bits into the oil. The first service cleans all of that out. Skip it and you're hurting the engine at its most important stage.</p>
         </div>
-        <div style="flex:1.4;display:flex;flex-direction:column;justify-content:center;gap:14px;">
-          <div style="display:flex;gap:12px;align-items:center;">
-            <span style="width:30px;height:30px;border:2px solid #e6c46a;color:#e6c46a;display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:800;font-size:11px;flex-shrink:0;">ON</span>
-            <p style="color:#a89f92;font-size:12px;font-weight:300;">The <b style="color:#e6c46a;font-weight:600;">higher pipe</b> is what you use every day.</p>
-          </div>
-          <div style="display:flex;gap:12px;align-items:center;">
-            <span style="width:30px;height:30px;border:2px solid #a87d28;color:#a87d28;display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:800;font-size:9px;flex-shrink:0;">RES</span>
-            <p style="color:#a89f92;font-size:12px;font-weight:300;">The <b style="color:#e6c46a;font-weight:600;">lower pipe</b> grabs the last bit so you can reach a pump.</p>
-          </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">2</div>
+        <div class="item-text">
+          <h4>Running the tank almost empty every time</h4>
+          <p>Dirt and water settle at the bottom of your tank. Riding on reserve pushes all of that into the engine. Fill up before you hit empty.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">3</div>
+        <div class="item-text">
+          <h4>Filling oil above the max mark</h4>
+          <p>More oil doesn't mean more protection. Too much oil turns into foam. Foam doesn't lubricate. Keep it between the MIN and MAX lines.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">4</div>
+        <div class="item-text">
+          <h4>Waiting until the chain gets noisy</h4>
+          <p>By the time it's noisy, the damage is already happening. Regular cleaning and oiling is much cheaper than replacing the whole chain kit.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">5</div>
+        <div class="item-text">
+          <h4>Idling the engine for several minutes</h4>
+          <p>Old bikes needed this. Yours probably doesn't. Wait 20–30 seconds, then ride gently. That warms it up better than sitting still.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">6</div>
+        <div class="item-text">
+          <h4>Never checking tyre pressure</h4>
+          <p>Low pressure kills grip, eats fuel, wears tyres fast, and makes the bike feel unstable. One minute to check. That's all.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-num">7</div>
+        <div class="item-text">
+          <h4>Ignoring small problems because "it still runs"</h4>
+          <p>Small problems become expensive problems after being ignored for weeks. The earlier you catch it, the cheaper the fix.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="pagenum">Chapter 04 · Fuel Basics</div>
+  <div class="page-footer">
+    <span class="brand">OG Ladka</span>
+    <span class="num">02</span>
+  </div>
 </section>
 
-<!-- ============ CHAPTER 5 — MISTAKES ============ -->
+<!-- ═══════ PAGE 3 — YOUR BIKE TALKS ═══════ -->
 <section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">05</span><span>Common Mistakes</span></div>
-    <h2 class="ch-title">The habits that<br>cost you money.</h2>
+  <div class="page-content">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Pay Attention</div>
+      <h2 class="sec-title">Your bike is always<br>giving you information.</h2>
+      <p class="sec-intro">Bikes don't speak. But they constantly communicate. Learn what they're telling you.</p>
+    </div>
+
+    <div class="sense-grid">
+      <div class="sense-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 1 9 9c0 3.5-2 6.5-5 8"/><path d="M3 12a9 9 0 0 1 5-8"/><path d="M8.5 8.5c1-1 2.2-1.5 3.5-1.5s2.5.5 3.5 1.5"/></svg>
+        </div>
+        <h4>Listen</h4>
+        <p>New clicking, rattling, grinding, or whining? Something has changed. Worth checking.</p>
+      </div>
+
+      <div class="sense-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 12a6 6 0 0 1 12 0"/><path d="M9 15a3 3 0 0 1 6 0"/><path d="M12 18v2"/></svg>
+        </div>
+        <h4>Feel</h4>
+        <p>Handlebars, footpegs, clutch, or seat feel different? Vibration changes show up before failures.</p>
+      </div>
+
+      <div class="sense-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19c-4 0-7-2-7-5s3-5 7-5 7 2 7 5-3 5-7 5z"/><path d="M12 9V5"/><path d="M9 6l3-3 3 3"/></svg>
+        </div>
+        <h4>Smell</h4>
+        <p>Burning oil, burning clutch, fuel, burning plastic. None of these should be ignored.</p>
+      </div>
+
+      <div class="sense-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg>
+        </div>
+        <h4>Look</h4>
+        <p>Oil stains, coolant leaks, loose bolts, uneven tyre wear. A quick look before riding takes one minute.</p>
+      </div>
+
+      <div class="sense-full">
+        <h4>The Goal</h4>
+        <p>Don't be paranoid. Just know what feels normal. When something changes, find out why.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="mistake">
-    <span class="x">✕</span>
-    <div class="mistake-body"><h4>Riding with low tyre air</h4><p>The bike feels heavy and slips more in turns. Keep the air right.</p></div>
+  <div class="page-footer">
+    <span class="brand">OG Ladka</span>
+    <span class="num">03</span>
   </div>
-  <div class="mistake">
-    <span class="x">✕</span>
-    <div class="mistake-body"><h4>Never cleaning the chain</h4><p>A dirty chain damages parts that cost a lot to replace. A cleaning spray is cheap.</p></div>
-  </div>
-  <div class="mistake">
-    <span class="x">✕</span>
-    <div class="mistake-body"><h4>Washing the engine while it's hot</h4><p>Cold water on a hot engine can crack it. Let the bike cool down first.</p></div>
-  </div>
-  <div class="mistake">
-    <span class="x">✕</span>
-    <div class="mistake-body"><h4>Making the chain too tight</h4><p>The chain needs a little slack. Too tight and it can snap while riding.</p></div>
-  </div>
-  <div class="mistake">
-    <span class="x">✕</span>
-    <div class="mistake-body"><h4>Waiting for something to break</h4><p>Small problems grow into big ones. Fix little things early, before they leave you stuck.</p></div>
-  </div>
-
-  <div class="callout">
-    <strong>The simple idea:</strong> a little care now saves a big bill later. Looking after your bike is cheaper than fixing it.
-  </div>
-
-  <div class="pagenum">Chapter 05 · Common Mistakes</div>
 </section>
 
-<!-- ============ CHAPTER 6 — GEAR ============ -->
+<!-- ═══════ PAGE 4 — WEEKLY ROUTINE ═══════ -->
 <section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">06</span><span>Riding Gear Priority</span></div>
-    <h2 class="ch-title">Buy in this<br>exact order.</h2>
-    <p class="ch-intro">Can't buy all your safety gear at once? No problem. Buy it in this order — most important first.</p>
+  <div class="page-content">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Weekly Routine</div>
+      <h2 class="sec-title">5 things. 5 minutes.<br>Once a week.</h2>
+      <p class="sec-intro">You don't need to inspect every bolt. Just spend five minutes.</p>
+    </div>
+
+    <div class="check-grid">
+      <div class="check-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/></svg>
+        </div>
+        <h4>Tyres</h4>
+        <p>Check pressure when cold. Low pressure affects grip, braking, and tyre life.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/><path d="M9 12h6"/></svg>
+        </div>
+        <h4>Chain</h4>
+        <p>Check slack. If it's dirty, clean it. If it's dry, oil it.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 18h2l1-4h8l1 4h2"/><path d="M7 14V9h10v5"/></svg>
+        </div>
+        <h4>Brakes</h4>
+        <p>Both brakes should feel firm. Soft or spongy? Get it checked.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M12 12v6"/><path d="M8 15l4 3 4-3"/></svg>
+        </div>
+        <h4>Lights &amp; Horn</h4>
+        <p>Headlight, brake light, indicators, horn. Takes 30 seconds.</p>
+      </div>
+
+      <div class="check-card" style="grid-column: 1 / -1;">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 20V10a6 6 0 1 1 12 0v10"/><path d="M6 14h12"/></svg>
+        </div>
+        <h4>Fluids</h4>
+        <p>Check engine oil level. If your bike uses coolant, check that too.</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>Five minutes won't prevent every problem.</strong> But they help catch most issues before they become expensive repairs.
+    </div>
   </div>
 
-  <div class="gear-item">
-    <span class="gear-rank">1</span>
-    <svg class="gear-art" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M30 8C18 8 11 17 11 28v8h6l2 8h22l2-8h6v-8C49 17 42 8 30 8z"/><path d="M17 36c0-3 5-5 13-5s13 2 13 5"/><path d="M30 13v18"/></svg>
-    <div class="gear-body"><h4>Helmet</h4><p>The most important thing. It protects your head. Buy one with an ISI, DOT, or ECE safety mark.</p></div>
+  <div class="page-footer">
+    <span class="brand">OG Ladka</span>
+    <span class="num">04</span>
   </div>
-  <div class="gear-item">
-    <span class="gear-rank">2</span>
-    <svg class="gear-art" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 30V16a3 3 0 0 1 6 0v10M26 26V13a3 3 0 0 1 6 0v13M32 26V15a3 3 0 0 1 6 0v13M38 26v-8a3 3 0 0 1 6 0v20c0 8-6 13-13 13h-4c-6 0-9-4-12-9l-4-7a3 3 0 0 1 5-3l3 4"/></svg>
-    <div class="gear-body"><h4>Gloves</h4><p>In a fall, your hands hit the ground first. Gloves protect your skin and grip.</p></div>
-  </div>
-  <div class="gear-item">
-    <span class="gear-rank">3</span>
-    <svg class="gear-art" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v22l-4 4v8h12l16-4v-6l-12-4V10z"/><path d="M18 44h28"/><path d="M22 18h6M22 24h6"/></svg>
-    <div class="gear-body"><h4>Shoes / Boots</h4><p>Your ankles are easy to hurt. Strong shoes that cover the ankle keep them safe.</p></div>
-  </div>
-  <div class="gear-item">
-    <span class="gear-rank">4</span>
-    <svg class="gear-art" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12l8 5 8-5 8 6-4 8v23H18V26l-4-8z"/><path d="M30 17v33"/><path d="M22 28h-4M38 28h4"/></svg>
-    <div class="gear-body"><h4>Jacket</h4><p>A riding jacket has padding at the back, shoulders, and elbows to protect you in a fall.</p></div>
-  </div>
-  <div class="gear-item">
-    <span class="gear-rank">5</span>
-    <svg class="gear-art" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10h20l2 40h-9l-3-24-3 24h-9z"/><path d="M20 10l1 8h18l1-8"/></svg>
-    <div class="gear-body"><h4>Pants</h4><p>Normal jeans tear easily on the road. Riding pants are stronger and protect your legs.</p></div>
-  </div>
-
-  <div class="pagenum">Chapter 06 · Gear Priority</div>
 </section>
 
-<!-- ============ CHAPTER 7 — EMERGENCY KIT ============ -->
+<!-- ═══════ PAGE 5 — MYTHS ═══════ -->
 <section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">07</span><span>Emergency Kit</span></div>
-    <h2 class="ch-title">What lives<br>under your seat.</h2>
-    <p class="ch-intro">You don't need a full toolbox. Just keep these small things under your seat. They can save a long, stressful wait on the road.</p>
+  <div class="page-content">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Myth vs Reality</div>
+      <h2 class="sec-title">Things people keep<br>saying that aren't true.</h2>
+    </div>
+
+    <div class="myths">
+      <div class="myth-card">
+        <div class="myth-side">
+          <div class="myth-label">✕ Myth</div>
+          <p>More engine oil protects the engine better.</p>
+        </div>
+        <div class="fact-side">
+          <div class="fact-label">✓ Reality</div>
+          <p>Too much oil turns into foam. Foam doesn't lubricate well and can damage seals.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-side">
+          <div class="myth-label">✕ Myth</div>
+          <p>Premium petrol always makes a bike faster.</p>
+        </div>
+        <div class="fact-side">
+          <div class="fact-label">✓ Reality</div>
+          <p>Only engines built for high-octane fuel benefit from it. Most commuter bikes don't need it.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-side">
+          <div class="myth-label">✕ Myth</div>
+          <p>You should idle the bike for 10 minutes before riding.</p>
+        </div>
+        <div class="fact-side">
+          <div class="fact-label">✓ Reality</div>
+          <p>Modern bikes warm up better when ridden gently. Long idling wastes fuel and time.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-side">
+          <div class="myth-label">✕ Myth</div>
+          <p>The rear brake is the safest brake.</p>
+        </div>
+        <div class="fact-side">
+          <div class="fact-label">✓ Reality</div>
+          <p>Weight shifts forward when braking. The front brake does most of the stopping. Use both together.</p>
+        </div>
+      </div>
+
+      <div class="myth-card">
+        <div class="myth-side">
+          <div class="myth-label">✕ Myth</div>
+          <p>A chain only needs oil when it's noisy.</p>
+        </div>
+        <div class="fact-side">
+          <div class="fact-label">✓ Reality</div>
+          <p>Noise means you're already late. Oil the chain before it asks for it.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="kit-grid">
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="9" width="10" height="9" rx="1"/><path d="M15 12h3l2 2v3h-2M8 18v2M12 18v2"/></svg>
-      <div><h4>Mini Air Pump</h4><p>A small battery pump to fill a low tyre.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-3M12 4v2M20 12h-2"/></svg>
-      <div><h4>Air Checker</h4><p>To check tyre air correctly.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 4v16M6 8c4 0 4-4 8-4s4 4 4 4M18 8v3c0 2-2 3-4 3"/></svg>
-      <div><h4>Zip Ties</h4><p>Quick fix for loose or hanging parts.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 4l3 3-7 7-3-3zM10 10l-6 6v3h3l6-6"/><circle cx="18" cy="6" r="2"/></svg>
-      <div><h4>Basic Tools</h4><p>The small tool kit your bike came with.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4h6v5l-2 2v7a1 1 0 0 1-2 0v-7l-2-2z"/><path d="M9 7h6"/></svg>
-      <div><h4>Torch</h4><p>For fixing things in the dark.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4a6 6 0 0 0-6 6v8h12v-8a6 6 0 0 0-6-6z"/><path d="M9 10h6M9 14h6"/></svg>
-      <div><h4>Rain Cover</h4><p>A cheap raincoat keeps you dry.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 10v5M9.5 12.5h5"/></svg>
-      <div><h4>First Aid</h4><p>Bandages, wipes, and pain tablets.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M8 12l3 3 5-6"/></svg>
-      <div><h4>The Habit</h4><p>Keep all this packed, always.</p></div>
-    </div>
+  <div class="page-footer">
+    <span class="brand">OG Ladka</span>
+    <span class="num">05</span>
   </div>
-
-  <div class="callout">
-    <strong>Pack once and forget it.</strong> All of this fits in a small bag under your seat. Keep it there so a tiny problem never turns into a big one on the road.
-  </div>
-
-  <div class="pagenum">Chapter 07 · Emergency Kit</div>
 </section>
 
-<!-- ============ CHAPTER 8 — MATRIX ============ -->
-<section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">08</span><span>Maintenance Timeline</span></div>
-    <h2 class="ch-title">Print it. Stick it<br>on the garage wall.</h2>
-    <p class="ch-intro">Looking after a bike is simple when you follow a routine. Here's everything in one easy chart.</p>
+<!-- ═══════ FINAL PAGE — 10 THINGS ═══════ -->
+<section class="page closing">
+  <div class="page-content">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Remember This</div>
+      <h2 class="sec-title">10 things to carry<br>with you.</h2>
+      <p class="sec-intro">Screenshot this page. Come back to it. Live by it.</p>
+    </div>
+
+    <div class="final-list">
+      <div class="final-item">
+        <span class="n">01</span>
+        <p>Small maintenance is almost always cheaper than major repairs.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">02</span>
+        <p>Tyres affect grip, braking, and handling more than most riders realize.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">03</span>
+        <p>Engine oil should stay between the MIN and MAX marks. No more, no less.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">04</span>
+        <p>The first service is one of the most important your bike will ever get.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">05</span>
+        <p>A clean, oiled chain lasts longer and rides better.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">06</span>
+        <p>New sounds, vibrations, or smells deserve attention.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">07</span>
+        <p>Riding gently warms a modern engine better than long idling.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">08</span>
+        <p>Most maintenance takes only a few minutes.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">09</span>
+        <p>Learn what feels normal. That makes problems easy to spot.</p>
+      </div>
+      <div class="final-item">
+        <span class="n">10</span>
+        <p>A bike rewards the owner who pays attention.</p>
+      </div>
+    </div>
+
+    <div class="closing-seal">
+      <div class="s1">OG Ladka · Ride Smart, Stay Ready</div>
+      <div class="s2">@ogladkaa · © 2026</div>
+    </div>
   </div>
 
-  <table class="matrix">
-    <thead>
-      <tr><th>Frequency</th><th>Tasks to Complete</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="freq">Every Ride<small>Before you set off</small></td>
-        <td>
-          <span class="task-chip"><span class="box"></span>Fuel level</span>
-          <span class="task-chip"><span class="box"></span>Lights &amp; horn</span>
-        </td>
-      </tr>
-      <tr>
-        <td class="freq">Every Week<small>Sunday morning</small></td>
-        <td>
-          <span class="task-chip"><span class="box"></span>Tyre pressure</span>
-          <span class="task-chip"><span class="box"></span>Chain slack</span>
-        </td>
-      </tr>
-      <tr>
-        <td class="freq">Every Month<small>Pick a date</small></td>
-        <td>
-          <span class="task-chip"><span class="box"></span>Engine oil level</span>
-          <span class="task-chip"><span class="box"></span>Brake fluid level</span>
-        </td>
-      </tr>
-      <tr>
-        <td class="freq">Every 500 km<small>Distance-based</small></td>
-        <td>
-          <span class="task-chip"><span class="box"></span>Clean and lube chain</span>
-        </td>
-      </tr>
-      <tr>
-        <td class="freq">Every Service<small>At the workshop</small></td>
-        <td>
-          <span class="task-chip"><span class="box"></span>Replace air filter</span>
-          <span class="task-chip"><span class="box"></span>Change engine oil</span>
-          <span class="task-chip"><span class="box"></span>Replace oil filter</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="callout">
-    <strong>Small checks save big repairs.</strong> The top rows take only a few minutes. Skip them and you'll pay for the bottom rows much sooner. Tick the boxes and your bike stays happy.
+  <div class="page-footer">
+    <span class="brand">OG Ladka</span>
+    <span class="num">06</span>
   </div>
-
-  <div class="pagenum">Chapter 08 · Maintenance Matrix</div>
 </section>
 
-<!-- ============ CHAPTER 9 — MYTH VS FACT ============ -->
-<section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">09</span><span>Myth vs Fact</span></div>
-    <h2 class="ch-title">Setting the<br>record straight.</h2>
-  </div>
+<!-- ═══════ DISCLAIMER & COPYRIGHT ═══════ -->
+<section class="page legal-page">
+  <div class="page-content">
+    <div class="legal">
+      <div class="legal-brand">OG Ladka</div>
 
-  <div class="mf">
-    <div class="mf-card">
-      <div class="mf-myth">
-        <div class="mf-label">✕ Myth</div>
-        <p>You must warm up the bike for 10 minutes before riding.</p>
+      <div class="legal-section">
+        <div class="legal-label">Disclaimer</div>
+        <p>The information in this guide is for educational purposes only. While every effort has been made to ensure accuracy, it should not replace your motorcycle's owner's manual or professional advice.</p>
+        <p>Maintenance procedures and specifications vary between motorcycles. Always follow the recommendations provided by your motorcycle's manufacturer.</p>
+        <p>OG Ladka is not responsible for any loss, damage, injury, or mechanical issues resulting from the use of this guide. Ride safely and maintain your motorcycle responsibly.</p>
       </div>
-      <div class="mf-fact">
-        <div class="mf-label">✓ Fact</div>
-        <p>New bikes don't need that. Wait 20–30 seconds, then ride slowly at first.</p>
+
+      <div class="legal-section">
+        <div class="legal-label">Copyright</div>
+        <p>Copyright © 2026 OG Ladka. All Rights Reserved.</p>
+        <p>No part of this publication may be copied, reproduced, distributed, or published in any form without prior written permission from OG Ladka, except for brief quotations with proper credit.</p>
+        <p>This guide is independently created by OG Ladka and is not affiliated with or endorsed by any motorcycle manufacturer.</p>
       </div>
-    </div>
-    <div class="mf-card">
-      <div class="mf-myth">
-        <div class="mf-label">✕ Myth</div>
-        <p>Expensive petrol makes a normal bike faster.</p>
-      </div>
-      <div class="mf-fact">
-        <div class="mf-label">✓ Fact</div>
-        <p>It doesn't. Just use the petrol your bike's manual asks for.</p>
-      </div>
-    </div>
-    <div class="mf-card">
-      <div class="mf-myth">
-        <div class="mf-label">✕ Myth</div>
-        <p>More engine oil is better.</p>
-      </div>
-      <div class="mf-fact">
-        <div class="mf-label">✓ Fact</div>
-        <p>Too much oil causes leaks. Fill only up to the line.</p>
-      </div>
-    </div>
-    <div class="mf-card">
-      <div class="mf-myth">
-        <div class="mf-label">✕ Myth</div>
-        <p>Use mostly the back brake so you don't fall.</p>
-      </div>
-      <div class="mf-fact">
-        <div class="mf-label">✓ Fact</div>
-        <p>The front brake does most of the stopping. Use both, and squeeze the front gently.</p>
-      </div>
+
+      <div class="legal-version">Version 1.0 · First Published: June 2026</div>
+
+      <div class="legal-handle">Instagram @ogladkaa · Bangalore, India</div>
     </div>
   </div>
-
-  <div class="pagenum">Chapter 09 · Myth vs Fact</div>
-</section>
-
-<!-- ============ CHAPTER 10 — PRODUCTS ============ -->
-<section class="page">
-  <div class="ch-head">
-    <div class="ch-eyebrow"><span class="num">10</span><span>Recommended Products</span></div>
-    <h2 class="ch-title">Cheap things that<br>make ownership easy.</h2>
-    <p class="ch-intro">A few cheap, simple things make owning a bike much easier. Keep these at home.</p>
-  </div>
-
-  <div class="kit-grid">
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h8v4l-2 2v8H10v-8L8 8z"/><path d="M8 6h8"/></svg>
-      <div><h4>Chain Cleaner</h4><p>Removes dirt from the chain. Cheap kerosene works too.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="3" width="6" height="6" rx="1"/><path d="M10 9v3l-2 2v6h8v-6l-2-2V9"/></svg>
-      <div><h4>Chain Oil</h4><p>Keeps the chain smooth and rust-free.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-3M12 4v2"/></svg>
-      <div><h4>Air Checker</h4><p>A small tool to check tyre air at home.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="9" width="10" height="9" rx="1"/><path d="M15 12h3l2 2v3h-2"/></svg>
-      <div><h4>Air Pump</h4><p>A small battery pump to fill tyres.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M8 9l3 3-3 3M13 15h4"/></svg>
-      <div><h4>Soft Cloth</h4><p>Wipes dust off without scratching the paint.</p></div>
-    </div>
-    <div class="kit-card">
-      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4a6 6 0 0 0-6 6v6h12v-6a6 6 0 0 0-6-6z"/><path d="M9 11l2 2 4-4"/></svg>
-      <div><h4>Helmet Cleaner</h4><p>Cleans the visor safely and clearly.</p></div>
-    </div>
-  </div>
-
-  <div class="callout">
-    <strong>All of this costs less than one repair.</strong> A little cleaning and care now saves you a lot of money later.
-  </div>
-
-  <div class="pagenum">Chapter 10 · Recommended Products</div>
-</section>
-
-<!-- ============ BONUS — THE PROMISE ============ -->
-<section class="page promise">
-  <div class="ch-head">
-    <div class="ch-eyebrow" style="color:var(--amber-light)"><span>Bonus · Screenshot This</span></div>
-    <h2 class="ch-title">The Motorcycle<br>Owner's Promise</h2>
-    <p class="ch-intro">Save it. Live by it. Five simple promises that make you a smart, safe rider.</p>
-  </div>
-
-  <div class="promise-list">
-    <div class="promise-item">
-      <span class="promise-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="promise-text"><h4>I will check my tyre pressure.</h4><p>Because my life depends on two tiny patches of rubber.</p></div>
-    </div>
-    <div class="promise-item">
-      <span class="promise-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="promise-text"><h4>I will service my bike on time.</h4><p>Because metal doesn't heal itself.</p></div>
-    </div>
-    <div class="promise-item">
-      <span class="promise-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="promise-text"><h4>I will wear my helmet.</h4><p>Because no one plans on crashing.</p></div>
-    </div>
-    <div class="promise-item">
-      <span class="promise-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="promise-text"><h4>I will ride responsibly.</h4><p>Because I ride for the thrill, not for the ego.</p></div>
-    </div>
-    <div class="promise-item">
-      <span class="promise-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>
-      <div class="promise-text"><h4>I will respect every rider.</h4><p>100cc commuter or 1000cc superbike — we all share the same wind.</p></div>
-    </div>
-  </div>
-
-  <div class="promise-seal">— OG Ladka · Ride Smart, Stay Ready —</div>
-
-  <div class="copyright">
-    <p class="cr-brand">OG Ladka</p>
-    <p class="cr-line">© 2026 OG Ladka (Hemansu). All rights reserved.</p>
-    <p class="cr-body">This guide and its content, design, illustrations, and text are the original work of OG Ladka and are protected by copyright. You may read, save, and share this guide for personal use. You may not copy, reproduce, edit, resell, or publish any part of it — in print or online — for commercial use without written permission from the creator.</p>
-    <p class="cr-contact">Instagram @ogladkaa · Bangalore, India</p>
-  </div>
-
-  <div class="pagenum" style="color:var(--warm-gray-light)">The Rider's Promise</div>
 </section>
 
 </body>
