@@ -281,15 +281,30 @@
 
   function initClickTracker() {
     var linkNames = {
-      "instagram.com": "Instagram",
-      "youtube.com": "YouTube",
-      "youtu.be": "YouTube",
-      "amzn.to": "Amazon Affiliate",
-      "amazon.in": "Amazon India",
-      "amazon.com": "Amazon",
-      showHome: "Nav: Home",
-      showShop: "Nav: Shop",
-      showAccess: "Nav: Free Guide"
+      // Social
+      "instagram.com":        "Social: Instagram",
+      "youtube.com":          "Social: YouTube",
+      "youtu.be":             "Social: YouTube",
+      "wa.me":                "Social: WhatsApp",
+      // Nav
+      "showHome":             "Nav: Home",
+      "showShop":             "Nav: Shop",
+      "showAccess":           "Nav: Free Guide",
+      // Products — amzn.to
+      "amzn.to/4uI1OPM":     "Product: Motul Chain Kit",
+      "amzn.to/4txp7uK":     "Product: Tank Cover",
+      "amzn.to/3Q7p23c":     "Product: Aerol Silicone Spray",
+      "amzn.to/3Pjt08w":     "Product: RE Riding Jacket",
+      // Products — shorturl
+      "shorturl.at/6VX7N":   "Product: Matte Care Kit",
+      // Products — link.amazon
+      "B01JRESSp":           "Product: SMK Helmet",
+      "B0dEwTdGo":           "Product: Tyre Inflator",
+      "B0cfZ5Rf7":           "Product: Puncture Kit",
+      "B0cZU0jyj":           "Product: Tool Kit",
+      "B0e4g5lO8":           "Product: Riding Shoes",
+      "B016OZnJB":           "Product: Fuel Additive",
+      "B01gHJSXr":           "Product: WD-40"
     };
 
     function getLinkName(el) {
