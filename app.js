@@ -18,6 +18,9 @@
     document.body.className = "show-shop";
     window.scrollTo(0, 0);
     revealIn("#shop-panel");
+    // Reset spotlight to narrow start
+    var shop = document.getElementById("shop-panel");
+    if (shop) shop.style.setProperty("--cone-w", "50%");
   };
 
   window.showAccess = function showAccess(e) {
@@ -33,14 +36,24 @@
     if (e) e.preventDefault();
     document.body.className = "";
     window.scrollTo(0, 0);
-    // Reset spacer immediately so gap doesn't flash
+    // Fully reset the guide travel card to its natural state
+    var card = document.getElementById("guideTravel");
     var spacer = document.getElementById("barSpacer");
     var landing = document.getElementById("barLanding");
+    if (card) {
+      card.classList.remove("traveling", "landed");
+      card.style.position = "";
+      card.style.top = "";
+      card.style.left = "";
+      card.style.width = "";
+      card.style.transform = "";
+      card.style.pointerEvents = "";
+    }
     if (spacer) spacer.style.height = "0px";
     if (landing) landing.style.height = "0px";
-    // Remeasure after paint settles
+    // Remeasure cleanly after layout settles
     if (window.__guideTravelMeasure) {
-      setTimeout(window.__guideTravelMeasure, 100);
+      setTimeout(window.__guideTravelMeasure, 150);
     }
   };
 
@@ -168,6 +181,15 @@
 
       var collapse = Math.max(0, Math.min(1, rawP / 0.16));
       spacer.style.height = (cardH * (1 - collapse)) + "px";
+
+      // Smoothly fade card color: white (#f4f4f2) → yellow (#f3cf3e) as it travels
+      // Uses rawP so it's tied to scroll position, not the eased glide
+      var sR = 244, sG = 244, sB = 242; // --white #f4f4f2
+      var eR = 243, eG = 207, eB = 62;  // --yellow #f3cf3e
+      var rr = Math.round(sR + (eR - sR) * rawP);
+      var gg = Math.round(sG + (eG - sG) * rawP);
+      var bb = Math.round(sB + (eB - sB) * rawP);
+      card.style.setProperty("--travel-bg", "rgb(" + rr + "," + gg + "," + bb + ")");
     }
 
     function onScroll() {
@@ -356,6 +378,33 @@
     });
   }
 
+  function initShopSpotlight() {
+    var shop = document.getElementById("shop-panel");
+    if (!shop) return;
+    var minW = 50;  // percentage of viewport
+    var maxW = 95;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      if (!document.body.classList.contains("show-shop")) return;
+      var y = window.scrollY;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var docH = document.body.scrollHeight - vh;
+      var p = docH > 0 ? Math.min(1, y / docH) : 0;
+      var w = minW + (maxW - minW) * p;
+      shop.style.setProperty("--cone-w", w + "%");
+    }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
+  }
+
   onReady(function () {
     initRevealObserver();
     initAboutCardLight();
@@ -363,5 +412,6 @@
     initVideosReveal();
     initAccessForm();
     initClickTracker();
+    initShopSpotlight();
   });
 })();
