@@ -33,8 +33,14 @@
     if (e) e.preventDefault();
     document.body.className = "";
     window.scrollTo(0, 0);
+    // Reset spacer immediately so gap doesn't flash
+    var spacer = document.getElementById("barSpacer");
+    var landing = document.getElementById("barLanding");
+    if (spacer) spacer.style.height = "0px";
+    if (landing) landing.style.height = "0px";
+    // Remeasure after paint settles
     if (window.__guideTravelMeasure) {
-      setTimeout(window.__guideTravelMeasure, 50);
+      setTimeout(window.__guideTravelMeasure, 100);
     }
   };
 
