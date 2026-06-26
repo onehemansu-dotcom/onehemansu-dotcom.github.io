@@ -9,7 +9,7 @@ Hosted on: GitHub Pages (repo: onehemansu-dotcom.github.io)
 WHAT THIS IS
 ───────────────────────────────────────────────────────────────────
 A mobile-first link-in-bio website. Dark theme, colourful bento
-tiles, Plus Jakarta Sans font. The site is now split into clean
+tiles, Plus Jakarta Sans font. The site is split into clean
 separate files for easier maintenance and faster load times.
 
 Images are compressed WebP format — 90% smaller than the original
@@ -45,6 +45,8 @@ CURRENT FEATURES
 • Header: avatar photo, "OG Ladka", "Hemansu Singh · Motorcycle Content Creator"
 • Top social icons: Instagram, YouTube, WhatsApp
 • Guide bar "Free beginner's guide for every rider" → opens signup form
+  → Travels with scroll, smoothly transitions white → yellow as it descends
+  → Soft pulsing white glow when it lands at the bottom
 • Shop preview: 3 tiles (Matte Care, Tank Cover, Motul Chain)
   → "All" opens full shop page with 10 products
 • What I Ride: RE Classic 350, Bajaj Pulsar 150, TVS Jupiter
@@ -53,13 +55,30 @@ CURRENT FEATURES
   → button disabled until all fields valid
   → shows success message on submit
 • GA4 analytics + Microsoft Clarity (heatmaps + session recordings)
-• Link click tracker — fires GA4 event on every link tap
+• Link click tracker — fires GA4 event per product/social/nav click
+  → 12 products individually labelled, plus socials and nav
 
-KEY DESIGN RULES:
-• Bright tiles (yellow/green/white/blue/coral) ALWAYS use dark text
-• Plus Jakarta Sans font throughout
-• Colour variables live in style.css under :root
-  (--yellow, --coral, --green, --blue, --white, --accent)
+───────────────────────────────────────────────────────────────────
+SHOP PANEL EFFECTS (important — don't break these when editing)
+───────────────────────────────────────────────────────────────────
+The Shop panel has 3 layered visual effects:
+
+1. SPOTLIGHT FROM ABOVE
+   • Warm white radial gradient from top of viewport
+   • Defined in style.css under "#shop-panel::before"
+   • Lamp source dot defined in "#shop-panel::after"
+   • Expands as user scrolls — controlled by --cone-w CSS variable
+   • JS function `initShopSpotlight()` in app.js updates the variable
+
+2. FROSTED GLASS TILES
+   • Each .tile inside #shop-panel has backdrop-filter blur
+   • Picks up the spotlight light passing behind it
+   • Subtle yellow border that brightens on hover
+
+3. PER-TILE CORNER GRADIENT
+   • Each tile keeps a hint of its product colour (yellow/coral/etc.)
+   • Bottom-right corner glow at ~18% opacity
+   • Subtle — doesn't compete with the spotlight
 
 ───────────────────────────────────────────────────────────────────
 HOW TO UPDATE THE LIVE SITE
@@ -75,6 +94,14 @@ HOW TO UPDATE THE LIVE SITE
 
 To roll back: GitHub keeps every version in commit history.
 
+KEY DESIGN RULES:
+• Bright tiles (yellow/green/white/blue/coral) ALWAYS use dark text
+  (only applies to home page Shop preview — full Shop page uses
+  frosted glass treatment)
+• Plus Jakarta Sans font throughout
+• Colour variables live in style.css under :root
+  (--yellow, --coral, --green, --blue, --white, --accent)
+
 ───────────────────────────────────────────────────────────────────
 STILL TO DO
 ───────────────────────────────────────────────────────────────────
@@ -89,10 +116,27 @@ STILL TO DO
    affiliate links if needed.
 
 ───────────────────────────────────────────────────────────────────
+ANALYTICS SETUP (already live)
+───────────────────────────────────────────────────────────────────
+GA4 custom dimensions configured:
+  • Click Category (event_category)
+  • Click Label    (event_label)
+  • Link URL       (link_url)
+
+Every link click fires a link_click event with all three. View per-
+product breakdown in GA4 → Explorations → Free Form with
+"Click Label" as a row and "Event Count" as a value.
+
+Weekly automation (separate setup) pulls from GA4 + Clarity +
+Google Sheet (guide signups) and writes a report to:
+  D:\OG Ladka\Automation Reports\
+
+───────────────────────────────────────────────────────────────────
 IF STARTING A NEW AI CHAT
 ───────────────────────────────────────────────────────────────────
 Upload index.html + style.css + app.js and say:
 "This is my OG Ladka link-in-bio site. It has 3 panels (home, shop,
 guide form) that swap via JS. CSS is in style.css, JS in app.js,
-images in the images/ folder. Help me edit it."
+images in the images/ folder. The Shop panel has a spotlight effect
+from the top. Help me edit it."
 ═══════════════════════════════════════════════════════════════════
