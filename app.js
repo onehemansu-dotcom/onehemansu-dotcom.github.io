@@ -405,7 +405,21 @@
     update();
   }
 
+  function initTimeTheme() {
+    // Light theme 6am–6pm (06:00–17:59), dark theme rest of day.
+    // Uses visitor's local time. Re-checks every minute in case the
+    // page stays open across the transition.
+    function applyTheme() {
+      var hour = new Date().getHours();
+      var isDay = hour >= 6 && hour < 18;
+      document.body.setAttribute("data-theme", isDay ? "light" : "dark");
+    }
+    applyTheme();
+    setInterval(applyTheme, 60 * 1000);
+  }
+
   onReady(function () {
+    initTimeTheme();
     initRevealObserver();
     initAboutCardLight();
     initGuideTravel();
