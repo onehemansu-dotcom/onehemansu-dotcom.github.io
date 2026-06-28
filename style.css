@@ -163,10 +163,49 @@
     margin-bottom: 4px !important;
     margin-left: -4px;
     margin-right: -4px;
-    scrollbar-width: none;
+    /* Firefox: slim yellow scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(243, 207, 62, 0.45) transparent;
   }
+  /* Webkit (Chrome/Safari/Edge): slim yellow scrollbar */
   #shop-panel .bento::-webkit-scrollbar,
-  #shop-panel .bento-3::-webkit-scrollbar { display: none; }
+  #shop-panel .bento-3::-webkit-scrollbar {
+    height: 5px;
+    background: transparent;
+  }
+  #shop-panel .bento::-webkit-scrollbar-track,
+  #shop-panel .bento-3::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    margin: 0 4px;
+  }
+  #shop-panel .bento::-webkit-scrollbar-thumb,
+  #shop-panel .bento-3::-webkit-scrollbar-thumb {
+    background: rgba(243, 207, 62, 0.45);
+    border-radius: 10px;
+    transition: background 0.2s;
+  }
+  #shop-panel .bento::-webkit-scrollbar-thumb:hover,
+  #shop-panel .bento-3::-webkit-scrollbar-thumb:hover {
+    background: rgba(243, 207, 62, 0.75);
+  }
+  /* Light mode: dark track tint + orange thumb (yellow gets lost on cream) */
+  body[data-theme="light"] #shop-panel .bento,
+  body[data-theme="light"] #shop-panel .bento-3 {
+    scrollbar-color: rgba(232, 110, 40, 0.55) transparent;
+  }
+  body[data-theme="light"] #shop-panel .bento::-webkit-scrollbar-track,
+  body[data-theme="light"] #shop-panel .bento-3::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.06);
+  }
+  body[data-theme="light"] #shop-panel .bento::-webkit-scrollbar-thumb,
+  body[data-theme="light"] #shop-panel .bento-3::-webkit-scrollbar-thumb {
+    background: rgba(232, 110, 40, 0.55);
+  }
+  body[data-theme="light"] #shop-panel .bento::-webkit-scrollbar-thumb:hover,
+  body[data-theme="light"] #shop-panel .bento-3::-webkit-scrollbar-thumb:hover {
+    background: rgba(232, 110, 40, 0.85);
+  }
 
   /* Compact product cards — fixed width so scroller works */
   #shop-panel .tile {
