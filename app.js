@@ -395,6 +395,7 @@
       "amzn.to/4txp7uK":     "Product: Tank Cover",
       "amzn.to/3Q7p23c":     "Product: Aerol Silicone Spray",
       "amzn.to/3Pjt08w":     "Product: RE Riding Jacket",
+      "amzn.to/4eBTNag":     "Product: 3M Bike Care Kit",
       // Products — shorturl
       "shorturl.at/6VX7N":   "Product: Matte Care Kit",
       // Products — link.amazon
