@@ -38,12 +38,61 @@
     }, 120);
   }
 
+  function hintScroll(shop) {
+    if (!shop) shop = document.getElementById("shop-panel");
+    if (!shop) return;
+    var firstRow = shop.querySelector(".bento");
+    if (!firstRow) return;
+    // Only hint if there's actually overflow to scroll
+    if (firstRow.scrollWidth <= firstRow.clientWidth + 4) return;
+
+    // Smooth, slow scroll-hint with real ease-out → pause → ease-in return.
+    // We disable scroll-snap during the hint so it doesn't fight us — snap
+    // would otherwise yank scrollLeft back to 0 every frame.
+    var TARGET = 130;          // how far to slide right (px)
+    var OUT_MS = 1100;         // slide out duration
+    var HOLD_MS = 300;         // pause at far end
+    var IN_MS = 1100;          // slide back duration
+
+    var originalSnap = firstRow.style.scrollSnapType;
+    firstRow.style.scrollSnapType = "none";
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+    function easeInCubic(t)  { return t * t * t; }
+
+    function animate(from, to, duration, easeFn, done) {
+      var start = performance.now();
+      function frame(now) {
+        var t = Math.min(1, (now - start) / duration);
+        firstRow.scrollLeft = from + (to - from) * easeFn(t);
+        if (t < 1) requestAnimationFrame(frame);
+        else if (done) done();
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // Slide out → hold → slide back → restore snap
+    animate(0, TARGET, OUT_MS, easeOutCubic, function () {
+      setTimeout(function () {
+        animate(TARGET, 0, IN_MS, easeInCubic, function () {
+          firstRow.style.scrollSnapType = originalSnap;
+        });
+      }, HOLD_MS);
+    });
+  }
+
   window.showShop = function showShop(e) {
     if (e) e.preventDefault();
     document.body.className = "show-shop";
     window.scrollTo(0, 0);
     revealIn("#shop-panel");
     triggerBulbEntrance();
+    // Scroll hint: fires in BOTH themes. After cascade in dark (~1.6s),
+    // sooner in light (~600ms — no cascade animation to wait for).
+    var isLight = document.body.getAttribute("data-theme") === "light";
+    setTimeout(function () {
+      hintScroll(document.getElementById("shop-panel"));
+    }, isLight ? 600 : 1600);
   };
 
   window.showAccess = function showAccess(e) {
