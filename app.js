@@ -13,14 +13,37 @@
     });
   }
 
+  function triggerBulbEntrance() {
+    // Skip in light mode — natural sunlight feel
+    if (document.body.getAttribute("data-theme") === "light") return;
+    var shop = document.getElementById("shop-panel");
+    if (!shop) return;
+
+    // Reset state — enter dark mood
+    shop.classList.remove("lit");
+    shop.classList.add("awaiting-light");
+
+    // Set cascade delay for each tile based on its document order.
+    // The :nth-child trick won't span multiple .bento containers, so
+    // we walk all tiles in order and assign --reveal-delay inline.
+    var tiles = shop.querySelectorAll(".tile");
+    tiles.forEach(function (tile, i) {
+      tile.style.setProperty("--reveal-delay", (0.05 + i * 0.06) + "s");
+    });
+
+    // After a beat, trigger the reveal: warm bloom + cascade
+    setTimeout(function () {
+      shop.classList.remove("awaiting-light");
+      shop.classList.add("lit");
+    }, 120);
+  }
+
   window.showShop = function showShop(e) {
     if (e) e.preventDefault();
     document.body.className = "show-shop";
     window.scrollTo(0, 0);
     revealIn("#shop-panel");
-    // Reset spotlight to narrow start
-    var shop = document.getElementById("shop-panel");
-    if (shop) shop.style.setProperty("--cone-w", "50%");
+    triggerBulbEntrance();
   };
 
   window.showAccess = function showAccess(e) {
@@ -378,31 +401,20 @@
     });
   }
 
-  function initShopSpotlight() {
-    var shop = document.getElementById("shop-panel");
-    if (!shop) return;
-    var minW = 50;  // percentage of viewport
-    var maxW = 95;
-    var ticking = false;
-    function update() {
-      ticking = false;
-      if (!document.body.classList.contains("show-shop")) return;
-      var y = window.scrollY;
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      var docH = document.body.scrollHeight - vh;
-      var p = docH > 0 ? Math.min(1, y / docH) : 0;
-      var w = minW + (maxW - minW) * p;
-      shop.style.setProperty("--cone-w", w + "%");
+  function injectShopTagline() {
+    // Inject the tagline below the "Shop" heading on the shop panel.
+    // Done in JS so we don't have to touch index.html.
+    var shopH1 = document.querySelector("#shop-panel .topnav h1");
+    if (!shopH1) return;
+    if (document.querySelector(".shop-tagline")) return; // already injected
+    var p = document.createElement("p");
+    p.className = "shop-tagline reveal";
+    p.textContent = "I only recommend products I genuinely believe are worth buying.";
+    // Place it after the topnav row
+    var topnav = shopH1.closest(".topnav");
+    if (topnav && topnav.parentNode) {
+      topnav.parentNode.insertBefore(p, topnav.nextSibling);
     }
-    function onScroll() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    update();
   }
 
   function initTimeTheme() {
@@ -420,12 +432,12 @@
 
   onReady(function () {
     initTimeTheme();
+    injectShopTagline();
     initRevealObserver();
     initAboutCardLight();
     initGuideTravel();
     initVideosReveal();
     initAccessForm();
     initClickTracker();
-    initShopSpotlight();
   });
 })();

@@ -123,21 +123,10 @@
     background: rgba(22, 22, 24, 0.82) !important;
   }
 
-  /* Shop spotlight: warm golden sunlight instead of cool white */
-  body[data-theme="light"] #shop-panel::before {
-    background: radial-gradient(
-      ellipse var(--cone-w, 55%) 95% at 50% 0%,
-      rgba(255, 190, 80, 0.22) 0%,
-      rgba(255, 190, 80, 0.12) 25%,
-      rgba(255, 190, 80, 0.05) 55%,
-      rgba(255, 190, 80, 0.01) 80%,
-      transparent 95%);
-  }
+  /* Shop spotlight: hidden in light mode (looks weird against cream bg) */
+  body[data-theme="light"] #shop-panel::before,
   body[data-theme="light"] #shop-panel::after {
-    background: radial-gradient(ellipse at center top,
-      rgba(255, 170, 60, 0.45) 0%,
-      rgba(255, 170, 60, 0.15) 50%,
-      transparent 100%);
+    display: none !important;
   }
 
   /* Guide card landing glow flips to warm yellow halo on light bg */
@@ -152,6 +141,60 @@
   body[data-theme="light"] .topbar a:hover { color: #c49a00; }
   body[data-theme="light"] .avatar { background: #e8e3d8; }
   /* ─────────────── END LIGHT THEME ─────────────── */
+
+  /* ─── Shop panel: clean uniform product grid (like the reference) ─── */
+
+  /* All grids in shop panel become a single uniform 4-column layout */
+  #shop-panel .bento,
+  #shop-panel .bento-3 {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+    margin-bottom: 6px !important;
+  }
+
+  /* Compact product cards */
+  #shop-panel .tile {
+    padding: 5px 5px 7px !important;
+    min-height: 0 !important;
+    border-radius: 10px !important;
+  }
+  #shop-panel .tile .pimg {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1/1 !important;
+    margin-bottom: 5px !important;
+    border-radius: 7px !important;
+    background: #fafafa !important;
+  }
+  #shop-panel .tile .pimg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+  }
+  #shop-panel .tile .ttl {
+    font-size: 0.66rem;
+    line-height: 1.15;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+  #shop-panel .tile .sub {
+    font-size: 0.55rem;
+    margin-top: 1px;
+    opacity: 0.7;
+  }
+
+  /* ─── Shop tagline (under "Shop" heading) ─── */
+  .shop-tagline {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin: -2px 2px 14px;
+    line-height: 1.35;
+    font-style: italic;
+    opacity: 0.85;
+  }
+  body[data-theme="light"] .shop-tagline { color: var(--on-light); opacity: 0.6; }
 
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
   html, body { background:var(--bg); }
@@ -215,39 +258,88 @@
   /* ── Shop panel premium: frosted glass + per-tile corner gradient + spotlight from top ── */
   #shop-panel { position: relative; }
 
-  /* Bright lamp source at top of viewport (warm white) */
-  #shop-panel::after {
-    content: "";
-    position: fixed;
-    top: -40px; left: 50%;
-    width: 220px; height: 110px;
-    transform: translateX(-50%);
-    background: radial-gradient(ellipse at center top,
-      rgba(255, 240, 210, 0.42) 0%,
-      rgba(255, 240, 210, 0.15) 50%,
-      transparent 100%);
-    filter: blur(21px);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Spotlight from above — soft warm white, naturally soft edges (no clip-path) */
+  /* CINEMATIC REVEAL — no bulb, no flicker.
+     A warm cream wash gently blooms from the top while tiles cascade in. */
   #shop-panel::before {
     content: "";
     position: fixed;
     top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: radial-gradient(
-      ellipse var(--cone-w, 55%) 95% at 50% 0%,
-      rgba(255, 240, 210, 0.28) 0%,
-      rgba(255, 240, 210, 0.16) 18%,
-      rgba(255, 240, 210, 0.07) 40%,
-      rgba(255, 240, 210, 0.02) 65%,
-      transparent 95%);
+    width: 100vw; height: 65vh;
+    background: linear-gradient(180deg,
+      rgba(255, 240, 215, 0.03) 0%,
+      transparent 60%);
     pointer-events: none;
     z-index: 0;
-    transition: background 0.4s ease-out;
+    transition: background 1.0s cubic-bezier(0.16, 1, 0.3, 1);
   }
+  #shop-panel::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    pointer-events: none;
+    z-index: 2;
+    transition: background 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Start state — soft dark ambient mood */
+  #shop-panel.awaiting-light::after {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  #shop-panel.awaiting-light::before {
+    background: linear-gradient(180deg,
+      rgba(255, 240, 215, 0.06) 0%,
+      transparent 60%);
+  }
+
+  /* Lit state — warm cream bloom settles, dark mood clears */
+  #shop-panel.lit::before {
+    background: linear-gradient(180deg,
+      rgba(255, 240, 215, 0.20) 0%,
+      rgba(255, 240, 215, 0.09) 35%,
+      rgba(255, 240, 215, 0.02) 70%,
+      transparent 100%);
+  }
+  #shop-panel.lit::after { background: rgba(0, 0, 0, 0); }
+
+  /* Tiles cascade in — fade up + scale + un-blur — staggered via --reveal-delay */
+  #shop-panel.awaiting-light .tile {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+    filter: blur(2px);
+  }
+  #shop-panel.lit .tile {
+    animation: tilePremiumReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--reveal-delay, 0s);
+  }
+  @keyframes tilePremiumReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(18px) scale(0.97);
+      filter: blur(2px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  /* Safety: hide any leftover bulb DOM from earlier versions */
+  .shop-bulb-wrap { display: none !important; }
+
+  /* Light mode: skip the entrance entirely */
+  body[data-theme="light"] #shop-panel.awaiting-light::after,
+  body[data-theme="light"] #shop-panel.flash-light::after { background: transparent !important; }
+  body[data-theme="light"] #shop-panel::before { display: none; }
+  body[data-theme="light"] #shop-panel.awaiting-light .tile,
+  body[data-theme="light"] #shop-panel.flash-light .tile,
+  body[data-theme="light"] #shop-panel.lit .tile {
+    opacity: 1 !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+  body[data-theme="light"] #shop-panel.lit::before { background: transparent; }
 
   /* Keep shop content above the glow */
   #shop-panel > * { position: relative; z-index: 1; }
