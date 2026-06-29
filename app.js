@@ -451,22 +451,6 @@
     });
   }
 
-  function injectShopTagline() {
-    // Inject the tagline below the "Shop" heading on the shop panel.
-    // Done in JS so we don't have to touch index.html.
-    var shopH1 = document.querySelector("#shop-panel .topnav h1");
-    if (!shopH1) return;
-    if (document.querySelector(".shop-tagline")) return; // already injected
-    var p = document.createElement("p");
-    p.className = "shop-tagline reveal";
-    p.textContent = "I only recommend products I genuinely believe are worth buying.";
-    // Place it after the topnav row
-    var topnav = shopH1.closest(".topnav");
-    if (topnav && topnav.parentNode) {
-      topnav.parentNode.insertBefore(p, topnav.nextSibling);
-    }
-  }
-
   function initTimeTheme() {
     // Light theme 6am–6pm (06:00–17:59), dark theme rest of day.
     // Uses visitor's local time. Re-checks every minute in case the
@@ -480,9 +464,40 @@
     setInterval(applyTheme, 60 * 1000);
   }
 
+  function initGreeting() {
+    var h1 = document.querySelector(".header h1");
+    var role = document.querySelector(".header .role");
+    if (!h1 || !role) return;
+
+    var h = new Date().getHours();
+
+    var pools = {
+      morning:   { lines: [
+        "Engine warm-up done?|Chalo ab safe ride."
+      ]},
+      afternoon: { lines: [
+        "Seat tandoor ban gayi na?|Bolo toh ek ped ki chhaya dhoond dein tumhare liye?"
+      ]},
+      evening:   { lines: [
+        "Potholes se bach gaye?|Welcome back."
+      ]},
+      night:     { lines: [
+        "Phone side mein rakho.|Neend mein bhi exhaust ka sound sunayi dega warna."
+      ]}
+    };
+
+    var slot = (h >= 5 && h < 12) ? "morning" : (h >= 12 && h < 17) ? "afternoon" : (h >= 17 && h < 21) ? "evening" : "night";
+    var pool = pools[slot];
+    var line = pool.lines[Math.floor(Math.random() * pool.lines.length)];
+
+    var parts = line.split("|");
+    h1.textContent = parts[0].trim();
+    role.textContent = parts[1] ? parts[1].trim() : "";
+  }
+
   onReady(function () {
     initTimeTheme();
-    injectShopTagline();
+    initGreeting();
     initRevealObserver();
     initAboutCardLight();
     initGuideTravel();
