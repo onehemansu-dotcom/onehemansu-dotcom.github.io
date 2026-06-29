@@ -381,7 +381,7 @@
 
     var parts = line.split("|");
     h1.textContent = parts[0].trim();
-    role.textContent = parts[1] ? parts[1].trim() : "";
+    role.textContent = "Gear, guides & honest picks — one place for every rider. Glad you're here.";
   }
 
   onReady(function () {
