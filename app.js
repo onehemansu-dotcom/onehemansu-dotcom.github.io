@@ -306,16 +306,23 @@
     };
 
     function getLinkName(el) {
+      // 1. data-label on the element or any ancestor — always wins
+      var labelled = el.closest("[data-label]");
+      if (labelled) return labelled.getAttribute("data-label");
+
+      // 2. onclick string match (Nav links: showHome, showShop, showAccess)
       var onclick = el.getAttribute("onclick") || "";
       for (var key in linkNames) {
         if (onclick.indexOf(key) > -1) return linkNames[key];
       }
 
+      // 3. href substring match
       var href = el.href || "";
       for (var linkKey in linkNames) {
         if (href.indexOf(linkKey) > -1) return linkNames[linkKey];
       }
 
+      // 4. aria-label or visible text as last resort
       var label = el.getAttribute("aria-label") || el.textContent.trim();
       return label.substring(0, 60) || href.substring(0, 80) || "unknown";
     }
@@ -328,10 +335,10 @@
       var url = el.href || window.location.href;
       var section = (el.closest("#shop-panel") ? "Shop" :
         el.closest("#access-panel") ? "Guide" :
-        el.closest(".topbar") ? "Social Bar" :
+        el.closest(".topbar") ? "Social Icons" :
         el.closest(".vids") ? "Videos" :
-        el.closest(".bento") ? "Bento Grid" :
-        el.closest(".bar") ? "CTA Bar" : "General");
+        el.closest(".bento") ? "Home" :
+        el.closest(".bar") ? "Guide CTA" : "General");
 
       if (typeof gtag === "function") {
         gtag("event", "link_click", {
