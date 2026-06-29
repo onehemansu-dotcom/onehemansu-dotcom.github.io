@@ -171,114 +171,11 @@
   }
 
   function initGuideTravel() {
-    var card = document.getElementById("guideTravel");
+    // Travel animation removed — card reveals normally with .reveal class
     var spacer = document.getElementById("barSpacer");
     var landing = document.getElementById("barLanding");
-    var panel = document.getElementById("home-panel");
-    if (!card || !spacer || !landing || !panel) return;
-    if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
-
-    var cardH = 0;
-    var startTop = 0;
-    var ready = false;
-
-    function measure() {
-      card.classList.remove("traveling", "landed");
-      card.style.position = "";
-      spacer.style.height = "0px";
-      landing.style.height = "0px";
-
-      var rect = card.getBoundingClientRect();
-      cardH = rect.height;
-      startTop = window.scrollY + rect.top;
-
-      spacer.style.height = cardH + "px";
-      landing.style.height = (cardH + 24) + "px";
-
-      card.classList.add("traveling");
-      ready = true;
-      update();
-    }
-
-    var ticking = false;
-    function update() {
-      ticking = false;
-      if (!ready) return;
-
-      var y = window.scrollY;
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      var maxScroll = Math.max(1, document.body.scrollHeight - vh);
-      var rawP = Math.max(0, Math.min(1, y / maxScroll));
-
-      var lrect = landing.getBoundingClientRect();
-      var landingTopAbs = y + lrect.top;
-      var landingViewportAtEnd = landingTopAbs - maxScroll;
-      var glide = rawP;
-      var fixedTop = startTop + (landingViewportAtEnd - startTop) * glide;
-
-      var atLanding = rawP >= 0.985;
-      var p = glide;
-
-      card.classList.add("traveling");
-      if (atLanding) {
-        card.classList.add("landed");
-      } else {
-        card.classList.remove("landed");
-      }
-      card.style.position = "fixed";
-
-      var srect = spacer.getBoundingClientRect();
-      card.style.width = srect.width + "px";
-      card.style.left = srect.left + "px";
-
-      var docked = rawP < 0.02;
-      card.style.pointerEvents = (docked || atLanding) ? "auto" : "none";
-
-      var mid = 1 - Math.abs(p - 0.5) * 2;
-      var scale = (1 - mid * 0.10).toFixed(3);
-
-      card.style.top = fixedTop + "px";
-      card.style.transform = atLanding ? "scale(1)" : ("scale(" + scale + ")");
-
-      var leave = Math.max(0, Math.min(1, (p - 0.05) / 0.10));
-      var reveal = Math.max(0, Math.min(1, (p - 0.55) / 0.45));
-      reveal = reveal * reveal * (3 - 2 * reveal);
-      if (atLanding) reveal = 1;
-
-      var hidden = leave * (1 - reveal);
-      var op = (1 - hidden * 0.88).toFixed(3);
-      var bl = (hidden * 10).toFixed(2);
-      card.style.setProperty("--op", op);
-      card.style.setProperty("--bl", bl + "px");
-
-      var collapse = Math.max(0, Math.min(1, rawP / 0.16));
-      spacer.style.height = (cardH * (1 - collapse)) + "px";
-
-      // Smoothly fade card color: white (#f4f4f2) → yellow (#f3cf3e) as it travels
-      // Uses rawP so it's tied to scroll position, not the eased glide
-      var sR = 244, sG = 244, sB = 242; // --white #f4f4f2
-      var eR = 243, eG = 207, eB = 62;  // --yellow #f3cf3e
-      var rr = Math.round(sR + (eR - sR) * rawP);
-      var gg = Math.round(sG + (eG - sG) * rawP);
-      var bb = Math.round(sB + (eB - sB) * rawP);
-      card.style.setProperty("--travel-bg", "rgb(" + rr + "," + gg + "," + bb + ")");
-    }
-
-    function onScroll() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", function () {
-      ready = false;
-      measure();
-    }, { passive: true });
-    window.addEventListener("load", measure);
-    setTimeout(measure, 400);
-    window.__guideTravelMeasure = measure;
+    if (spacer) spacer.style.height = "0px";
+    if (landing) landing.style.height = "0px";
   }
 
   function initVideosReveal() {
@@ -472,18 +369,10 @@
     var h = new Date().getHours();
 
     var pools = {
-      morning:   { lines: [
-        "Engine warm-up done?|Chalo ab safe ride."
-      ]},
-      afternoon: { lines: [
-        "Seat tandoor ban gayi na?|Bolo toh ek ped ki chhaya dhoond dein tumhare liye?"
-      ]},
-      evening:   { lines: [
-        "Potholes se bach gaye?|Welcome back."
-      ]},
-      night:     { lines: [
-        "Phone side mein rakho.|Neend mein bhi exhaust ka sound sunayi dega warna."
-      ]}
+      morning:   { lines: ["Morning, bhai.|"] },
+      afternoon: { lines: ["Afternoon, bhai.|"] },
+      evening:   { lines: ["Evening, bhai.|"] },
+      night:     { lines: ["Hello night owl.|"] }
     };
 
     var slot = (h >= 5 && h < 12) ? "morning" : (h >= 12 && h < 17) ? "afternoon" : (h >= 17 && h < 21) ? "evening" : "night";
