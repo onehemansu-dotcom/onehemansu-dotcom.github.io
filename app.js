@@ -333,6 +333,23 @@
       el.style.transitionDelay = (Math.min(i, 6) * 40) + "ms";
       io.observe(el);
     });
+
+    // Anything already on screen at load must reveal immediately - on tall
+    // displays there may be no scroll to trigger the observer.
+    function revealInView() {
+      items.forEach(function (el) {
+        if (el.classList.contains("in")) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          el.classList.add("in");
+          io.unobserve(el);
+        }
+      });
+    }
+    revealInView();
+    window.addEventListener("load", revealInView);
+    window.addEventListener("resize", revealInView);
+    setTimeout(revealInView, 500);
   }
 
   // live follower counter: rapid climb 0 -> base, then +step every interval
@@ -396,15 +413,32 @@
     // reveal cards on scroll into view
     initReveal();
 
-    // on first scroll: reach count-up + follower rapid-climb + confetti
+    // Count-up + follower climb + confetti.
+    // Fires on first scroll, OR immediately if the stats are already on screen
+    // (tall displays / tablets have no scroll to trigger, so the old
+    //  scroll-only trigger left the counters stuck at 0).
     var counted = false;
-    function triggerOnScroll() {
+    function triggerCounts() {
       if (counted) return;
       counted = true;
       animateCounts();
       startLiveCount();
     }
-    window.addEventListener("scroll", function () { triggerOnScroll(); }, { passive: true });
+    window.addEventListener("scroll", function () { triggerCounts(); }, { passive: true });
+
+    function statsInView() {
+      var el = document.querySelector(".id-stats");
+      if (!el) return false;
+      var r = el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0;
+    }
+    function checkStats() { if (statsInView()) triggerCounts(); }
+
+    checkStats();                                  // already visible on load?
+    window.addEventListener("load", checkStats);   // and once images settle
+    window.addEventListener("resize", checkStats); // and on rotate / resize
+    setTimeout(checkStats, 600);                   // and as a final backstop
+    setTimeout(triggerCounts, 2500);               // absolute fallback: never leave 0
   });
 
   /* iOS safety net: if the IntersectionObserver never fires (some iOS Safari
