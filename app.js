@@ -1,144 +1,326 @@
 (function () {
+  "use strict";
+
   function onReady(fn) {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", fn);
-    } else {
-      fn();
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  /* ---------- GA4 click tracking ---------- */
+  function track(label, url, category, eventName) {
+    if (typeof gtag === "function") {
+      gtag("event", eventName || "link_click", {
+        click_label: label || "unknown",
+        link_url: url || "",
+        click_category: category || "General"
+      });
     }
   }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("[data-label]");
+    if (!a) return;
+    track(a.getAttribute("data-label"), a.getAttribute("href") || "", a.getAttribute("data-category") || "General");
+  });
 
-  function revealIn(sel) {
-    document.querySelectorAll(sel + " .reveal").forEach(function (el) {
-      el.classList.add("in");
-    });
+  /* ---------- Panel switching ---------- */
+  var home = null, access = null, about = null, shop = null, question = null, work = null, announcement = null;
+  function panels() {
+    home = home || document.getElementById("home-panel");
+    access = access || document.getElementById("access-panel");
+    about = about || document.getElementById("about-panel");
+    shop = shop || document.getElementById("shop-panel");
+    question = question || document.getElementById("question-panel");
+    work = work || document.getElementById("work-panel");
+    announcement = announcement || document.getElementById("announcement-panel");
+  }
+  function hideAll() {
+    panels();
+    if (access) access.classList.remove("active");
+    if (about) about.classList.remove("active");
+    if (shop) shop.classList.remove("active");
+    if (question) question.classList.remove("active");
+    if (work) work.classList.remove("active");
+    if (announcement) announcement.classList.remove("active");
+    if (home) home.style.display = "none";
   }
 
-  function triggerBulbEntrance() {
-    // Skip in light mode — natural sunlight feel
-    if (document.body.getAttribute("data-theme") === "light") return;
-    var shop = document.getElementById("shop-panel");
-    if (!shop) return;
-
-    // Reset state — enter dark mood
-    shop.classList.remove("lit");
-    shop.classList.add("awaiting-light");
-
-    // Set cascade delay for each tile based on its document order.
-    // The :nth-child trick won't span multiple .bento containers, so
-    // we walk all tiles in order and assign --reveal-delay inline.
-    var tiles = shop.querySelectorAll(".tile");
-    tiles.forEach(function (tile, i) {
-      tile.style.setProperty("--reveal-delay", (0.05 + i * 0.06) + "s");
-    });
-
-    // After a beat, trigger the reveal: warm bloom + cascade
-    setTimeout(function () {
-      shop.classList.remove("awaiting-light");
-      shop.classList.add("lit");
-    }, 120);
+  function revealIn(panel) {
+    if (!panel) return;
+    panel.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
   }
 
-  function hintScroll(shop) {
-    if (!shop) shop = document.getElementById("shop-panel");
-    if (!shop) return;
-    var firstRow = shop.querySelector(".bento");
-    if (!firstRow) return;
-    // Only hint if there's actually overflow to scroll
-    if (firstRow.scrollWidth <= firstRow.clientWidth + 4) return;
+  window.showAccess = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (access) { access.classList.add("active"); revealIn(access); }
+    window.scrollTo(0, 0);
+  };
+  window.showHome = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (home) home.style.display = "";
+    window.scrollTo(0, 0);
+  };
+  window.showAbout = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (about) { about.classList.add("active"); revealIn(about); }
+    window.scrollTo(0, 0);
+  };
+  window.showShop = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (shop) { shop.classList.add("active"); revealIn(shop); startShopAutoScroll(); }
+    window.scrollTo(0, 0);
+  };
 
-    // Smooth, slow scroll-hint with real ease-out → pause → ease-in return.
-    // We disable scroll-snap during the hint so it doesn't fight us — snap
-    // would otherwise yank scrollLeft back to 0 every frame.
-    var TARGET = 130;          // how far to slide right (px)
-    var OUT_MS = 1100;         // slide out duration
-    var HOLD_MS = 300;         // pause at far end
-    var IN_MS = 1100;          // slide back duration
+  window.showQuestion = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (question) { question.classList.add("active"); revealIn(question); }
+    window.scrollTo(0, 0);
+  };
 
-    var originalSnap = firstRow.style.scrollSnapType;
-    firstRow.style.scrollSnapType = "none";
+  window.showWork = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (work) { work.classList.add("active"); revealIn(work); }
+    window.scrollTo(0, 0);
+  };
 
-    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-    function easeInCubic(t)  { return t * t * t; }
+  window.showAnnouncement = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (announcement) { announcement.classList.add("active"); revealIn(announcement); }
+    window.scrollTo(0, 0);
+  };
 
-    function animate(from, to, duration, easeFn, done) {
-      var start = performance.now();
-      function frame(now) {
-        var t = Math.min(1, (now - start) / duration);
-        firstRow.scrollLeft = from + (to - from) * easeFn(t);
-        if (t < 1) requestAnimationFrame(frame);
-        else if (done) done();
+  /* ---------- Shop auto-scroll (one row per category) ---------- */
+  var shopScrollStarted = false;
+  function startShopAutoScroll() {
+    if (shopScrollStarted) return;
+    shopScrollStarted = true;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    var rows = document.querySelectorAll("#shop-panel .shop-sheet .bento");
+    rows.forEach(function (row) {
+      var SPEED = 0.35;       // px per frame — gentle drift
+      var paused = false;
+      var resumeTimer = null;
+      var pos = 0;            // float accumulator (scrollLeft rounds to int)
+
+      function pause() {
+        paused = true;
+        if (resumeTimer) clearTimeout(resumeTimer);
       }
-      requestAnimationFrame(frame);
-    }
+      function scheduleResume() {
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(function () { paused = false; }, 1600);
+      }
 
-    // Slide out → hold → slide back → restore snap
-    animate(0, TARGET, OUT_MS, easeOutCubic, function () {
-      setTimeout(function () {
-        animate(TARGET, 0, IN_MS, easeInCubic, function () {
-          firstRow.style.scrollSnapType = originalSnap;
-        });
-      }, HOLD_MS);
+      // pause on hover / touch / manual scroll, resume shortly after
+      row.addEventListener("mouseenter", pause);
+      row.addEventListener("mouseleave", scheduleResume);
+      row.addEventListener("touchstart", pause, { passive: true });
+      row.addEventListener("touchend", scheduleResume, { passive: true });
+      row.addEventListener("wheel", function () { pause(); scheduleResume(); }, { passive: true });
+      // keep accumulator in sync when the user scrolls by hand
+      row.addEventListener("scroll", function () {
+        if (paused) pos = row.scrollLeft;
+      }, { passive: true });
+
+      function step() {
+        var max = row.scrollWidth - row.clientWidth;
+        if (max > 4 && !paused) {
+          pos += SPEED;
+          if (pos >= max) pos = 0;        // loop back to start
+          row.scrollLeft = pos;
+        }
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
     });
   }
 
-  window.showShop = function showShop(e) {
-    if (e) e.preventDefault();
-    document.body.className = "show-shop";
-    window.scrollTo(0, 0);
-    revealIn("#shop-panel");
-    triggerBulbEntrance();
-    // Scroll hint: fires in BOTH themes. After cascade in dark (~1.6s),
-    // sooner in light (~600ms — no cascade animation to wait for).
-    var isLight = document.body.getAttribute("data-theme") === "light";
-    setTimeout(function () {
-      hintScroll(document.getElementById("shop-panel"));
-    }, isLight ? 600 : 1600);
+  /* ---------- Guide form ---------- */
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvF9Lx6miwV5zAsrTmnCc4iYcVccFUsxEMVjUksIGckqbJQsxL01Gl23QqBCY_QUE/exec";
+
+  function fieldWrap(id) { var el = document.getElementById(id); return el ? el.closest(".field") : null; }
+  function validName() { var v = (document.getElementById("f-name")||{}).value || ""; return v.trim().length > 0; }
+  function validEmail() { var v = (document.getElementById("f-email")||{}).value || ""; return /^[^\s@]+@gmail\.com$/i.test(v.trim()); }
+  function validBike() { var v = (document.getElementById("f-bike")||{}).value || ""; return v.trim().length > 0; }
+
+  function refreshSubmit() {
+    var btn = document.getElementById("f-submit");
+    if (btn) btn.disabled = !(validName() && validEmail() && validBike());
+  }
+
+  window.submitAccess = function () {
+    var okN = validName(), okE = validEmail(), okB = validBike();
+    var fN = fieldWrap("f-name"), fE = fieldWrap("f-email"), fB = fieldWrap("f-bike");
+    if (fN) fN.classList.toggle("invalid", !okN);
+    if (fE) fE.classList.toggle("invalid", !okE);
+    if (fB) fB.classList.toggle("invalid", !okB);
+    if (!(okN && okE && okB)) return;
+
+    var name = document.getElementById("f-name").value.trim();
+    var email = document.getElementById("f-email").value.trim();
+    var bike = document.getElementById("f-bike").value.trim();
+
+    var btn = document.getElementById("f-submit");
+    if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
+
+    track("Guide: Form Submitted", email, "Guide", "form_submit");
+
+    var fd = new FormData();
+    fd.append("name", name); fd.append("email", email); fd.append("bike", bike);
+
+    fetch(APPS_SCRIPT_URL, { method: "POST", body: fd, mode: "no-cors" })
+      .catch(function(){})
+      .finally(function () {
+        var form = document.getElementById("access-form");
+        var succ = document.getElementById("access-success");
+        var em = document.getElementById("success-email");
+        if (em) em.textContent = email;
+        if (form) form.classList.add("hide");
+        if (succ) succ.classList.add("show");
+      });
   };
 
-  window.showAccess = function showAccess(e) {
-    if (e) e.preventDefault();
-    document.body.className = "show-access";
-    window.scrollTo(0, 0);
-    revealIn("#access-panel");
-    document.getElementById("access-form").classList.remove("hidden");
-    document.getElementById("access-success").classList.remove("show");
+  /* ---------- Question form ---------- */
+  // PASTE your deployed Apps Script Web App URL here (ends in /exec):
+  var QUESTIONS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGUkqKKwlbGIvoOKzlWQqO7twRH_WLyTOC4-0hIK3VJplPzNwFwiWcBKOr5JhMLJ7gOw/exec";
+
+  function qWrap(id) { var el = document.getElementById(id); return el ? el.closest(".field") : null; }
+  function validQName() { var v = (document.getElementById("q-name") || {}).value || ""; return v.trim().length > 0; }
+  function validQText() { var v = (document.getElementById("q-question") || {}).value || ""; return v.trim().length > 0; }
+
+  function refreshQSubmit() {
+    var btn = document.getElementById("q-submit");
+    if (btn) btn.disabled = !(validQName() && validQText());
+  }
+
+  window.submitQuestion = function () {
+    var okN = validQName(), okQ = validQText();
+    var fN = qWrap("q-name"), fQ = qWrap("q-question");
+    if (fN) fN.classList.toggle("invalid", !okN);
+    if (fQ) fQ.classList.toggle("invalid", !okQ);
+    if (!(okN && okQ)) return;
+
+    var name = document.getElementById("q-name").value.trim();
+    var text = document.getElementById("q-question").value.trim();
+    var contact = (document.getElementById("q-contact") || {}).value || "";
+    contact = contact.trim();
+
+    var btn = document.getElementById("q-submit");
+    if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
+
+    track("Question: Form Submitted", contact || name, "Question", "form_submit");
+
+    var fd = new FormData();
+    fd.append("name", name);
+    fd.append("question", text);
+    fd.append("contact", contact);
+
+    fetch(QUESTIONS_SCRIPT_URL, { method: "POST", body: fd, mode: "no-cors" })
+      .catch(function () {})
+      .finally(function () {
+        var form = document.getElementById("question-form");
+        var succ = document.getElementById("question-success");
+        if (form) form.classList.add("hide");
+        if (succ) succ.classList.add("show");
+      });
   };
 
-  window.showHome = function showHome(e) {
-    if (e) e.preventDefault();
-    document.body.className = "";
-    window.scrollTo(0, 0);
-    // Fully reset the guide travel card to its natural state
-    var card = document.getElementById("guideTravel");
-    var spacer = document.getElementById("barSpacer");
-    var landing = document.getElementById("barLanding");
-    if (card) {
-      card.classList.remove("traveling", "landed");
-      card.style.position = "";
-      card.style.top = "";
-      card.style.left = "";
-      card.style.width = "";
-      card.style.transform = "";
-      card.style.pointerEvents = "";
+  /* ---------- Confetti popper ---------- */
+  function fireConfetti() {
+    var anchor = document.querySelector(".id-stats");
+    if (!anchor) return;
+    var rect = anchor.getBoundingClientRect();
+    var originX = rect.left + rect.width / 2;
+    var originY = rect.top + rect.height / 2 - 4;
+
+    var colors = ["#ff5100", "#ff8a3d", "#ffd23f", "#f15a24", "#ffffff", "#ff3b30"];
+    var container = document.createElement("div");
+    container.style.cssText = "position:fixed;top:" + originY + "px;left:" + originX + "px;width:0;height:0;z-index:9999;pointer-events:none;";
+    document.body.appendChild(container);
+
+    var N = 40;
+    for (var i = 0; i < N; i++) {
+      var piece = document.createElement("span");
+      var size = 5 + Math.random() * 6;
+      var color = colors[Math.floor(Math.random() * colors.length)];
+      var angle = (Math.random() - 0.5) * 1.4; // spread left/right
+      var vx = angle * (80 + Math.random() * 80);
+      var vy = -(340 + Math.random() * 160); // strong upward launch
+      var rot = (Math.random() - 0.5) * 720;
+      var dur = 1300 + Math.random() * 500;
+      piece.style.cssText =
+        "position:absolute;top:0;left:0;width:" + size + "px;height:" + (size * (Math.random() > .5 ? 1 : 0.5)) + "px;" +
+        "background:" + color + ";border-radius:" + (Math.random() > .5 ? "50%" : "1px") + ";opacity:1;will-change:transform,opacity;";
+      container.appendChild(piece);
+
+      (function (el, vx, vy, rot, dur) {
+        var start = null;
+        var g = 620; // gravity
+        function frame(ts) {
+          if (start === null) start = ts;
+          var t = (ts - start) / 1000;
+          var x = vx * t;
+          var y = vy * t + 0.5 * g * t * t;
+          var p = (ts - start) / dur;
+          el.style.transform = "translate(" + x + "px," + y + "px) rotate(" + (rot * t) + "deg)";
+          el.style.opacity = String(Math.max(0, 1 - p * p));
+          if (p < 1) requestAnimationFrame(frame);
+          else if (el.parentNode) el.parentNode.removeChild(el);
+        }
+        requestAnimationFrame(frame);
+      })(piece, vx, vy, rot, dur);
     }
-    if (spacer) spacer.style.height = "0px";
-    if (landing) landing.style.height = "0px";
-    // Remeasure cleanly after layout settles
-    if (window.__guideTravelMeasure) {
-      setTimeout(window.__guideTravelMeasure, 150);
-    }
-  };
+    setTimeout(function () { if (container.parentNode) container.parentNode.removeChild(container); }, 2100);
+  }
 
-  function initRevealObserver() {
+  /* ---------- Stat count-up animation ---------- */
+  function animateCounts() {
+    var els = document.querySelectorAll(".count");
+    if (!els.length) { fireConfetti(); return; }
+    var DURATION = 1000;
+    var done = 0;
+    els.forEach(function (el) {
+      var target = parseFloat(el.getAttribute("data-target")) || 0;
+      var suffix = el.getAttribute("data-suffix") || "";
+      var div = parseFloat(el.getAttribute("data-div")) || 1;
+      var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+      var start = null;
+      function fmt(v) {
+        var n = v / div;
+        return (decimals ? n.toFixed(decimals) : Math.round(n)) + suffix;
+      }
+      function step(ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / DURATION, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(target * eased);
+        if (p < 1) requestAnimationFrame(step);
+        else {
+          el.textContent = fmt(target);
+          done++;
+          if (done === els.length) fireConfetti();
+        }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  // scroll-reveal: cards swift up as they enter the viewport
+  function initReveal() {
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var items = document.querySelectorAll(".reveal");
     if (reduce || !("IntersectionObserver" in window)) {
-      items.forEach(function (el) {
-        el.classList.add("in");
-      });
+      items.forEach(function (el) { el.classList.add("in"); });
       return;
     }
-
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) {
@@ -147,218 +329,47 @@
         }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-
     items.forEach(function (el, i) {
       el.style.transitionDelay = (Math.min(i, 6) * 40) + "ms";
       io.observe(el);
     });
   }
 
-  function initAboutCardLight() {
-    var card = document.querySelector(".about");
-    if (!card) return;
+  // live follower counter: rapid climb 0 -> base, then +step every interval
+  function startLiveCount() {
+    var el = document.querySelector(".live-count");
+    if (!el) return;
+    var base = parseInt(el.getAttribute("data-start"), 10) || 0;
+    var step = parseInt(el.getAttribute("data-step"), 10) || 1;
+    var interval = parseInt(el.getAttribute("data-interval"), 10) || 5000;
 
-    card.addEventListener("pointermove", function (e) {
-      var r = card.getBoundingClientRect();
-      card.style.setProperty("--gx", (e.clientX - r.left) + "px");
-      card.style.setProperty("--gy", (e.clientY - r.top) + "px");
-      card.classList.add("lit");
-    });
-
-    card.addEventListener("pointerleave", function () {
-      card.classList.remove("lit");
-    });
-  }
-
-  function initGuideTravel() {
-    // Travel animation removed — card reveals normally with .reveal class
-    var spacer = document.getElementById("barSpacer");
-    var landing = document.getElementById("barLanding");
-    if (spacer) spacer.style.height = "0px";
-    if (landing) landing.style.height = "0px";
-  }
-
-  function initVideosReveal() {
-    var wrap = document.querySelector("#vidsScroll");
-    if (!wrap) return;
-
-    wrap.classList.add("vreveal");
-    if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) {
-      wrap.classList.add("shown");
-      return;
-    }
-
-    var ticking = false;
-    function check() {
-      ticking = false;
-      var r = wrap.getBoundingClientRect();
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      if (r.top < vh * 0.82) {
-        wrap.classList.add("shown");
+    // Phase 1: rapid count-up 0 -> base (~1.1s ease-out)
+    var CLIMB = 1100;
+    var climbStart = null;
+    function climb(ts) {
+      if (climbStart === null) climbStart = ts;
+      var p = Math.min((ts - climbStart) / CLIMB, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(base * eased).toLocaleString("en-US");
+      if (p < 1) {
+        requestAnimationFrame(climb);
       } else {
-        wrap.classList.remove("shown");
+        el.textContent = base.toLocaleString("en-US");
+        // Phase 2: slow tick from the moment climb finishes
+        var tickStart = Date.now();
+        setInterval(function () {
+          var ticks = Math.floor((Date.now() - tickStart) / interval);
+          el.textContent = (base + ticks * step).toLocaleString("en-US");
+        }, interval);
       }
     }
-
-    function onScroll() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(check);
-      }
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    check();
+    requestAnimationFrame(climb);
   }
 
-  function initAccessForm() {
-    var name = document.getElementById("f-name");
-    var email = document.getElementById("f-email");
-    var bike = document.getElementById("f-bike");
-    var btn = document.getElementById("f-submit");
-    if (!name) return;
-
-    function isGmail(v) {
-      return /^[^\s@]+@gmail\.com$/i.test(v.trim());
-    }
-    function nameOk() {
-      return name.value.trim().length > 0;
-    }
-    function emailOk() {
-      return isGmail(email.value);
-    }
-    function bikeOk() {
-      return bike.value.trim().length > 0;
-    }
-    function refresh() {
-      btn.disabled = !(nameOk() && emailOk() && bikeOk());
-    }
-
-    [name, email, bike].forEach(function (inp) {
-      inp.addEventListener("input", function () {
-        inp.closest(".field").classList.remove("show-err");
-        refresh();
-      });
-    });
-
-    var SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzvF9Lx6miwV5zAsrTmnCc4iYcVccFUsxEMVjUksIGckqbJQsxL01Gl23QqBCY_QUE/exec";
-    window.submitAccess = function submitAccess() {
-      var ok = true;
-      if (!nameOk()) {
-        name.closest(".field").classList.add("show-err");
-        ok = false;
-      }
-      if (!emailOk()) {
-        email.closest(".field").classList.add("show-err");
-        ok = false;
-      }
-      if (!bikeOk()) {
-        bike.closest(".field").classList.add("show-err");
-        ok = false;
-      }
-      if (!ok) return;
-
-      if (SUBMIT_URL) {
-        try {
-          var fd = new FormData();
-          fd.append("name", name.value.trim());
-          fd.append("email", email.value.trim());
-          fd.append("bike", bike.value.trim());
-          fetch(SUBMIT_URL, { method: "POST", mode: "no-cors", body: fd });
-        } catch (err) {}
-      }
-
-      document.getElementById("success-email").textContent = email.value.trim();
-      document.getElementById("access-form").classList.add("hidden");
-      document.getElementById("access-success").classList.add("show");
-      window.scrollTo(0, 0);
-    };
-  }
-
-  function initClickTracker() {
-    var linkNames = {
-      // Social
-      "instagram.com":        "Social: Instagram",
-      "youtube.com":          "Social: YouTube",
-      "youtu.be":             "Social: YouTube",
-      "wa.me":                "Social: WhatsApp",
-      // Nav
-      "showHome":             "Nav: Home",
-      "showShop":             "Nav: Shop",
-      "showAccess":           "Nav: Free Guide",
-      // Products — amzn.to
-      "amzn.to/4uI1OPM":     "Product: Motul Chain Kit",
-      "amzn.to/4txp7uK":     "Product: Tank Cover",
-      "amzn.to/3Q7p23c":     "Product: Aerol Silicone Spray",
-      "amzn.to/3Pjt08w":     "Product: RE Riding Jacket",
-      "amzn.to/4eBTNag":     "Product: 3M Bike Care Kit",
-      // Products — shorturl
-      "shorturl.at/6VX7N":   "Product: Matte Care Kit",
-      // Products — link.amazon
-      "B01JRESSp":           "Product: SMK Helmet",
-      "B0dEwTdGo":           "Product: Tyre Inflator",
-      "B0cfZ5Rf7":           "Product: Puncture Kit",
-      "B0cZU0jyj":           "Product: Tool Kit",
-      "B0e4g5lO8":           "Product: Riding Shoes",
-      "B016OZnJB":           "Product: Fuel Additive",
-      "B01gHJSXr":           "Product: WD-40"
-    };
-
-    function getLinkName(el) {
-      // 1. data-label on the element or any ancestor — always wins
-      var labelled = el.closest("[data-label]");
-      if (labelled) return labelled.getAttribute("data-label");
-
-      // 2. onclick string match (Nav links: showHome, showShop, showAccess)
-      var onclick = el.getAttribute("onclick") || "";
-      for (var key in linkNames) {
-        if (onclick.indexOf(key) > -1) return linkNames[key];
-      }
-
-      // 3. href substring match
-      var href = el.href || "";
-      for (var linkKey in linkNames) {
-        if (href.indexOf(linkKey) > -1) return linkNames[linkKey];
-      }
-
-      // 4. aria-label or visible text as last resort
-      var label = el.getAttribute("aria-label") || el.textContent.trim();
-      return label.substring(0, 60) || href.substring(0, 80) || "unknown";
-    }
-
-    document.addEventListener("click", function (e) {
-      var el = e.target.closest("a, [onclick]");
-      if (!el) return;
-
-      var name = getLinkName(el);
-      var url = el.href || window.location.href;
-      var section = (el.closest("#shop-panel") ? "Shop" :
-        el.closest("#access-panel") ? "Guide" :
-        el.closest(".topbar") ? "Social Icons" :
-        el.closest(".vids") ? "Videos" :
-        el.closest(".bento") ? "Home" :
-        el.closest(".bar") ? "Guide CTA" : "General");
-
-      if (typeof gtag === "function") {
-        gtag("event", "link_click", {
-          event_category: section,
-          event_label: name,
-          link_url: url,
-          non_interaction: false
-        });
-      }
-
-      if (typeof clarity === "function") {
-        clarity("set", "link_clicked", name);
-      }
-    });
-  }
-
+  /* ---------- Time-based theme (light 6am-6pm, dark otherwise) ---------- */
   function initTimeTheme() {
-    // Light theme 6am–6pm (06:00–17:59), dark theme rest of day.
-    // Uses visitor's local time. Re-checks every minute in case the
-    // page stays open across the transition.
+    // Uses the visitor's local time. Re-checks every minute so the page
+    // flips automatically if it stays open across the transition.
     function applyTheme() {
       var hour = new Date().getHours();
       var isDay = hour >= 6 && hour < 18;
@@ -368,37 +379,54 @@
     setInterval(applyTheme, 60 * 1000);
   }
 
-  function initGreeting() {
-    var h1 = document.querySelector(".header h1");
-    var role = document.querySelector(".header .role");
-    if (!h1 || !role) return;
-
-    var h = new Date().getHours();
-
-    var pools = {
-      morning:   { lines: ["Morning, bhai.|"] },
-      afternoon: { lines: ["Afternoon, bhai.|"] },
-      evening:   { lines: ["Evening, bhai.|"] },
-      night:     { lines: ["Hello night owl.|"] }
-    };
-
-    var slot = (h >= 5 && h < 12) ? "morning" : (h >= 12 && h < 17) ? "afternoon" : (h >= 17 && h < 21) ? "evening" : "night";
-    var pool = pools[slot];
-    var line = pool.lines[Math.floor(Math.random() * pool.lines.length)];
-
-    var parts = line.split("|");
-    h1.textContent = parts[0].trim();
-    role.textContent = "Gear, guides & honest picks — one place for every rider. Glad you're here.";
-  }
-
   onReady(function () {
     initTimeTheme();
-    initGreeting();
-    initRevealObserver();
-    initAboutCardLight();
-    initGuideTravel();
-    initVideosReveal();
-    initAccessForm();
-    initClickTracker();
+    ["f-name", "f-email", "f-bike"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("input", refreshSubmit);
+    });
+    refreshSubmit();
+
+    ["q-name", "q-question"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("input", refreshQSubmit);
+    });
+    refreshQSubmit();
+
+    // reveal cards on scroll into view
+    initReveal();
+
+    // on first scroll: reach count-up + follower rapid-climb + confetti
+    var counted = false;
+    function triggerOnScroll() {
+      if (counted) return;
+      counted = true;
+      animateCounts();
+      startLiveCount();
+    }
+    window.addEventListener("scroll", function () { triggerOnScroll(); }, { passive: true });
   });
+
+  /* iOS safety net: if the IntersectionObserver never fires (some iOS Safari
+     cases), force any still-hidden .reveal card to fade in after a moment.
+     The animation still plays normally when the observer works. */
+  onReady(function () {
+    setTimeout(function () {
+      document.querySelectorAll(".reveal").forEach(function (el) {
+        if (!el.classList.contains("in")) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight + 400) el.classList.add("in");
+        }
+      });
+    }, 1200);
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        document.querySelectorAll(".reveal").forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight + 400) el.classList.add("in");
+        });
+      }, 300);
+    });
+  });
+
 })();
