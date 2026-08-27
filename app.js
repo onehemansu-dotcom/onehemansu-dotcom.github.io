@@ -74,6 +74,90 @@
     window.scrollTo(0, 0);
   };
 
+  /* ---------- Shop product search ---------- */
+  window.toggleShopSearch = function (e) {
+    if (e) e.preventDefault();
+    var row = document.getElementById("shopSearchRow");
+    var btn = document.getElementById("shopSearchBtn");
+    var input = document.getElementById("shopSearchInput");
+    var hot = document.getElementById("shopHot");
+    if (!row) return;
+    var open = row.classList.toggle("open");
+    if (btn) btn.classList.toggle("active", open);
+    if (hot) hot.classList.toggle("open", open);
+    if (open && input) { input.focus(); }
+    else { clearShopSearch(); }
+  };
+
+  window.filterShopProducts = function () {
+    var input = document.getElementById("shopSearchInput");
+    if (!input) return;
+    var q = input.value.trim().toLowerCase();
+    var terms = q.split(/\s+/).filter(Boolean);
+    var shopPanel = document.getElementById("shop-panel");
+    if (!shopPanel) return;
+    var tiles = shopPanel.querySelectorAll(".shop-sheet .tile");
+    var visible = 0;
+    tiles.forEach(function (t) {
+      var ttl = t.querySelector(".ttl");
+      var sub = t.querySelector(".sub");
+      var name = (ttl ? ttl.textContent : "").toLowerCase();
+      var subt = (sub ? sub.textContent : "").toLowerCase();
+      var keys = (t.getAttribute("data-keywords") || "").toLowerCase();
+      var haystack = name + " " + subt + " " + keys;
+      // every search term must appear somewhere (AND match) so multi-word stays precise
+      var match = terms.length === 0 || terms.every(function (term) {
+        return haystack.indexOf(term) !== -1;
+      });
+      t.style.display = match ? "" : "none";
+      if (match) visible++;
+    });
+    // Hide category headings + rows that have no visible tiles
+    var heads = shopPanel.querySelectorAll(".shop-section-head");
+    heads.forEach(function (h) {
+      var bento = h.nextElementSibling;
+      while (bento && !bento.classList.contains("bento")) bento = bento.nextElementSibling;
+      if (!bento) return;
+      var anyVisible = Array.prototype.some.call(bento.querySelectorAll(".tile"), function (t) {
+        return t.style.display !== "none";
+      });
+      h.classList.toggle("hide-sec", !anyVisible);
+      bento.classList.toggle("hide-sec", !anyVisible);
+    });
+    var nr = document.getElementById("shopNoResults");
+    if (nr) nr.classList.toggle("show", visible === 0 && q !== "");
+    // Pause the auto-scroll while searching and snap rows to the left so matches are visible
+    window.__shopSearching = q !== "";
+    var sheet = shopPanel.querySelector(".shop-sheet");
+    if (sheet) sheet.classList.toggle("searching", q !== "");
+    var rows = shopPanel.querySelectorAll(".shop-sheet .bento");
+    if (q !== "") {
+      var snap = function () {
+        rows.forEach(function (row) { row.scrollLeft = 0; });
+      };
+      snap();
+      requestAnimationFrame(snap);
+      requestAnimationFrame(function () { requestAnimationFrame(snap); });
+    }
+  };
+
+  window.clearShopSearch = function () {
+    var input = document.getElementById("shopSearchInput");
+    if (input) input.value = "";
+    filterShopProducts();
+  };
+
+  window.hotSearch = function (term) {
+    var row = document.getElementById("shopSearchRow");
+    var btn = document.getElementById("shopSearchBtn");
+    var input = document.getElementById("shopSearchInput");
+    var hot = document.getElementById("shopHot");
+    if (row && !row.classList.contains("open")) { row.classList.add("open"); if (btn) btn.classList.add("active"); }
+    if (hot) hot.classList.add("open");
+    if (input) { input.value = term; input.focus(); }
+    filterShopProducts();
+  };
+
   window.showQuestion = function (e) {
     if (e) e.preventDefault();
     hideAll();
@@ -132,7 +216,10 @@
 
       function step() {
         var max = row.scrollWidth - row.clientWidth;
-        if (max > 4 && !paused) {
+        if (window.__shopSearching) {
+          if (row.scrollLeft !== 0) { row.scrollLeft = 0; }
+          pos = 0;
+        } else if (max > 4 && !paused) {
           pos += SPEED;
           if (pos >= max) pos = 0;        // loop back to start
           row.scrollLeft = pos;

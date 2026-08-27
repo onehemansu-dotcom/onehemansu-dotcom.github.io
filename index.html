@@ -108,7 +108,7 @@
     <div class="bento reveal">
       <a class="tile" href="https://amzn.to/4uI1OPM" target="_blank" rel="noopener sponsored" data-label="Product: Motul Chain Kit" data-category="Shop">
         <div class="pimg"><img src="images/02-motul-chain-cleaner-and-lube.webp" alt="Motul chain cleaner and lube" /></div>
-        <div class="tinfo"><div class="ttl">Motul Chain Kit</div><div class="sub">Cleaner + lube</div></div>
+        <div class="tinfo"><div class="ttl">Motul Chain Kit</div><div class="sub">Cleaner + lube + brush</div></div>
       </a>
       <a class="tile" href="https://amzn.to/4txp7uK" target="_blank" rel="noopener sponsored" data-label="Product: Tank Cover" data-category="Shop">
         <div class="pimg"><img src="images/03-motorcycle-tank-cover.webp" alt="Motorcycle tank cover" /></div>
@@ -187,6 +187,7 @@
 <!-- ===== ABOUT PANEL ===== -->
 <div id="about-panel">
   <section class="hero hero-about">
+    <span class="hero-watermark" aria-hidden="true">OG</span>
     <div class="hero-smoke" aria-hidden="true">
       <span class="smoke s1"></span>
       <span class="smoke s2"></span>
@@ -250,6 +251,7 @@
 <!-- ===== SHOP PANEL ===== -->
 <div id="shop-panel">
   <section class="hero hero-shop">
+    <span class="hero-watermark" aria-hidden="true">OG</span>
     <div class="hero-smoke" aria-hidden="true">
       <span class="smoke s1"></span>
       <span class="smoke s2"></span>
@@ -274,45 +276,89 @@
   </section>
 
   <section class="shop-sheet">
+    <div class="shop-count-wrap reveal">
+      <div class="id-stats shop-count">
+        <span class="stat">
+          <svg class="stat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a1 1 0 001 1h16a1 1 0 001-1V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <b class="count" data-target="17" data-suffix=" Products">0</b>
+        </span>
+        <span class="stat-dot"></span>
+        <span class="stat">
+          <svg class="stat-ico stat-ico-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3l2.3 1.6 2.8-.2 1 2.6 2.3 1.6-.9 2.6.9 2.6-2.3 1.6-1 2.6-2.8-.2L12 21l-2.3-1.6-2.8.2-1-2.6L3.6 15l.9-2.6-.9-2.6 2.3-1.6 1-2.6 2.8.2z"/></svg>
+          <b>Trusted &amp; Verified</b>
+        </span>
+      </div>
+      <button class="shop-search-btn" id="shopSearchBtn" onclick="toggleShopSearch()" aria-label="Search products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+    </div>
+    <div class="shop-search-row" id="shopSearchRow">
+      <svg class="shop-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="shopSearchInput" placeholder="Search products..." oninput="filterShopProducts()" autocomplete="off" />
+      <button class="shop-search-clear" id="shopSearchClear" onclick="clearShopSearch()" aria-label="Clear">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="shop-hot" id="shopHot">
+      <button class="hot-chip" onclick="hotSearch('shampoo')">Shampoo</button>
+      <button class="hot-chip" onclick="hotSearch('polish')">Polish</button>
+    </div>
+    <p class="shop-noresults" id="shopNoResults">No products match your search.</p>
     <h3 class="shop-section-head reveal">Maintenance and Care</h3>
     <div class="bento reveal">
-      <a class="tile" href="https://amzn.to/4uI1OPM" target="_blank" rel="noopener sponsored" data-label="Product: Motul Chain Kit" data-category="Shop">
+      <a class="tile" href="https://amzn.to/4uI1OPM" target="_blank" rel="noopener sponsored" data-label="Product: Motul Chain Kit" data-category="Shop" data-keywords="bike chain lube chain lube bike chain cleaner chain cleaner bike chain kit chain spray chain oil bike chain maintenance motorcycle chain lube chain cleaning motul">
         <div class="pimg"><img src="images/02-motul-chain-cleaner-and-lube.webp" alt="Motul Chain Kit" /></div>
         <div class="tinfo"><div class="ttl">Motul Chain Kit</div><div class="sub">Cleaner + lube + brush</div></div>
       </a>
-      <a class="tile" href="https://amzn.to/3Q7p23c" target="_blank" rel="noopener sponsored" data-label="Product: Aerol Silicone Spray" data-category="Shop">
+      <a class="tile" href="https://amzn.to/3Q7p23c" target="_blank" rel="noopener sponsored" data-label="Product: Aerol Silicone Spray" data-category="Shop" data-keywords="silicone spray silicone spray for bike bike silicone spray rubber spray bike polish spray plastic polish spray silicone lubricant bike maintenance spray rubber care spray silicone oil spray aerol shine gloss bike shine">
         <div class="pimg"><img src="images/13-aerol-silicone-spray.webp" alt="Aerol Silicone Spray" /></div>
         <div class="tinfo"><div class="ttl">Aerol Silicone Spray</div><div class="sub">Multipurpose shine</div></div>
       </a>
-      <a class="tile" href="https://shorturl.at/6VX7N" target="_blank" rel="noopener sponsored" data-label="Product: Matte Care Kit" data-category="Shop">
+      <a class="tile" href="https://shorturl.at/6VX7N" target="_blank" rel="noopener sponsored" data-label="Product: Matte Care Kit" data-category="Shop" data-keywords="matte bike polish matte bike cleaner matte paint care matte bike care matte polish matte paint cleaner bike polish for matte paint matte finish cleaner matte bike polish kit bike care kit matte shampoo shampoo bike shampoo wash bike wash">
         <div class="pimg"><img src="images/04-wavex-matte-finish-kit.webp" alt="Matte Care Kit" /></div>
         <div class="tinfo"><div class="ttl">Matte Care Kit</div><div class="sub">For matte bikes</div></div>
       </a>
-      <a class="tile" href="https://link.amazon/B016OZnJB" target="_blank" rel="noopener sponsored" data-label="Product: Fuel Additive" data-category="Shop">
+      <a class="tile" href="https://link.amazon/B016OZnJB" target="_blank" rel="noopener sponsored" data-label="Product: Fuel Additive" data-category="Shop" data-keywords="fuel additive bike fuel additive petrol additive fuel cleaner petrol cleaner engine cleaner fuel injector cleaner bike fuel cleaner petrol treatment fuel treatment liqui moly">
         <div class="pimg"><img src="images/14-fuel-additive.webp" alt="Fuel Additive" /></div>
         <div class="tinfo"><div class="ttl">Fuel Additive</div><div class="sub">System cleaner</div></div>
       </a>
-      <a class="tile" href="https://link.amazon/B01gHJSXr" target="_blank" rel="noopener sponsored" data-label="Product: WD-40" data-category="Shop">
+      <a class="tile" href="https://link.amazon/B01gHJSXr" target="_blank" rel="noopener sponsored" data-label="Product: WD-40" data-category="Shop" data-keywords="wd40 wd 40 wd40 spray wd40 for bike bike wd40 wd40 uses wd40 lubricant wd40 chain wd40 rust remover wd40 spray for bike rust">
         <div class="pimg"><img src="images/15-wd-40.webp" alt="WD-40" /></div>
         <div class="tinfo"><div class="ttl">WD-40</div><div class="sub">Multi-use spray</div></div>
       </a>
-      <a class="tile" href="https://amzn.to/4eBTNag" target="_blank" rel="noopener sponsored" data-label="Product: 3M Bike Care Kit" data-category="Shop">
+      <a class="tile" href="https://amzn.to/4eBTNag" target="_blank" rel="noopener sponsored" data-label="Product: 3M Bike Care Kit" data-category="Shop" data-keywords="bike care kit bike cleaning kit bike polish bike cleaner motorcycle cleaning kit bike polish kit bike cleaning products bike wash kit bike maintenance kit motorcycle care kit 3m gloss shampoo bike shampoo wash bike wash shine bike shine">
         <div class="pimg"><img src="images/16-3m-bike-care-kit.jpg" alt="3M Bike Care Kit" /></div>
         <div class="tinfo"><div class="ttl">3M Bike Care Kit</div><div class="sub">Only for gloss bikes</div></div>
+      </a>
+      <a class="tile" href="https://car101.in/products/car-shampoo" target="_blank" rel="noopener sponsored" data-label="Product: Foam Shampoo" data-category="Shop" data-keywords="bike foam shampoo bike shampoo car foam shampoo bike wash shampoo foam wash bike cleaner bike washing shampoo snow foam motorcycle shampoo bike wash shampoo car101">
+        <div class="pimg"><img src="images/23-car101-super-foam-wash.png" alt="Foam Shampoo" /></div>
+        <div class="tinfo"><div class="ttl">Foam Shampoo</div><div class="sub">Snow foam concentrate</div></div>
+      </a>
+      <a class="tile" href="https://car101.in/products/helmet-and-gear-cleaner" target="_blank" rel="noopener sponsored" data-label="Product: Helmet Cleaner" data-category="Shop" data-keywords="helmet cleaner helmet cleaning helmet cleaning spray helmet wash helmet cleaner spray helmet cleaning kit helmet interior cleaner helmet padding cleaner helmet foam cleaner how to clean helmet car101">
+        <div class="pimg"><img src="images/24-car101-helmet-cleaner.png" alt="Helmet Cleaner" /></div>
+        <div class="tinfo"><div class="ttl">Helmet Cleaner</div><div class="sub">Anti-bacterial + cloth</div></div>
+      </a>
+      <a class="tile" href="https://car101.in/products/car01-graphene-ceramic-coating-300ml" target="_blank" rel="noopener sponsored" data-label="Product: Graphene Ceramic Coating" data-category="Shop" data-keywords="bike ceramic coating ceramic coating graphene coating bike coating ceramic coating for bike bike paint coating graphene ceramic coating bike ceramic coating price bike coating kit ceramic coating kit car101 shine gloss bike shine wax polish bike polish">
+        <div class="pimg"><img src="images/25-car101-graphene-ceramic-coating.png" alt="Graphene Ceramic Coating" /></div>
+        <div class="tinfo"><div class="ttl">Graphene Ceramic Coating</div><div class="sub">Gloss + protection</div></div>
+      </a>
+      <a class="tile" href="https://car101.in/products/450-gsm" target="_blank" rel="noopener sponsored" data-label="Product: Microfibre Cloth" data-category="Shop" data-keywords="microfiber cloth microfibre cloth bike cleaning cloth car cleaning cloth microfiber towel bike polish cloth cleaning cloth microfiber cloth for bike car microfiber cloth bike cleaning towel car101">
+        <div class="pimg"><img src="images/26-car101-microfibre-cloth.png" alt="Microfibre Cloth" /></div>
+        <div class="tinfo"><div class="ttl">Microfibre Cloth</div><div class="sub">550 GSM, pack of 2</div></div>
       </a>
     </div>
 
     <h3 class="shop-section-head reveal">Tools and Kits</h3>
     <div class="bento reveal">
-      <a class="tile" href="https://link.amazon/B0dEwTdGo" target="_blank" rel="noopener sponsored" data-label="Product: Tyre Inflator" data-category="Shop">
+      <a class="tile" href="https://link.amazon/B0dEwTdGo" target="_blank" rel="noopener sponsored" data-label="Product: Tyre Inflator" data-category="Shop" data-keywords="bike tyre inflator tyre inflator portable tyre inflator bike air pump tyre air pump electric tyre inflator bike tyre pump portable air pump tyre pump car tyre inflator tire">
         <div class="pimg"><img src="images/17-tyre-inflator.webp" alt="Tyre Inflator" /></div>
         <div class="tinfo"><div class="ttl">Tyre Inflator</div><div class="sub">Portable, digital</div></div>
       </a>
-      <a class="tile" href="https://link.amazon/B0cfZ5Rf7" target="_blank" rel="noopener sponsored" data-label="Product: Puncture Kit" data-category="Shop">
+      <a class="tile" href="https://link.amazon/B0cfZ5Rf7" target="_blank" rel="noopener sponsored" data-label="Product: Puncture Kit" data-category="Shop" data-keywords="bike puncture kit tubeless puncture kit puncture repair kit bike puncture repair tubeless puncture repair tyre puncture kit puncture kit for bike tubeless repair kit tyre repair kit bike tyre repair">
         <div class="pimg"><img src="images/18-puncture-kit.webp" alt="Puncture Kit" /></div>
         <div class="tinfo"><div class="ttl">Puncture Kit</div><div class="sub">Roadside fix</div></div>
       </a>
-      <a class="tile" href="https://link.amazon/B0cZU0jyj" target="_blank" rel="noopener sponsored" data-label="Product: Tool Kit" data-category="Shop">
+      <a class="tile" href="https://link.amazon/B0cZU0jyj" target="_blank" rel="noopener sponsored" data-label="Product: Tool Kit" data-category="Shop" data-keywords="bike tool kit motorcycle tool kit bike repair kit bike tools motorcycle tools bike toolkit bike repair tools bike mechanic tools bike maintenance tools bike tool set socket">
         <div class="pimg"><img src="images/19-tool-kit.webp" alt="Tool Kit" /></div>
         <div class="tinfo"><div class="ttl">Tool Kit</div><div class="sub">46-pc socket set</div></div>
       </a>
@@ -320,15 +366,15 @@
 
     <h3 class="shop-section-head reveal">Riding Gears</h3>
     <div class="bento reveal">
-      <a class="tile" href="https://amzn.to/3Pjt08w" target="_blank" rel="noopener sponsored" data-label="Product: RE Riding Jacket" data-category="Shop">
+      <a class="tile" href="https://amzn.to/3Pjt08w" target="_blank" rel="noopener sponsored" data-label="Product: RE Riding Jacket" data-category="Shop" data-keywords="royal enfield riding jacket re riding jacket bike riding jacket motorcycle riding jacket riding jacket riding gear royal enfield jacket riding jacket for men bike jacket motorcycle jacket">
         <div class="pimg"><img src="images/20-re-riding-jacket.webp" alt="RE Riding Jacket" /></div>
         <div class="tinfo"><div class="ttl">RE Riding Jacket</div><div class="sub">All-season</div></div>
       </a>
-      <a class="tile" href="https://link.amazon/B01JRESSp" target="_blank" rel="noopener sponsored" data-label="Product: SMK Helmet" data-category="Shop">
+      <a class="tile" href="https://link.amazon/B01JRESSp" target="_blank" rel="noopener sponsored" data-label="Product: SMK Helmet" data-category="Shop" data-keywords="smk helmet smk helmets smk helmet price smk full face helmet smk helmet review smk bike helmet smk helmet visor smk helmet size smk helmet india best smk helmet">
         <div class="pimg"><img src="images/21-smk-helmet.webp" alt="SMK Helmet" /></div>
         <div class="tinfo"><div class="ttl">SMK Helmet</div><div class="sub">Full-face, matte</div></div>
       </a>
-      <a class="tile" href="https://link.amazon/B0e4g5lO8" target="_blank" rel="noopener sponsored" data-label="Product: Riding Shoes" data-category="Shop">
+      <a class="tile" href="https://link.amazon/B0e4g5lO8" target="_blank" rel="noopener sponsored" data-label="Product: Riding Shoes" data-category="Shop" data-keywords="riding shoes bike riding shoes motorcycle riding shoes riding boots bike shoes motorcycle shoes riding shoes for men waterproof riding shoes riding boots for men best riding shoes">
         <div class="pimg"><img src="images/22-riding-shoes.webp" alt="Riding Shoes" /></div>
         <div class="tinfo"><div class="ttl">Riding Shoes</div><div class="sub">All-weather</div></div>
       </a>
@@ -336,7 +382,7 @@
 
     <h3 class="shop-section-head reveal">Accessories</h3>
     <div class="bento reveal">
-      <a class="tile" href="https://amzn.to/4txp7uK" target="_blank" rel="noopener sponsored" data-label="Product: Tank Cover" data-category="Shop">
+      <a class="tile" href="https://amzn.to/4txp7uK" target="_blank" rel="noopener sponsored" data-label="Product: Tank Cover" data-category="Shop" data-keywords="bike tank cover fuel tank cover tank cover for bike motorcycle tank cover bike tank protector tank protection bike tank protector cover fuel tank protector bike tank pad tank pad">
         <div class="pimg"><img src="images/03-motorcycle-tank-cover.webp" alt="Tank Cover" /></div>
         <div class="tinfo"><div class="ttl">Tank Cover</div><div class="sub">Protect + storage</div></div>
       </a>
