@@ -11,29 +11,6 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-/* ===== Intro word-cycling loader ===== */
-.loader{
-  position: fixed; inset: 0; z-index: 9999;
-  background: #0b0b0b;
-  transition: opacity .35s ease;
-}
-.loader.hide{ opacity: 0; pointer-events: none; }
-.loader-word{
-  position: absolute; top: 284px; left: 0; right: 0;
-  text-align: center;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-weight: 300; font-size: clamp(20px, 6vw, 32px);
-  line-height: 1;
-  letter-spacing: 0;
-  color: #fff; opacity: 1;
-  transition: opacity .09s ease;
-}
-.loader-word.fade{ opacity: 0; }
-@media (prefers-reduced-motion: reduce){
-  .loader, .loader-word{ transition: none; }
-}
-
 html, body { background: var(--peach-body); }
 body {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -248,8 +225,8 @@ body {
 .id-stats .stat-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--coral); opacity: .5; }
 .shop-count-wrap { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 0 0 22px; }
 .id-stats.shop-count { flex: 0 0 auto; }
-.shop-search-btn { flex: 0 0 auto; align-self: stretch; display: inline-flex; align-items: center; justify-content: center; padding: 0 15px; border: none; cursor: pointer; border-radius: 40px; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.12); color: var(--coral-deep); transition: background .2s, color .2s, transform .15s; }
-.shop-search-btn:hover { background: #fff; box-shadow: 0 3px 12px rgba(0,0,0,0.16); }
+.shop-search-btn { flex: 0 0 auto; align-self: stretch; display: inline-flex; align-items: center; justify-content: center; padding: 0 15px; border: none; cursor: pointer; border-radius: 40px; background: #fff4ee; backdrop-filter: blur(6px); box-shadow: 0 3px 12px rgba(0,0,0,0.3); color: var(--coral-deep); transition: background .2s, color .2s, transform .15s; }
+.shop-search-btn:hover { background: #fffaf7; }
 .shop-search-btn:active { transform: scale(.94); }
 .shop-search-btn svg { width: 18px; height: 18px; stroke-width: 2.4; }
 .shop-search-btn.active { background: var(--coral); color: #fff; }
@@ -368,11 +345,11 @@ body {
 .sec-head h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; color: var(--coral-deep); }
 .pill {
   display: inline-flex; align-items: center; justify-content: center;
-  height: 28px; padding: 0 12px;
-  background: #ffffff; color: var(--coral-deep);
-  border-radius: 40px; text-decoration: none;
+  width: 34px; height: 34px;
+  background: linear-gradient(160deg, var(--card) 0%, #fff6f0 100%); color: var(--coral-deep);
+  border-radius: 50%; text-decoration: none;
   font-size: 0; overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 .pill .chev { display: inline-flex; }
 .pill .chev svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -991,10 +968,57 @@ body[data-theme="dark"] .offer-btn {
 
 /* dark: the round arrow button fades to cream (#fff6f0) in the light default */
 body[data-theme="dark"] .pill {
-  background: #ffffff !important;
-  color: var(--coral-deep) !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+  background: linear-gradient(160deg, #2D2D2D 0%, #262626 100%) !important;
+  color: #FF6B35 !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4) !important;
 }
 /* dark: email highlight was using the muted hover tone */
 body[data-theme="dark"] .work-email { color: #FF6B35 !important; }
 
+
+/* ============ HERO AD — microfibre poster (home hero) ============ */
+.hero.hero-ad { height: 540px; }
+.ad-head {
+  position: absolute;
+  top: 62px; left: 16px; right: 16px;
+  z-index: 2;                       /* behind the photo so the hair overlaps the type */
+  text-align: center;
+  font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+}
+.ad-head span { display: block; }
+.ad-l1 { font-size: 2.3rem; }
+.ad-l2 { font-size: 2.95rem; }
+.hero-ad .hero-photo {
+  left: 50%;
+  height: auto;
+  width: 88%;
+  transform: translateX(-50%);
+}
+.ad-sticker {
+  position: absolute;
+  right: 16px; top: 262px;
+  z-index: 5;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--coral);
+  color: #fff;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: 1.15rem;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  outline: 2px dashed rgba(255,255,255,0.75);
+  outline-offset: -7px;
+  transform: rotate(-10deg);
+  box-shadow: 0 8px 20px rgba(241,90,36,0.35);
+  transition: transform .18s;
+}
+.ad-sticker:active { transform: rotate(-10deg) scale(.92); }
+.ad-sticker:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }

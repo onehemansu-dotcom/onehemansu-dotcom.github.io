@@ -1,42 +1,3 @@
-/* ===== Intro word-cycling loader (Apple boot-style) ===== */
-(function(){
-  var GREETINGS = ['Hello','नमस्ते','ನಮಸ್ಕಾರ','வணக்கம்','నమస్కారం','নমস্কার','नमस्कार','السلام علیکم'];
-  var DWELL = [900, 130, 130, 130, 130, 130, 130, 700];
-
-  var loaderEl = document.getElementById('loader');
-  var wordEl   = document.getElementById('loaderWord');
-  if (!loaderEl || !wordEl) return;
-
-  var reduceMotion = window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var i = 0;
-
-  function finish(){
-    loaderEl.classList.add('hide');
-    setTimeout(function(){ if (loaderEl && loaderEl.parentNode) loaderEl.remove(); }, 380);
-  }
-
-  function step(){
-    setTimeout(function(){
-      i++;
-      if (i >= GREETINGS.length){ finish(); return; }
-      if (reduceMotion){
-        wordEl.textContent = GREETINGS[i];
-        step();
-      } else {
-        wordEl.classList.add('fade');
-        setTimeout(function(){
-          wordEl.textContent = GREETINGS[i];
-          wordEl.classList.remove('fade');
-          step();
-        }, 15);
-      }
-    }, DWELL[i]);
-  }
-
-  step();
-})();
-
 (function () {
   "use strict";
 
@@ -359,10 +320,58 @@
       });
   };
 
+  /* ---------- Confetti popper ---------- */
+  function fireConfetti() {
+    var anchor = document.querySelector(".id-stats");
+    if (!anchor) return;
+    var rect = anchor.getBoundingClientRect();
+    var originX = rect.left + rect.width / 2;
+    var originY = rect.top + rect.height / 2 - 4;
+
+    var colors = ["#ff5100", "#ff8a3d", "#ffd23f", "#f15a24", "#ffffff", "#ff3b30"];
+    var container = document.createElement("div");
+    container.style.cssText = "position:fixed;top:" + originY + "px;left:" + originX + "px;width:0;height:0;z-index:9999;pointer-events:none;";
+    document.body.appendChild(container);
+
+    var N = 40;
+    for (var i = 0; i < N; i++) {
+      var piece = document.createElement("span");
+      var size = 5 + Math.random() * 6;
+      var color = colors[Math.floor(Math.random() * colors.length)];
+      var angle = (Math.random() - 0.5) * 1.4; // spread left/right
+      var vx = angle * (80 + Math.random() * 80);
+      var vy = -(340 + Math.random() * 160); // strong upward launch
+      var rot = (Math.random() - 0.5) * 720;
+      var dur = 1300 + Math.random() * 500;
+      piece.style.cssText =
+        "position:absolute;top:0;left:0;width:" + size + "px;height:" + (size * (Math.random() > .5 ? 1 : 0.5)) + "px;" +
+        "background:" + color + ";border-radius:" + (Math.random() > .5 ? "50%" : "1px") + ";opacity:1;will-change:transform,opacity;";
+      container.appendChild(piece);
+
+      (function (el, vx, vy, rot, dur) {
+        var start = null;
+        var g = 620; // gravity
+        function frame(ts) {
+          if (start === null) start = ts;
+          var t = (ts - start) / 1000;
+          var x = vx * t;
+          var y = vy * t + 0.5 * g * t * t;
+          var p = (ts - start) / dur;
+          el.style.transform = "translate(" + x + "px," + y + "px) rotate(" + (rot * t) + "deg)";
+          el.style.opacity = String(Math.max(0, 1 - p * p));
+          if (p < 1) requestAnimationFrame(frame);
+          else if (el.parentNode) el.parentNode.removeChild(el);
+        }
+        requestAnimationFrame(frame);
+      })(piece, vx, vy, rot, dur);
+    }
+    setTimeout(function () { if (container.parentNode) container.parentNode.removeChild(container); }, 2100);
+  }
+
   /* ---------- Stat count-up animation ---------- */
   function animateCounts() {
     var els = document.querySelectorAll(".count");
-    if (!els.length) { return; }
+    if (!els.length) { fireConfetti(); return; }
     var DURATION = 1000;
     var done = 0;
     els.forEach(function (el) {
@@ -384,6 +393,7 @@
         else {
           el.textContent = fmt(target);
           done++;
+          if (done === els.length) fireConfetti();
         }
       }
       requestAnimationFrame(step);
