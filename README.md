@@ -56,3 +56,11 @@ Dark palette:
 | Muted  | #A89A91 |
 | Accent | #FF6B35 |
 | Hover  | #FF8557 |
+
+## Navratri theme (Oct 2026)
+Light festive touches on every page: warm string lights at the top, marigold
+swags on the hero arches, faint bandhani dots on backgrounds, marigold beads
+after section titles, and faint garba dancers on the home hero arch.
+
+**Switch it all off:** remove `class="navratri"` from `<body>` in `index.html`.
+Festive elements carry class `.nv`; the lights are built by the last block in `app.js`.

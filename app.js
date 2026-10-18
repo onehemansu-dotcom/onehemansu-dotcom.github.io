@@ -551,3 +551,30 @@
   });
 
 })();
+
+/* ---------- Navratri: warm string lights (only while <body class="navratri">) ---------- */
+(function () {
+  "use strict";
+  if (!document.body.classList.contains("navratri")) return;
+  function lightsSVG(gid) {
+    var W = 390, n = 5, sw = W / n, sag = 11, wire = [], bulbs = [];
+    for (var k = 0; k < n; k++) {
+      var x0 = k * sw, x1 = x0 + sw;
+      wire.push("M" + x0.toFixed(1) + ",2 Q" + ((x0 + x1) / 2).toFixed(1) + "," + (2 + 2 * sag) + " " + x1.toFixed(1) + ",2");
+      for (var j = 1; j < 8; j++) {
+        var u = j / 8, x = x0 + u * sw, y = 2 + sag * 4 * u * (1 - u), by = y + 4.2, i = bulbs.length;
+        bulbs.push('<g class="lb lb' + (i % 2) + '">' +
+          '<circle cx="' + x.toFixed(1) + '" cy="' + by.toFixed(1) + '" r="7" fill="url(#' + gid + ')"/>' +
+          '<path d="M' + x.toFixed(1) + " " + y.toFixed(1) + "V" + (by - 2.2).toFixed(1) + '" stroke="currentColor" stroke-width="1.6"/>' +
+          '<ellipse cx="' + x.toFixed(1) + '" cy="' + by.toFixed(1) + '" rx="2.3" ry="2.9" fill="#FFC75A"/>' +
+          '<circle cx="' + (x - 0.7).toFixed(1) + '" cy="' + (by - 0.9).toFixed(1) + '" r="0.9" fill="#FFF3D1"/></g>');
+      }
+    }
+    return '<svg viewBox="0 0 390 22" aria-hidden="true"><defs><radialGradient id="' + gid + '">' +
+      '<stop offset="0" stop-color="#FFB547" stop-opacity=".75"/><stop offset="1" stop-color="#FFB547" stop-opacity="0"/>' +
+      '</radialGradient></defs><path d="' + wire.join(" ") + '" fill="none" stroke="currentColor" stroke-width="1"/>' +
+      bulbs.join("") + "</svg>";
+  }
+  var slots = document.querySelectorAll(".nv-lights");
+  for (var i = 0; i < slots.length; i++) slots[i].innerHTML = lightsSVG("nvGlow" + i);
+})();
