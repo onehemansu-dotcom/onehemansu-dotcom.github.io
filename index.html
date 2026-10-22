@@ -24,13 +24,13 @@
   })(window,document,"clarity","script","xbnj8ij4lf");
 </script>
 </head>
-<body class="navratri">
+<body>
 <main class="wrap">
 <div id="home-panel">
 
   <!-- ===== HERO ===== -->
   <section class="hero hero-ad festive">
-    <!-- NAVRATRI: everything tagged .nv is festive; remove class "navratri" from <body> to switch it all off -->
+    <!-- NAVRATRI (off): festive bits are tagged .nv; add class="navratri" to <body> to switch them back on -->
     <div class="nv nv-lights" aria-hidden="true"></div>
     <!-- NAVRATRI: garba dancers on both slopes of the arch, behind the photo -->
     <div class="nv garba-ring" aria-hidden="true">
@@ -42,10 +42,18 @@
       <span class="gd gd-r2"><svg viewBox="0 -10 60 106"><use href="#gb-woman"/></svg></span>
       <span class="gd gd-r3"><svg viewBox="0 -10 60 106"><use href="#gb-man" transform="matrix(-1 0 0 1 60 0)"/></svg></span>
     </div>
-    <p class="ad-head">
-      <span class="ad-l1">Here's the</span>
-      <span class="ad-l2">email template</span>
-    </p>
+    <!-- HERO = latest video. Change the headline, image and reel link for each new video,
+         and add the video to the Video Links page. -->
+    <div class="ad-top">
+      <p class="ad-head">
+        <span class="ad-l1">Before you give</span>
+        <span class="ad-l2">the keys</span>
+      </p>
+      <a class="ad-cta" href="https://www.instagram.com/reel/DewrignhHhk/" target="_blank" rel="noopener" data-label="Hero: Watch Latest Reel" data-category="Hero">
+        Watch latest reel
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      </a>
+    </div>
     <div class="hero-smoke" aria-hidden="true">
       <span class="smoke s1"></span>
       <span class="smoke s2"></span>
@@ -53,15 +61,10 @@
       <span class="smoke s4"></span>
     </div>
     <span class="hero-glow" aria-hidden="true"></span>
-    <!-- photo + clickable clipboard share one box, so the button stays on the paper at every screen size -->
     <div class="ad-figure">
-      <img class="ad-photo" src="images/28-hemansu-singh-email-template-og-ladka.webp" alt="Hemansu Singh pointing at an email template on a clipboard" />
-      <a class="ad-paper" href="https://docs.google.com/document/d/1CWmXkINnt4iCXGgHu6rlAf1vksH7OIdk3v8otmYlCcs/view" target="_blank" rel="noopener" data-label="Hero Ad: Email Template" data-category="Hero Ad" aria-label="Open the email template">
-        <span class="ad-tap" aria-hidden="true">
-          <span class="ad-ripple"></span>
-          <svg class="ad-cursor" viewBox="0 0 17 19"><path d="M1.5 1.5l13 7.2-5.6 1.5-3 6.3z" fill="#fff" stroke="#1a1a1a" stroke-width="1.4" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
+      <img class="ad-photo" src="images/32-before-you-give-the-keys-og-ladka.webp" alt="Hemansu Singh going over his Royal Enfield Classic 350 with a service technician" />
+      <img class="ad-hand" src="images/32-before-you-give-the-keys-hand.webp" alt="" aria-hidden="true" />
+      <img class="ad-advisor" src="images/32-before-you-give-the-keys-advisor-head.webp" alt="" aria-hidden="true" />
     </div>
     <nav class="home-socials">
       <a href="https://instagram.com/ogladkaa" target="_blank" rel="noopener" data-label="Social: Instagram" data-category="Social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
@@ -111,7 +114,7 @@
             <b class="count" data-target="5" data-suffix="+ yrs">0</b>
           </span>
         </div>
-        <a class="offer-btn" href="#announcement" onclick="showAnnouncement(event)" data-label="Nav: Announcement" data-category="Announcement" aria-label="Offers">🎉</a>
+        <a class="offer-btn" href="#video-links" onclick="showAnnouncement(event)" data-label="Nav: Video Links" data-category="Video Links" aria-label="Links from my videos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13.5a4.5 4.5 0 006.4.2l2.8-2.8a4.5 4.5 0 00-6.4-6.4l-1.2 1.2"/><path d="M14 10.5a4.5 4.5 0 00-6.4-.2l-2.8 2.8a4.5 4.5 0 006.4 6.4l1.2-1.2"/></svg></a>
       </div>
     </div>
 
@@ -483,16 +486,56 @@
   </div>
 </div>
 
-<!-- ===== ANNOUNCEMENT PANEL ===== -->
+<!-- ===== VIDEO LINKS PANEL (id kept as announcement-panel for app.js) ===== -->
 <div id="announcement-panel">
   <div class="nv nv-lights" aria-hidden="true"></div>
   <nav class="home-socials" style="position:static; margin-bottom:8px;">
     <a href="#home" onclick="showHome(event)" data-label="Nav: Back to Home" data-category="Navigation" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
   </nav>
-  <div class="work-wrap reveal">
-    <div class="work-icon">🎉</div>
-    <h2>This page is under maintenance</h2>
-    <p>We will be back soon.</p>
+  <div class="access-hero reveal"><div class="eyebrow" aria-hidden="true">&nbsp;</div><h2>Links from my videos</h2><p>Came here from an older reel? Find the video below and grab its link.</p></div>
+
+  <!-- VIDEO LINKS — newest on top. For a new video, copy one card and change:
+       the reel cover (images/), title, one-line blurb, product link + button label,
+       and the reel URL (used twice: thumbnail + Watch video). Move "Latest" to the new card. -->
+  <div class="vl-list">
+
+    <article class="vl-card reveal">
+      <a class="vl-thumb" href="https://www.instagram.com/reel/Deo7svjpq50/" target="_blank" rel="noopener" data-label="Video Links: Insurance Mods Email - Thumbnail" data-category="Video Links" aria-label="Watch: Email them to save money"><img src="images/29-reel-email-insurance-mods.webp" alt="Reel cover: Email them to save money" loading="lazy" /></a>
+      <div class="vl-body">
+        <span class="vl-tag">Latest</span>
+        <h3 class="vl-title">Email them to save money</h3>
+        <p class="vl-sub">How to declare bike modifications to your insurer.</p>
+        <div class="vl-actions">
+          <a class="vl-btn vl-btn-main" href="https://docs.google.com/document/d/1CWmXkINnt4iCXGgHu6rlAf1vksH7OIdk3v8otmYlCcs/view" target="_blank" rel="noopener" data-label="Video Links: Insurance Mods Email - Link" data-category="Video Links">Open template</a>
+          <a class="vl-btn vl-btn-ghost" href="https://www.instagram.com/reel/Deo7svjpq50/" target="_blank" rel="noopener" data-label="Video Links: Insurance Mods Email - Watch" data-category="Video Links">Watch video</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="vl-card reveal">
+      <a class="vl-thumb" href="https://www.instagram.com/reel/DeXGaTtprFi/" target="_blank" rel="noopener" data-label="Video Links: Microfibre Cloth - Thumbnail" data-category="Video Links" aria-label="Watch: Don't use this cloth"><img src="images/30-reel-dont-use-this-cloth.webp" alt="Reel cover: Don't use this cloth" loading="lazy" /></a>
+      <div class="vl-body">
+        <h3 class="vl-title">Don't use this cloth</h3>
+        <p class="vl-sub">Picking the right cloth to keep your paint scratch-free.</p>
+        <div class="vl-actions">
+          <a class="vl-btn vl-btn-main" href="https://car101.in/products/car101-automotive-microfibre-towels-for-car-bike-cleaning-polishing-washing-detailing" target="_blank" rel="noopener sponsored" data-label="Video Links: Microfibre Cloth - Link" data-category="Video Links">Check out the cloth</a>
+          <a class="vl-btn vl-btn-ghost" href="https://www.instagram.com/reel/DeXGaTtprFi/" target="_blank" rel="noopener" data-label="Video Links: Microfibre Cloth - Watch" data-category="Video Links">Watch video</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="vl-card reveal">
+      <a class="vl-thumb" href="https://www.instagram.com/reel/DdMNz_6pp-P/" target="_blank" rel="noopener" data-label="Video Links: Tyre Polish - Thumbnail" data-category="Video Links" aria-label="Watch: Best tyre polish?"><img src="images/31-reel-best-tyre-polish.webp" alt="Reel cover: Best tyre polish?" loading="lazy" /></a>
+      <div class="vl-body">
+        <h3 class="vl-title">Best tyre polish?</h3>
+        <p class="vl-sub">Keeping tyres and trims looking new, the right way.</p>
+        <div class="vl-actions">
+          <a class="vl-btn vl-btn-main" href="https://car101.in/products/car101-unlock-code-black-tyre-trim-restorer-coating-spray" target="_blank" rel="noopener sponsored" data-label="Video Links: Tyre Polish - Link" data-category="Video Links">Check out the tyre polish</a>
+          <a class="vl-btn vl-btn-ghost" href="https://www.instagram.com/reel/DdMNz_6pp-P/" target="_blank" rel="noopener" data-label="Video Links: Tyre Polish - Watch" data-category="Video Links">Watch video</a>
+        </div>
+      </div>
+    </article>
+
   </div>
 </div>
 

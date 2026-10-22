@@ -371,7 +371,7 @@
   /* ---------- Stat count-up animation ---------- */
   function animateCounts() {
     var els = document.querySelectorAll(".count");
-    if (!els.length) { fireConfetti(); return; }
+    if (!els.length) return;
     var DURATION = 1000;
     var done = 0;
     els.forEach(function (el) {
@@ -393,7 +393,6 @@
         else {
           el.textContent = fmt(target);
           done++;
-          if (done === els.length) fireConfetti();
         }
       }
       requestAnimationFrame(step);
@@ -500,7 +499,7 @@
     // reveal cards on scroll into view
     initReveal();
 
-    // Count-up + follower climb + confetti.
+    // Count-up + follower climb (confetti burst removed Oct 2026).
     // Fires on first scroll, OR immediately if the stats are already on screen
     // (tall displays / tablets have no scroll to trigger, so the old
     //  scroll-only trigger left the counters stuck at 0).

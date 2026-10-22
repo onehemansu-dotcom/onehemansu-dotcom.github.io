@@ -261,9 +261,11 @@ body {
   box-shadow: 0 3px 12px rgba(0,0,0,0.3);
   display: grid; place-items: center;
   font-size: 0.95rem;
+  color: var(--coral-deep);
   text-decoration: none;
   transition: transform .18s;
 }
+.offer-btn svg { width: 17px; height: 17px; }
 .offer-btn:active { transform: scale(.92); }
 
 /* eyebrow labels */
@@ -805,7 +807,7 @@ body {
 #work-panel.active { display: block; }
 #announcement-panel { display: none; padding: 22px 20px 60px; min-height: 100vh; background: var(--card); }
 #announcement-panel.active { display: block; }
-#announcement-panel .work-icon { font-size: 32px; background: linear-gradient(150deg, #fff2ec 0%, #ffe0d2 100%); }
+
 .work-wrap { text-align: center; padding: 30px 6px 10px; max-width: 340px; margin: 0 auto; }
 .work-icon {
   width: 72px; height: 72px; border-radius: 20px;
@@ -961,8 +963,7 @@ body[data-theme="dark"] .hero-smoke .s4 {
 }
 
 /* stats pill + offers button: bright white on peach (light), faint on dark */
-body[data-theme="dark"] .id-stats,
-body[data-theme="dark"] .offer-btn {
+body[data-theme="dark"] .id-stats {
   background: rgba(255,255,255,0.06) !important;
 }
 
@@ -976,14 +977,17 @@ body[data-theme="dark"] .pill {
 body[data-theme="dark"] .work-email { color: #FF6B35 !important; }
 
 
-/* ============ HERO AD — home hero poster ============ */
+/* ============ HERO AD — home hero = the latest video ============ */
 /* Sizes are fluid (vw) and capped at the 390px column, so the poster
    scales down on small phones instead of wrapping or cropping. */
-.hero.hero-ad { height: min(630px, calc(350px + 72vw)); }
-.ad-head {
+.hero.hero-ad { height: min(590px, calc(310px + 72vw)); }
+.ad-top {
   position: absolute;
-  top: 62px; left: 12px; right: 12px;
-  z-index: 2;
+  top: 58px; left: 12px; right: 12px;
+  z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.ad-head {
   text-align: center;
   font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
   font-weight: 400;
@@ -995,88 +999,62 @@ body[data-theme="dark"] .work-email { color: #FF6B35 !important; }
 }
 .ad-head span { display: block; }
 .ad-l1 { font-size: min(1.9rem, 7.8vw); }
-.ad-l2 { font-size: min(3.1rem, 12.7vw); }
+.ad-l2 { font-size: min(4.4rem, 18vw); }
+.ad-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.82rem; font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(241,90,36,0.4);
+  transition: transform .15s;
+}
+.ad-cta svg { width: 13px; height: 13px; fill: currentColor; }
+.ad-cta:active { transform: scale(.95); }
+.ad-cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 
 .ad-figure {
   position: absolute;
   left: 50%;
-  bottom: 140px;
-  height: min(350px, 89.7vw);
-  aspect-ratio: 822 / 900;
+  bottom: 16px;                     /* clear gap under the button; wheels and feet sit under the arch */
+  width: min(390px, 100vw);
+  aspect-ratio: 1 / 1;
   transform: translateX(-50%);
   z-index: 3;
-  container-type: inline-size;
 }
-.ad-photo {
-  display: block; width: 100%; height: 100%;
-  /* soft fade on the cut-off bottom edge */
-  -webkit-mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
-          mask-image: linear-gradient(to bottom, #000 90%, transparent 100%);
-}
-
-/* the clipboard paper itself is the link — no visible button,
-   just a small cursor that taps it on a loop */
-.ad-paper {
+.ad-photo { display: block; width: 100%; height: 100%; }
+/* only his open hand moves: a separate layer pivoting at the sleeve cuff */
+.ad-hand {
   position: absolute;
-  left: 54.8%; top: 49%;
-  width: 31%; height: 37%;
-  transform: rotate(3deg);          /* matches the paper's tilt */
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background-color .2s;
-}
-.ad-paper:hover { background-color: rgba(255,107,53,0.08); }
-.ad-paper:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
-
-.ad-tap {                            /* tap point on the paper */
-  position: absolute;
-  left: 50%; top: 40%;
-  width: 0; height: 0;
+  left: 57.5%; top: 40.03%;
+  width: 13.56%; height: auto;
+  transform-origin: 95.3% 37%;
+  animation: handWiggle 2.4s ease-in-out infinite;
   pointer-events: none;
 }
-.ad-ripple {
+@keyframes handWiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(4deg); }
+}
+/* the advisor's head nods in time with the hand (same 2.4s loop), pivoting at the neck */
+.ad-advisor {
   position: absolute;
-  left: 0; top: 0;
-  width: 46px; height: 46px; margin: -23px 0 0 -23px;
-  width: 15cqw; height: 15cqw; margin: -7.5cqw 0 0 -7.5cqw;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,107,53,0.7);
-  background: rgba(255,107,53,0.10);
-  transform: scale(0);
-  opacity: 0;
-  animation: tapRipple 3.2s ease-out infinite;
+  left: 73.37%; top: 3.51%;
+  width: 18.74%; height: auto;
+  transform-origin: 67.5% 81.5%;
+  animation: advisorNod 2.4s ease-in-out infinite;
+  pointer-events: none;
 }
-.ad-cursor {
-  position: absolute;
-  left: -1px; top: -1px;             /* arrow tip sits on the tap point */
-  width: 18px;
-  width: 5.6cqw;
-  height: auto;
-  overflow: visible;
-  transform-origin: 1px 1px;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-  opacity: 0;
-  animation: tapCursor 3.2s ease-in-out infinite;
+@keyframes advisorNod {
+  0%, 100% { transform: rotate(1.5deg); }
+  50%      { transform: rotate(-2.5deg); }
 }
-@keyframes tapCursor {
-  0%   { opacity: 0; transform: translate(14px, 16px); }
-  16%  { opacity: 1; transform: translate(0, 0) scale(1); }
-  24%  { transform: translate(0, 0) scale(.8); }      /* press */
-  32%  { transform: translate(0, 0) scale(1); }
-  64%  { opacity: 1; transform: translate(0, 0); }
-  80%  { opacity: 0; transform: translate(6px, 7px); }
-  100% { opacity: 0; transform: translate(14px, 16px); }
-}
-@keyframes tapRipple {
-  0%, 23% { transform: scale(0);   opacity: 0; }
-  25%     { transform: scale(.25); opacity: 1; }
-  62%     { transform: scale(1);   opacity: 0; }
-  100%    { transform: scale(1);   opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ad-cursor { animation: none; opacity: 1; }
-  .ad-ripple { display: none; }
-}
+@media (prefers-reduced-motion: reduce) { .ad-hand, .ad-advisor { animation: none; } }
+/* light mode: no glow behind the home hero */
+body:not([data-theme="dark"]) .hero-ad .hero-smoke,
+body:not([data-theme="dark"]) .hero-ad .hero-glow { display: none; }
 
 /* stats pill: never break "5+ yrs" onto two lines on small phones */
 .id-stats .stat { white-space: nowrap; }
@@ -1246,3 +1224,58 @@ body[data-theme="dark"] .garba-ring { color: #000; opacity: 0.1; }  /* 1% black 
 .gd-r2 { left: 89.0%; bottom: 116px; animation-delay: -1.65s; }
 .gd-r3 { left: 81.5%; bottom: 132px; animation-delay: -4.4s; }
 
+
+
+/* ============ VIDEO LINKS — every link shared in a video, newest first ============ */
+.vl-list { display: flex; flex-direction: column; gap: 14px; }
+.vl-card {
+  display: flex; gap: 14px;
+  padding: 12px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #FFEDE3 0%, #FFDCCB 100%);
+  border: 1px solid rgba(241,90,36,0.22);
+  box-shadow: 0 10px 24px rgba(241,90,36,0.14);
+}
+.vl-thumb {
+  position: relative;
+  flex: 0 0 96px;
+  align-self: flex-start;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ffe9dd 0%, #ffcbb4 100%);
+}
+.vl-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.vl-sub { font-size: 0.78rem; line-height: 1.45; color: var(--muted); }
+.vl-body { display: flex; flex-direction: column; justify-content: center; gap: 5px; min-width: 0; }
+.vl-tag {
+  align-self: flex-start;
+  font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; background: var(--coral);
+  padding: 3px 8px; border-radius: 999px;
+}
+.vl-title { font-size: 1rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.25; color: var(--ink); }
+.vl-actions { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+.vl-btn {
+  display: flex; align-items: center; justify-content: center;
+  padding: 9px 12px;
+  border-radius: 12px;
+  font-size: 0.82rem; font-weight: 700;
+  text-decoration: none;
+  transition: transform .15s;
+}
+.vl-btn:active { transform: scale(.96); }
+.vl-btn-main { background: var(--coral); color: #fff; }
+.vl-btn-ghost { border: 1px solid rgba(241,90,36,0.35); color: var(--coral-deep); background: #fff; }
+body[data-theme="dark"] .vl-card { background: linear-gradient(160deg, #232323 0%, #1C1C1C 100%); border-color: #3C3C3C; box-shadow: 0 10px 24px rgba(0,0,0,0.35); }
+body[data-theme="dark"] .vl-btn-ghost { background: transparent; }
+body[data-theme="dark"] .vl-thumb { background: linear-gradient(160deg, #3a2a22 0%, #2a201b 100%); }
+
+/* link button beside the stats: solid coral so it can't be missed */
+.offer-btn {
+  background: var(--coral);
+  color: #fff;
+  backdrop-filter: none;
+  box-shadow: 0 6px 16px rgba(241,90,36,0.4);
+}
+.offer-btn svg { width: 18px; height: 18px; stroke-width: 2.4; }

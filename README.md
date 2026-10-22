@@ -17,7 +17,7 @@ Push to the `onehemansu-dotcom.github.io` repo. GitHub Pages serves
 
 ## Panels
 Single-page app; JS toggles between panels:
-Home · About · Shop · Ask a Question · Work With Me · Free Guide · Announcement
+Home · About · Shop · Ask a Question · Work With Me · Free Guide · Video Links
 
 ## Forms (Google Sheets via Apps Script)
 Both forms POST to Apps Script web apps that append rows to a Google Sheet.
@@ -62,5 +62,11 @@ Light festive touches on every page: warm string lights at the top, marigold
 swags on the hero arches, faint bandhani dots on backgrounds, marigold beads
 after section titles, and faint garba dancers on the home hero arch.
 
-**Switch it all off:** remove `class="navratri"` from `<body>` in `index.html`.
+**Currently off (Oct 22, 2026).** Switch on: add `class="navratri"` to `<body>` in `index.html`; remove it to switch off.
 Festive elements carry class `.nv`; the lights are built by the last block in `app.js`.
+
+## Video Links page
+The link button beside the stats bar opens **Links from my videos** (`#announcement-panel`).
+The home hero changes with every video, so this page keeps every link ever shared:
+thumbnail, title, the product/resource link, and the reel. Newest card goes on top;
+copy an existing `.vl-card` in `index.html` to add one.
