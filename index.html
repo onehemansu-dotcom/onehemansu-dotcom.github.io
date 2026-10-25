@@ -25,6 +25,14 @@
 </script>
 </head>
 <body>
+<!-- Loading screen: covers the page until the hero images and fonts are ready (app.js removes it) -->
+<div id="og-loader" aria-hidden="true"><div class="ogl-mark">OG</div><div class="ogl-bar"><span></span></div></div>
+<script>
+  /* set the theme before first paint so the loader is the right colour */
+  (function () { var hour = new Date().getHours(); var isDay = hour >= 6 && hour < 18;
+    document.body.setAttribute("data-theme", isDay ? "light" : "dark");
+    document.documentElement.classList.add("is-loading"); })();
+</script>
 <main class="wrap">
 <div id="home-panel">
 
@@ -42,14 +50,14 @@
       <span class="gd gd-r2"><svg viewBox="0 -10 60 106"><use href="#gb-woman"/></svg></span>
       <span class="gd gd-r3"><svg viewBox="0 -10 60 106"><use href="#gb-man" transform="matrix(-1 0 0 1 60 0)"/></svg></span>
     </div>
-    <!-- HERO = latest video. Change the headline, image and reel link for each new video,
+    <!-- HERO = latest video. Change the headline, image and reel link for each new video (ad-top--left = left-aligned type),
          and add the video to the Video Links page. -->
-    <div class="ad-top">
+    <div class="ad-top ad-top--left">
       <p class="ad-head">
-        <span class="ad-l1">Before you give</span>
-        <span class="ad-l2">the keys</span>
+        <span class="ad-l1">Your first service</span>
+        <span class="ad-l2">checklist</span>
       </p>
-      <a class="ad-cta" href="https://www.instagram.com/reel/DewrignhHhk/" target="_blank" rel="noopener" data-label="Hero: Watch Latest Reel" data-category="Hero">
+      <a class="ad-cta" href="https://www.instagram.com/reel/De69I2npkMJ/" target="_blank" rel="noopener" data-label="Hero: Watch Latest Reel" data-category="Hero">
         Watch latest reel
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
       </a>
@@ -62,9 +70,8 @@
     </div>
     <span class="hero-glow" aria-hidden="true"></span>
     <div class="ad-figure">
-      <img class="ad-photo" src="images/32-before-you-give-the-keys-og-ladka.webp" alt="Hemansu Singh going over his Royal Enfield Classic 350 with a service technician" />
-      <img class="ad-hand" src="images/32-before-you-give-the-keys-hand.webp" alt="" aria-hidden="true" />
-      <img class="ad-advisor" src="images/32-before-you-give-the-keys-advisor-head.webp" alt="" aria-hidden="true" />
+      <img class="ad-photo" src="images/33-first-service-checklist-og-ladka.webp" alt="Hemansu Singh holding a checklist beside his Royal Enfield Classic 350" />
+      <img class="ad-hair" src="images/33-first-service-checklist-hair.webp" alt="" aria-hidden="true" />
     </div>
     <nav class="home-socials">
       <a href="https://instagram.com/ogladkaa" target="_blank" rel="noopener" data-label="Social: Instagram" data-category="Social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>

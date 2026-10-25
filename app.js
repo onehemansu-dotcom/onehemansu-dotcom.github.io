@@ -518,13 +518,17 @@
       var r = el.getBoundingClientRect();
       return r.top < window.innerHeight && r.bottom > 0;
     }
-    function checkStats() { if (statsInView()) triggerCounts(); }
+    function loading() { return document.documentElement.classList.contains("is-loading"); }
+    function checkStats() { if (!loading() && statsInView()) triggerCounts(); }
+    window.addEventListener("og:ready", checkStats);
 
     checkStats();                                  // already visible on load?
     window.addEventListener("load", checkStats);   // and once images settle
     window.addEventListener("resize", checkStats); // and on rotate / resize
     setTimeout(checkStats, 600);                   // and as a final backstop
-    setTimeout(triggerCounts, 2500);               // absolute fallback: never leave 0
+    setTimeout(function () {                       // absolute fallback: never leave 0
+      if (loading()) window.addEventListener("og:ready", triggerCounts); else triggerCounts();
+    }, 2500);
   });
 
   /* iOS safety net: if the IntersectionObserver never fires (some iOS Safari
@@ -576,4 +580,53 @@
   }
   var slots = document.querySelectorAll(".nv-lights");
   for (var i = 0; i < slots.length; i++) slots[i].innerHTML = lightsSVG("nvGlow" + i);
+})();
+
+/* ---------- Hero hair sway (dark mode only; still in light mode) ---------- */
+(function () {
+  "use strict";
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var hairEl = document.querySelector(".ad-hair");
+  if (!hairEl) return;
+  var running = false, t0 = performance.now();
+  function isDark() { return document.body.getAttribute("data-theme") === "dark"; }
+  function gust(t) { var g = 0.35 + 0.15 * Math.sin(t * 0.6) + 0.08 * Math.sin(t * 1.7 + 1); return Math.max(0.1, Math.min(0.6, g)); }
+  function frame(now) {
+    if (!isDark()) { hairEl.style.transform = ""; running = false; return; }
+    var t = (now - t0) / 1000, g = gust(t);
+    var sk = -(1 + 4 * g + 1 * Math.sin(t * 4.5));
+    hairEl.style.transform = "skewX(" + sk.toFixed(2) + "deg) translateX(" + (0.6 * g).toFixed(2) + "px)";
+    requestAnimationFrame(frame);
+  }
+  function start() { if (!running && isDark()) { running = true; requestAnimationFrame(frame); } }
+  start();
+  setInterval(start, 1000);
+})();
+
+/* ---------- Loading screen: reveal the page only when the home images and fonts are ready ---------- */
+(function () {
+  "use strict";
+  var loader = document.getElementById("og-loader");
+  if (!loader) return;
+  var done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    loader.classList.add("done");
+    document.documentElement.classList.remove("is-loading");
+    setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 450);
+    window.dispatchEvent(new Event("og:ready"));
+  }
+  function decoded(img) { return img.decode ? img.decode().catch(function () {}) : Promise.resolve(); }
+  function ready(img) {
+    return new Promise(function (res) {
+      if (img.complete && img.naturalWidth) { decoded(img).then(res); return; }
+      img.addEventListener("load", function () { decoded(img).then(res); }, { once: true });
+      img.addEventListener("error", res, { once: true });
+    });
+  }
+  var imgs = [].slice.call(document.querySelectorAll('#home-panel img:not([loading="lazy"])'));
+  var fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  Promise.all(imgs.map(ready).concat([fonts])).then(function () { requestAnimationFrame(finish); });
+  setTimeout(finish, 6000);                    // never keep a slow connection waiting forever
 })();
