@@ -2,10 +2,1340 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<!-- GENERATED FILE: edit src/index.html, src/style.css, src/app.js, then rebuild. CSS and JS are inlined on purpose (Instagram browser caching). -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="style.css">
+<style>
+:root {
+  --peach-top: #ffe9dd;
+  --peach-body: #ffd9c7;
+  --coral: #ff6b35;
+  --coral-deep: #f15a24;
+  --card: #ffffff;
+  --ink: #1a1a1a;
+  --muted: #b08a76;
+  --line: #f4e6dc;
+  --maxw: 390px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { background: var(--peach-body); }
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: var(--ink);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;   /* iOS: stop the flex child being height-capped */
+  min-height: 100vh;
+}
+.wrap { width: 100%; max-width: var(--maxw); background: var(--peach-body); position: relative; overflow: hidden; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(.2,.7,.3,1), transform 0.6s cubic-bezier(.2,.7,.3,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  height: 500px;
+  background: var(--card);
+  overflow: hidden;
+}
+.hero-watermark {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  font-size: 24rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+  z-index: 1;
+  white-space: nowrap;
+  color: var(--line);
+}
+.hero-glow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 460px;
+  height: 380px;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 72%);
+  filter: blur(12px);
+}
+/* live orange smoke drifting behind the person */
+.home-socials {
+  position: absolute;
+  top: 20px; left: 20px;
+  z-index: 6;
+  display: flex; gap: 6px;
+}
+.home-socials a {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #000;
+  display: grid; place-items: center;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+  transition: transform .18s;
+}
+.home-socials a:active { transform: scale(.9); }
+.home-socials svg { width: 14px; height: 14px; }
+/* ask ball — top right, matches socials */
+.home-ask {
+  position: absolute;
+  top: 20px; right: 20px;
+  z-index: 6;
+}
+.home-ask a {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #000;
+  display: grid; place-items: center;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+  transition: transform .18s;
+}
+.home-ask a:active { transform: scale(.9); }
+.home-ask svg { width: 15px; height: 15px; }
+.about-ask { z-index: 6; }
+
+.hero-smoke {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-smoke .smoke {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.hero-smoke .s1 {
+  width: 260px; height: 260px; left: 18%; bottom: 2%;
+  background: radial-gradient(circle, rgba(200,50,0,0.9), rgba(200,50,0,0) 68%);
+  animation: smokeA 3.5s ease-in-out infinite;
+}
+.hero-smoke .s2 {
+  width: 300px; height: 300px; right: 12%; bottom: 4%;
+  background: radial-gradient(circle, rgba(220,60,10,0.85), rgba(220,60,10,0) 68%);
+  animation: smokeB 4.2s ease-in-out infinite;
+  animation-delay: -1.2s;
+}
+.hero-smoke .s3 {
+  width: 220px; height: 220px; left: 40%; bottom: 6%;
+  background: radial-gradient(circle, rgba(230,80,20,0.8), rgba(230,80,20,0) 68%);
+  animation: smokeA 3.8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.hero-smoke .s4 {
+  width: 340px; height: 340px; left: 50%; bottom: -2%; margin-left: -170px;
+  background: radial-gradient(circle, rgba(190,45,0,0.78), rgba(190,45,0,0) 70%);
+  animation: smokeB 4.8s ease-in-out infinite;
+  animation-delay: -3s;
+}
+@keyframes smokeA {
+  0%   { transform: translate(0,14px) scale(0.9); opacity: 0; }
+  25%  { opacity: 0.9; }
+  60%  { transform: translate(14px,-22px) scale(1.08); opacity: 0.55; }
+  100% { transform: translate(-8px,-46px) scale(1.18); opacity: 0; }
+}
+@keyframes smokeB {
+  0%   { transform: translate(0,14px) scale(0.92); opacity: 0; }
+  25%  { opacity: 0.85; }
+  60%  { transform: translate(-16px,-26px) scale(1.1); opacity: 0.5; }
+  100% { transform: translate(10px,-50px) scale(1.2); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-smoke .smoke { animation: none !important; opacity: 0.4; }
+}
+.hero-photo {
+  position: absolute;
+  bottom: 0;
+  left: 46%;
+  transform: translateX(-50%) rotate(3deg);
+  transform-origin: bottom center;
+  height: 96%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 3;
+}
+.hero-bubble {
+  position: absolute;
+  right: 40px;
+  bottom: 168px;
+  z-index: 5;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.74rem;
+  font-weight: 500;
+  font-style: italic;
+  padding: 7px 13px;
+  border-radius: 16px 16px 4px 16px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+  animation: bob 3s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-5px);} }
+
+/* ============ PEACH SHEET with center ARCH ============ */
+.arch {
+  position: relative;
+  z-index: 4;
+  margin-top: -200px;
+  line-height: 0;
+}
+.lower-slide { position: relative; z-index: 4; will-change: transform; }
+.arch svg {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+.sheet {
+  position: relative;
+  z-index: 3;
+  background: var(--peach-body);
+  margin-top: -1px;
+  padding: 4px 22px 40px;
+  min-height: 60vh;
+}
+/* subtle depth flowing down from the arc */
+.sheet-tex {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #ffd9c7 0%, #ffcbb4 55%, #ffbfa4 100%),
+    radial-gradient(100% 40% at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 60%);
+  background-blend-mode: normal;
+}
+.sheet > *:not(.sheet-tex) { position: relative; z-index: 1; }
+
+/* identity header */
+.identity { text-align: center; padding: 4px 0 20px; }
+.id-name { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+.id-role { font-size: 0.82rem; font-weight: 500; color: var(--coral-deep); margin-top: 3px; }
+.id-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.id-stats { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 14px; padding: 9px 20px; background: rgba(255,255,255,0.6); border-radius: 40px; backdrop-filter: blur(6px); box-shadow: 0 3px 12px rgba(0,0,0,0.3); }
+.id-stats .stat { display: inline-flex; align-items: center; gap: 5px; font-size: 0.76rem; color: var(--ink); font-weight: 500; }
+.id-stats .stat b { font-weight: 800; }
+.stat-ico { width: 13px; height: 13px; color: var(--coral-deep); flex-shrink: 0; }
+.stat-ico-green { color: #1faa59; }
+.id-stats .stat-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--coral); opacity: .5; }
+.shop-count-wrap { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 0 0 22px; }
+.id-stats.shop-count { flex: 0 0 auto; }
+.shop-search-btn { flex: 0 0 auto; align-self: stretch; display: inline-flex; align-items: center; justify-content: center; padding: 0 15px; border: none; cursor: pointer; border-radius: 40px; background: #fff4ee; backdrop-filter: blur(6px); box-shadow: 0 3px 12px rgba(0,0,0,0.3); color: var(--coral-deep); transition: background .2s, color .2s, transform .15s; }
+.shop-search-btn:hover { background: #fffaf7; }
+.shop-search-btn:active { transform: scale(.94); }
+.shop-search-btn svg { width: 18px; height: 18px; stroke-width: 2.4; }
+.shop-search-btn.active { background: var(--coral); color: #fff; }
+.shop-search-row { display: none; align-items: center; gap: 8px; margin: -6px 0 22px; padding: 11px 16px; background: #ffffff; border-radius: 40px; box-shadow: 0 3px 12px rgba(0,0,0,0.18); }
+.shop-search-row.open { display: flex; }
+.shop-search-ico { width: 18px; height: 18px; color: var(--coral-deep); flex-shrink: 0; }
+.shop-search-row input { flex: 1; border: none; outline: none; background: transparent; font-family: inherit; font-size: 0.95rem; font-weight: 600; color: #1a1a1a; }
+.shop-search-row input::placeholder { color: #9a9a9a; font-weight: 500; }
+.shop-search-clear { border: none; background: transparent; cursor: pointer; color: var(--muted); display: inline-flex; padding: 2px; }
+.shop-search-clear svg { width: 16px; height: 16px; }
+.shop-noresults { display: none; text-align: center; color: var(--muted); font-size: 0.92rem; margin: 18px 0; }
+.shop-noresults.show { display: block; }
+.shop-hot { display: none; align-items: center; flex-wrap: wrap; gap: 7px; margin: -6px 0 20px; }
+.shop-hot.open { display: flex; }
+.hot-chip { border: 1px solid rgba(241,90,36,0.3); cursor: pointer; font-family: inherit; font-size: 0.78rem; font-weight: 500; color: var(--muted); background: transparent; padding: 5px 12px; border-radius: 40px; transition: color .18s, border-color .18s, background .18s; }
+.hot-chip:hover { color: var(--coral-deep); border-color: rgba(241,90,36,0.6); background: rgba(255,244,238,0.6); }
+.hot-chip:active { transform: scale(.95); }
+.shop-section-head.hide-sec, .bento.hide-sec { display: none; }
+.shop-sheet.searching .bento {
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  justify-content: flex-start;
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+.offer-btn {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  display: grid; place-items: center;
+  font-size: 0.95rem;
+  color: var(--coral-deep);
+  text-decoration: none;
+  transition: transform .18s;
+}
+.offer-btn svg { width: 17px; height: 17px; }
+.offer-btn:active { transform: scale(.92); }
+
+/* eyebrow labels */
+.guide-eyebrow, .sec-eyebrow {
+  display: block;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.guide-eyebrow { color: var(--coral); margin-bottom: 4px; }
+.sec-eyebrow { color: var(--coral-deep); opacity: .75; margin-bottom: 1px; }
+
+/* Guide card — black card with a small corner bow + title */
+.guide-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(135deg, #1f1f1f 0%, #0f0f0f 100%);
+  color: #fff;
+  border-radius: 18px;
+  padding: 20px 22px;
+  text-decoration: none;
+  margin-bottom: 26px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  transition: transform .2s;
+  overflow: hidden;
+}
+.guide-btn:active { transform: scale(.985); }
+.guide-txt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; width: 100%; }
+.guide-t { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; }
+.guide-s { font-size: 0.62rem; font-weight: 500; color: rgba(255,255,255,0.55); }
+.guide-arrow { display: none; }
+
+/* small bow at the top-right corner */
+.corner-bow {
+  position: absolute;
+  top: 8px; right: 12px;
+  width: 34px; height: 24px;
+  z-index: 2;
+  animation: bowBounce 2.5s ease-in-out infinite;
+  transform-origin: 50% 6px;
+}
+@keyframes bowBounce {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(1px); }
+}
+@media (prefers-reduced-motion: reduce){ .corner-bow { animation: none; } }
+.cb-loop { position: absolute; top: 2px; width: 15px; height: 12px; }
+.cb-loop-l {
+  left: 0;
+  background: radial-gradient(ellipse at 70% 45%, #ff6b60 0%, #ff2418 42%, #b0100a 100%);
+  border-radius: 60% 40% 50% 50% / 65% 65% 35% 35%;
+  transform: rotate(-14deg);
+  box-shadow: inset -3px -1px 5px rgba(0,0,0,0.4), inset 2px 1px 3px rgba(255,255,255,0.28);
+}
+.cb-loop-r {
+  right: 0;
+  background: radial-gradient(ellipse at 30% 45%, #ff6b60 0%, #ff2418 42%, #b0100a 100%);
+  border-radius: 40% 60% 50% 50% / 65% 65% 35% 35%;
+  transform: rotate(14deg);
+  box-shadow: inset 3px -1px 5px rgba(0,0,0,0.4), inset -2px 1px 3px rgba(255,255,255,0.28);
+}
+.cb-tail { position: absolute; top: 11px; width: 7px; height: 13px;
+  background: linear-gradient(180deg, #ff3a2e 0%, #d3150b 60%, #a50f07 100%);
+}
+.cb-tail-l { left: 9px; transform: rotate(12deg); clip-path: polygon(0 0,100% 0,100% 100%,50% 78%,0 100%); }
+.cb-tail-r { right: 9px; transform: rotate(-12deg); clip-path: polygon(0 0,100% 0,100% 100%,50% 78%,0 100%); }
+.cb-knot {
+  position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+  width: 7px; height: 9px; z-index: 3;
+  background: radial-gradient(ellipse at 42% 30%, #ff8078 0%, #ff2418 55%, #a50f07 100%);
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+
+/* Section head */
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
+.sec-head-txt { display: flex; flex-direction: column; }
+.sec-head h2 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; color: var(--coral-deep); }
+.pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  background: linear-gradient(160deg, var(--card) 0%, #fff6f0 100%); color: var(--coral-deep);
+  border-radius: 50%; text-decoration: none;
+  font-size: 0; overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.pill .chev { display: inline-flex; }
+.pill .chev svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Product tiles — tall white rounded cards */
+.bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px; }
+.tile {
+  background: linear-gradient(165deg, #ffffff 0%, #fff6f0 100%);
+  border: 1px solid rgba(241,90,36,0.25);
+  border-radius: 15px;
+  padding: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform .18s, box-shadow .18s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.tile:active { transform: scale(.97); }
+.pimg { aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: linear-gradient(160deg, #fdf7f2 0%, #f7ece4 100%); margin-bottom: 8px; padding: 12px; }
+.pimg img { width: 100%; height: 100%; object-fit: contain; }
+.tinfo { padding: 0 2px 4px; }
+.ttl { font-size: 0.82rem; font-weight: 700; line-height: 1.15; }
+.sub { font-size: 0.68rem; color: var(--muted); margin-top: 2px; font-weight: 500; }
+
+/* shop trust note */
+.shop-note { text-align: center; font-size: 0.78rem; font-style: italic; color: var(--muted); margin: 4px 6px 26px; line-height: 1.5; }
+
+/* Dual bento row — About + Reels mini cards */
+.dual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 6px 0 22px; }
+.dual-row.single { grid-template-columns: 1fr; }
+.dual-row.single .mini-card { min-height: 84px; }
+.mini-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  border-radius: 18px;
+  padding: 18px 16px 16px;
+  text-decoration: none;
+  overflow: hidden;
+  min-height: 118px;
+  justify-content: flex-end;
+  transition: transform .2s;
+}
+.mini-card:active { transform: scale(.97); }
+.mini-about { background: #000000; color: #fff; box-shadow: 0 10px 26px rgba(0,0,0,0.3); }
+.mini-reel { background: linear-gradient(150deg, #ff7a3d 0%, #f15a24 100%); color: #fff; box-shadow: 0 10px 26px rgba(241,90,36,0.3); }
+.mini-work { background: linear-gradient(150deg, #ff7a3d 0%, #f15a24 100%); color: #fff; box-shadow: 0 10px 26px rgba(241,90,36,0.3); }
+.mini-glow {
+  position: absolute; top: -30%; right: -20%;
+  width: 130px; height: 130px; pointer-events: none;
+}
+.mini-about .mini-glow { background: radial-gradient(circle, rgba(255,81,0,0.50) 0%, transparent 70%); }
+.mini-reel .mini-glow { background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%); }
+.mini-work .mini-glow { background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%); }
+.mini-ico {
+  position: relative; z-index: 1;
+  width: 40px; height: 40px; border-radius: 12px;
+  display: grid; place-items: center; margin-bottom: auto;
+}
+.mini-about .mini-ico { background: rgba(255,255,255,0.1); }
+.mini-reel .mini-ico { background: rgba(255,255,255,0.2); }
+.mini-work .mini-ico { background: rgba(255,255,255,0.2); }
+.mini-ico svg { width: 20px; height: 20px; }
+.mini-about .mini-ico svg { color: var(--coral); }
+.mini-reel .mini-ico svg { color: #fff; }
+.mini-work .mini-ico svg { color: #fff; }
+.mini-label { position: relative; z-index: 1; font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; }
+.mini-sub { position: relative; z-index: 1; font-size: 0.68rem; font-weight: 500; opacity: 0.7; }
+
+/* social row */
+.social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 26px; }
+.soc {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  background: linear-gradient(165deg, #ffffff 0%, #fff6f0 100%); color: var(--ink);
+  border: 1px solid rgba(255,255,255,0.7);
+  padding: 14px; border-radius: 14px; text-decoration: none;
+  font-size: 0.85rem; font-weight: 700;
+  box-shadow: 0 4px 14px rgba(200,110,60,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: transform .18s;
+}
+.soc:active { transform: scale(.97); }
+.soc svg { width: 19px; height: 19px; color: var(--coral-deep); flex-shrink: 0; }
+
+.foot { text-align: center; font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-top: 4px; }
+.foot-soon { font-size: 0.66rem; letter-spacing: 0.06em; color: rgba(168,154,145,0.55); font-weight: 500; margin-top: 20px; }
+.foot b { color: var(--ink); }
+
+/* ============ ABOUT PANEL ============ */
+#about-panel { display: none; }
+#about-panel.active { display: block; }
+
+.about-watermark {
+  font-size: 5.4rem !important;
+  line-height: 0.92 !important;
+  top: 64px !important;
+  color: #ffffff !important;
+  text-align: left;
+  left: 24px !important;
+  transform: none !important;
+  white-space: normal !important;
+  z-index: 1 !important;
+  font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  letter-spacing: 0.01em;
+}
+.about-socials {
+  position: absolute;
+  top: 20px; left: 20px;
+  z-index: 5;
+  display: flex; gap: 6px;
+}
+.about-socials a {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #141414;
+  display: grid; place-items: center;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+  transition: transform .18s;
+}
+.about-socials a:active { transform: scale(.9); }
+.about-socials svg { width: 14px; height: 14px; }
+.about-bubble { bottom: 210px !important; right: 20px !important; }
+
+/* about hero — SEPARATE LAYERS: glow + name + photo behind, arc on top */
+.hero-about {
+  position: relative;
+  height: 480px;
+  background: #ffffff;
+  overflow: hidden;
+}
+/* orange glow behind everything */
+.about-glow-layer {
+  position: absolute;
+  bottom: 60px; left: 50%;
+  transform: translateX(-50%);
+  width: 500px; height: 420px;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255,81,0,0.30) 0%, rgba(255,81,0,0.14) 42%, rgba(255,81,0,0) 72%);
+  filter: blur(18px);
+}
+/* giant white name watermark */
+/* the photo — slide DOWN behind the arc via 'top' */
+.about-photo {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
+  max-width: none;
+  z-index: 3;
+  object-fit: contain;
+  object-position: top center;
+}
+/* arc sits ON TOP of the photo */
+.about-arch {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 4;
+  margin: 0;
+  line-height: 0;
+}
+.about-arch svg { display: block; width: 100%; height: 90px; }
+#about-panel .about-socials { position: absolute; top: 22px; left: 24px; z-index: 5; }
+.about-bubble { bottom: 130px !important; right: 20px !important; z-index: 5; }
+/* full intro text bubble on about image */
+.about-bubble-text {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  bottom: 34px !important;
+  max-width: 320px !important;
+  font-size: 0.52rem !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  color: #2a2622 !important;
+  padding: 8px 11px !important;
+  border-radius: 12px 12px 12px 4px !important;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.15) !important;
+  animation: none !important;
+  text-align: left;
+}
+/* sheet connects flush to the arc */
+.about-sheet { margin-top: -1px !important; padding-top: 14px !important; background: #ffd7c4 !important; }
+.about-sheet .sheet-tex { background: linear-gradient(180deg, #ffd7c4 0%, #ffcbb4 55%, #ffbfa4 100%) !important; }
+.about-sheet .sheet-tex { background: linear-gradient(180deg, #ffd7c4 0%, #ffcbb4 55%, #ffbfa4 100%) !important; }
+
+/* orange glow for about hero (homepage uses white) */
+#about-panel .hero-glow {
+  background: radial-gradient(ellipse at center, rgba(255,81,0,0.30) 0%, rgba(255,81,0,0.15) 42%, rgba(255,81,0,0) 72%) !important;
+}
+
+/* intro card */
+.about-greet {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--coral-deep);
+  margin: 0 2px 12px;
+  text-align: center;
+}
+.intro-card {
+  position: relative;
+  background: linear-gradient(145deg, #1c1c1c 0%, #0d0d0d 100%);
+  border: 1px solid rgba(255,120,60,0.2);
+  border-radius: 18px;
+  padding: 18px 18px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+.intro-card::before {
+  content: "";
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(255,81,0,0.45) 0%, rgba(255,81,0,0) 68%);
+  pointer-events: none;
+}
+.intro-card::after {
+  content: "";
+  position: absolute;
+  bottom: -40%; left: -15%;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(255,120,60,0.25) 0%, rgba(255,120,60,0) 70%);
+  pointer-events: none;
+}
+.intro-card p { position: relative; z-index: 1; font-size: 0.72rem; line-height: 1.5; color: rgba(255,255,255,0.78); }
+.intro-card p + p { margin-top: 10px; }
+.intro-lead { font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-right: 4px; }
+
+/* ride grid */
+.ride-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.ride-card {
+  background: radial-gradient(120% 120% at 100% 100%, #ffcdb2 0%, #ffe4d3 22%, #ffffff 52%);
+  border: 1px solid rgba(255,255,255,0.8);
+  border-radius: 20px;
+  aspect-ratio: 3/4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: transform .18s, box-shadow .18s;
+}
+.ride-card:active { transform: scale(.97); }
+/* white rounded well: the bike photos have white backgrounds baked in,
+   so the well is white too and they blend with no hard edges */
+.ride-img {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 8px;
+}
+.ride-img img { width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.ride-name { font-size: 0.88rem; font-weight: 700; color: var(--ink); text-align: center; line-height: 1.2; }
+
+/* Best Videos grid */
+.vids-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.vid { text-decoration: none; transition: transform .18s; }
+.vid:active { transform: scale(.97); }
+.thumb {
+  position: relative;
+  aspect-ratio: 9/16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #14140f;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 12px 26px rgba(180,90,40,0.22), 0 3px 8px rgba(0,0,0,0.14);
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.thumb .play {
+  position: absolute; top: 8px; right: 8px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  display: grid; place-items: center;
+}
+.thumb .play svg { width: 13px; height: 13px; fill: #fff; margin-left: 1px; }
+.thumb .vtitle {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 10px 9px;
+  font-size: 0.68rem; font-weight: 700; color: #fff; line-height: 1.25;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.82));
+}
+
+/* back link */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.86rem;
+  margin-bottom: 8px;
+}
+.back-link svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ============ ACCESS PANEL ============ */
+#access-panel { display: none; padding: 22px 20px 60px; min-height: 100vh; background: var(--card); }
+#access-panel.active { display: block; }
+.guide-back { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.88rem; margin-bottom: 24px; }
+.guide-back svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.access-hero { margin-bottom: 22px; }
+.access-hero .eyebrow { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral-deep); margin-bottom: 8px; }
+.access-hero h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.access-hero p { font-size: 0.9rem; color: var(--muted); }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
+.field .req { color: var(--coral); }
+.field input {
+  width: 100%; padding: 13px 15px; border: 1px solid var(--line); border-radius: 13px;
+  font-family: inherit; font-size: 0.92rem; background: #faf6f2; color: var(--ink);
+}
+.field input:focus { outline: none; border-color: var(--coral); }
+.field .err { display: none; color: #d33; font-size: 0.76rem; margin-top: 5px; }
+.field.invalid .err { display: block; }
+.field.invalid input { border-color: #d33; }
+.submit-btn {
+  width: 100%; padding: 15px; border: none; border-radius: 14px;
+  background: var(--coral); color: #fff; font-family: inherit; font-size: 0.98rem; font-weight: 700;
+  cursor: pointer; transition: opacity .2s;
+}
+.submit-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+#access-success { display: none; text-align: center; padding: 40px 10px; }
+#access-success.show { display: block; }
+#access-form.hide { display: none; }
+.check { width: 64px; height: 64px; border-radius: 50%; background: var(--coral); display: grid; place-items: center; margin: 0 auto 20px; }
+.check svg { width: 32px; height: 32px; fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+#access-success h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
+#access-success p { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+#access-success .email-hl { color: var(--ink); font-weight: 600; }
+
+/* ============ SHOP PANEL ============ */
+#shop-panel { display: none; }
+#shop-panel.active { display: block; }
+
+/* Shop hero — "What I Use?" */
+.hero-shop {
+  position: relative;
+  height: 500px;
+  background: #ffffff;
+  overflow: hidden;
+}
+/* orange glow filling the hero */
+.shop-glow {
+  position: absolute;
+  bottom: 30px; left: 50%;
+  transform: translateX(-50%);
+  width: 520px; height: 440px;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255,81,0,0.30) 0%, rgba(255,105,40,0.15) 44%, rgba(255,81,0,0) 74%);
+  filter: blur(18px);
+}
+/* big Anton title, top-left */
+/* the cutout photo — holding a box */
+.shop-photo {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
+  max-width: none;
+  z-index: 3;
+  object-fit: contain;
+  object-position: top center;
+}
+/* speech bubble */
+/* arch at hero bottom */
+.shop-arch {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 4;
+  margin: 0;
+  line-height: 0;
+}
+.shop-arch svg { display: block; width: 100%; height: 90px; }
+
+/* shop sheet */
+.shop-sheet { margin-top: -1px; padding: 8px 18px 40px; background: var(--peach-body); position: relative; z-index: 3; }
+.shop-sheet .shop-section-head {
+  font-size: 1.18rem; font-weight: 800; letter-spacing: -0.01em;
+  color: var(--coral-deep); margin: 22px 2px 12px;
+}
+.shop-sheet .shop-section-head:first-of-type { margin-top: 10px; }
+
+/* Each category becomes a horizontal scroller (one swipeable row) */
+.shop-sheet .bento {
+  display: flex;
+  grid-template-columns: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  gap: 8px;
+  padding: 6px 4px 12px;
+  margin: 0 -4px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,107,53,0.5) transparent;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+}
+.shop-sheet .bento::-webkit-scrollbar { height: 5px; background: transparent; }
+.shop-sheet .bento::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; margin: 0 4px; }
+.shop-sheet .bento::-webkit-scrollbar-thumb { background: rgba(255,107,53,0.5); border-radius: 10px; transition: background .2s; }
+.shop-sheet .bento::-webkit-scrollbar-thumb:hover { background: rgba(255,107,53,0.8); }
+
+/* compact product cards — fixed width so the scroller works */
+.shop-sheet .tile {
+  flex: 0 0 96px;
+  padding: 6px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1.5px solid rgba(241,90,36,0.5);
+  box-shadow: none;
+}
+.shop-sheet .pimg { margin-bottom: 5px; padding: 6px; border-radius: 9px; }
+.shop-sheet .tinfo { padding: 0 1px 2px; }
+.shop-sheet .ttl { font-size: 0.66rem; line-height: 1.1; }
+.shop-sheet .sub { font-size: 0.55rem; margin-top: 1px; }
+
+/* shop topbar (back + socials + ask), reuse home ball styling */
+#shop-panel .shop-socials { position: absolute; top: 22px; left: 24px; z-index: 6; display: flex; gap: 10px; }
+#shop-panel .shop-ask { position: absolute; top: 22px; right: 24px; z-index: 6; }
+
+/* ============ QUESTION PANEL ============ */
+#question-panel { display: none; padding: 22px 20px 60px; min-height: 100vh; background: var(--card); }
+#question-panel.active { display: block; }
+#question-panel .field textarea {
+  width: 100%; padding: 13px 15px; border: 1px solid var(--line); border-radius: 13px;
+  font-family: inherit; font-size: 0.92rem; background: #faf6f2; color: var(--ink);
+  resize: vertical; min-height: 92px;
+}
+#question-panel .field textarea:focus { outline: none; border-color: var(--coral); }
+#question-panel .field.invalid textarea { border-color: #d33; }
+.field .opt { color: var(--muted); font-weight: 500; font-size: 0.72rem; }
+#question-form.hide { display: none; }
+#question-success { display: none; text-align: center; padding: 40px 10px; }
+#question-success.show { display: block; }
+#question-success h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
+#question-success p { font-size: 0.9rem; color: var(--muted); margin-bottom: 8px; }
+
+/* ============ WORK WITH ME PANEL ============ */
+#work-panel { display: none; padding: 22px 20px 60px; min-height: 100vh; background: var(--card); }
+#work-panel.active { display: block; }
+#announcement-panel { display: none; padding: 22px 20px 60px; min-height: 100vh; background: var(--card); }
+#announcement-panel.active { display: block; }
+
+.work-wrap { text-align: center; padding: 30px 6px 10px; max-width: 340px; margin: 0 auto; }
+.work-icon {
+  width: 72px; height: 72px; border-radius: 20px;
+  background: linear-gradient(150deg, #fff2ec 0%, #ffe0d2 100%);
+  border: 1px solid rgba(241,90,36,0.18);
+  display: grid; place-items: center; margin: 20px auto 22px;
+  color: var(--coral-deep);
+}
+.work-icon svg { width: 32px; height: 32px; }
+#work-panel .eyebrow { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral-deep); margin-bottom: 10px; }
+#work-panel h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.2; }
+#work-panel p { font-size: 0.92rem; color: var(--muted); line-height: 1.55; margin-bottom: 26px; }
+.work-contact {
+  background: #faf6f2; border: 1px solid var(--line); border-radius: 16px;
+  padding: 18px 16px; display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.work-contact-label { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+.work-email {
+  font-size: 1rem; font-weight: 700; color: var(--coral-deep); text-decoration: none;
+  word-break: break-all;
+}
+.work-email:active { opacity: 0.7; }
+
+
+/* --- product card: white rounded well. The product photos have white
+       backgrounds baked in, so the well is white too and they blend
+       seamlessly - no square white corners poking out. --- */
+.shop-sheet .pimg,
+.bento .pimg {
+  background: #ffffff !important;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.shop-sheet .pimg img,
+.bento .pimg img {
+  display: block;
+  border-radius: 0;      /* well does the clipping; image fills it */
+}
+
+
+/* ============ DARK THEME (auto: 6pm-6am, visitor's local time) ============ */
+body[data-theme="dark"] {
+  --peach-top: #181818;
+  --peach-body: #222222;
+  --card: #2D2D2D;
+  --line: #3C3C3C;
+  --ink: #F4F1EE;
+  --muted: #A89A91;
+  --coral: #FF6B35;
+  --coral-deep: #FF8557;
+}
+
+/* page shell */
+body[data-theme="dark"], body[data-theme="dark"] .wrap { background: #222222; }
+
+/* heroes: deepest tone */
+body[data-theme="dark"] .hero,
+body[data-theme="dark"] .hero-about,
+body[data-theme="dark"] .hero-shop { background: #181818 !important; }
+
+/* sheets sit above the body */
+body[data-theme="dark"] .sheet-tex,
+body[data-theme="dark"] .about-sheet,
+body[data-theme="dark"] .about-sheet .sheet-tex,
+body[data-theme="dark"] .shop-sheet { background: #2D2D2D !important; }
+
+/* arches are inline SVG <path fill> - must target the path */
+body[data-theme="dark"] .arch path { fill: #2D2D2D !important; }
+body[data-theme="dark"] .about-arch path,
+body[data-theme="dark"] .shop-arch path { fill: #2D2D2D !important; }
+
+/* watermarks */
+body[data-theme="dark"] .hero-watermark { color: #2A2A2A !important; }
+body[data-theme="dark"] .about-watermark { color: #2F2F2F !important; }
+
+/* cards / tiles: no white top-edge highlight in dark */
+body[data-theme="dark"] .tile,
+body[data-theme="dark"] .mini-card,
+body[data-theme="dark"] .id-stats,
+body[data-theme="dark"] .showcase {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35) !important;
+}
+/* keep the orange feature cards orange */
+body[data-theme="dark"] .mini-reel,
+body[data-theme="dark"] .mini-work {
+  background: linear-gradient(150deg, #ff7a3d 0%, #f15a24 100%) !important;
+  color: #fff !important;
+}
+
+/* "What I Ride" cards */
+body[data-theme="dark"] .ride-card {
+  background: #2D2D2D !important;
+  border: 1px solid #3C3C3C !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35) !important;
+}
+body[data-theme="dark"] .ride-name { color: #F4F1EE !important; }
+
+/* product + bike photo wells stay WHITE and rounded: the photos have white
+   backgrounds baked in, so a white well means no square edges poking out */
+body[data-theme="dark"] .pimg,
+body[data-theme="dark"] .ride-img { background: #ffffff !important; }
+
+/* form inputs + contact card */
+body[data-theme="dark"] #question-panel input,
+body[data-theme="dark"] #question-panel textarea,
+body[data-theme="dark"] #access-panel input,
+body[data-theme="dark"] #access-panel textarea {
+  background: #262626 !important;
+  border: 1px solid #3C3C3C !important;
+  color: #F4F1EE !important;
+}
+body[data-theme="dark"] #question-panel input::placeholder,
+body[data-theme="dark"] #question-panel textarea::placeholder,
+body[data-theme="dark"] #access-panel input::placeholder,
+body[data-theme="dark"] #access-panel textarea::placeholder { color: #A89A91 !important; }
+body[data-theme="dark"] .work-contact {
+  background: #2D2D2D !important;
+  border: 1px solid #3C3C3C !important;
+}
+body[data-theme="dark"] .work-icon {
+  background: #2D2D2D !important;
+  border-color: #3C3C3C !important;
+}
+
+/* dark: tile gradient (light default fades white -> cream) */
+body[data-theme="dark"] .tile {
+  background: linear-gradient(165deg, #2D2D2D 0%, #272727 100%) !important;
+  border: 1px solid rgba(255,107,53,0.3) !important;
+}
+
+/* dark: glow dimmed ~80% (full strength would blow out on a dark bg) */
+body[data-theme="dark"] .hero-glow {
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0) 72%) !important;
+}
+body[data-theme="dark"] .about-glow-layer,
+body[data-theme="dark"] #about-panel .hero-glow {
+  background: radial-gradient(ellipse at center, rgba(255,81,0,0.20) 0%, rgba(255,81,0,0.10) 42%, rgba(255,81,0,0) 72%) !important;
+}
+body[data-theme="dark"] .shop-glow {
+  background: radial-gradient(ellipse at center, rgba(255,81,0,0.20) 0%, rgba(255,105,40,0.10) 44%, rgba(255,81,0,0) 74%) !important;
+}
+body[data-theme="dark"] .hero-smoke .s1 {
+  background: radial-gradient(circle, rgba(255,100,30,0.34), rgba(200,50,0,0) 68%) !important;
+}
+body[data-theme="dark"] .hero-smoke .s2 {
+  background: radial-gradient(circle, rgba(255,115,45,0.32), rgba(220,60,10,0) 68%) !important;
+}
+body[data-theme="dark"] .hero-smoke .s3 {
+  background: radial-gradient(circle, rgba(255,130,55,0.30), rgba(230,80,20,0) 68%) !important;
+}
+body[data-theme="dark"] .hero-smoke .s4 {
+  background: radial-gradient(circle, rgba(250,95,25,0.30), rgba(190,45,0,0) 70%) !important;
+}
+
+/* stats pill + offers button: bright white on peach (light), faint on dark */
+body[data-theme="dark"] .id-stats {
+  background: rgba(255,255,255,0.06) !important;
+}
+
+/* dark: the round arrow button fades to cream (#fff6f0) in the light default */
+body[data-theme="dark"] .pill {
+  background: linear-gradient(160deg, #2D2D2D 0%, #262626 100%) !important;
+  color: #FF6B35 !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4) !important;
+}
+/* dark: email highlight was using the muted hover tone */
+body[data-theme="dark"] .work-email { color: #FF6B35 !important; }
+
+
+/* ============ HERO AD — home hero = the latest video ============ */
+/* Sizes are fluid (vw) and capped at the 390px column, so the poster
+   scales down on small phones instead of wrapping or cropping. */
+.hero.hero-ad { height: min(590px, calc(310px + 72vw)); }
+.ad-top {
+  position: absolute;
+  top: 58px; left: 12px; right: 12px;
+  z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.ad-head {
+  text-align: center;
+  font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+}
+.ad-head span { display: block; }
+.ad-l1 { font-size: min(1.9rem, 7.8vw); }
+.ad-l2 { font-size: min(4.4rem, 18vw); }
+.ad-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--coral);
+  color: #fff;
+  font-size: 0.82rem; font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(241,90,36,0.4);
+  transition: transform .15s;
+}
+.ad-cta svg { width: 13px; height: 13px; fill: currentColor; }
+.ad-cta:active { transform: scale(.95); }
+.ad-cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* left-aligned variant: type and button sit in the empty top-left, photo rises on the right */
+.ad-top--left { top: 84px; left: 22px; right: 22px; align-items: flex-start; }
+.ad-top--left .ad-l2 { font-size: min(3.3rem, 13vw); }   /* keeps the line clear of the photo */
+.ad-top--left .ad-head { text-align: left; }
+
+.ad-figure {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;                     /* raised; wheels and feet still sit under the arch */
+  width: min(390px, 100vw);
+  aspect-ratio: 1 / 1;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+.ad-photo { display: block; width: 100%; height: 100%; }
+
+/* light mode: no glow behind the home hero */
+body:not([data-theme="dark"]) .hero-ad .hero-smoke,
+body:not([data-theme="dark"]) .hero-ad .hero-glow { display: none; }
+
+/* stats pill: never break "5+ yrs" onto two lines on small phones */
+.id-stats .stat { white-space: nowrap; }
+@media (max-width: 360px) { .id-stats { gap: 9px; padding: 9px 12px; } }
+
+/* ============ NAVRATRI — light festive touches across the whole site ============
+   Switch everything off after the festival: remove class "navratri" from <body>.
+   Festive elements carry class .nv; all other festive styling is scoped to body.navratri. */
+body:not(.navratri) .nv { display: none !important; }
+body.navratri { --bd: rgba(241,90,36,0.085); }
+body.navratri[data-theme="dark"] { --bd: rgba(255,176,96,0.06); }
+
+/* 1. warm string lights at the top of every page, dark mode only (built by app.js) */
+.nv-lights {
+  position: absolute; top: 0; left: 0; right: 0;
+  z-index: 5;                         /* under the round nav buttons (z 6) */
+  line-height: 0;
+  pointer-events: none;
+}
+.nv-lights svg { display: block; width: 100%; height: auto; overflow: visible; color: #6E5B48; }
+body[data-theme="dark"] .nv-lights svg { color: #5A4A3A; }
+.nv-lights .lb { animation: twinkle 3.2s ease-in-out infinite; }
+.nv-lights .lb1 { animation-delay: -1.6s; }
+@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .nv-lights .lb { animation: none; } }
+body.navratri #access-panel,
+body.navratri #question-panel,
+body.navratri #work-panel,
+body.navratri #announcement-panel { position: relative; isolation: isolate; }
+/* lights only in dark mode */
+body.navratri:not([data-theme="dark"]) .nv-lights { display: none; }
+body.navratri[data-theme="dark"] #access-panel,
+body.navratri[data-theme="dark"] #question-panel,
+body.navratri[data-theme="dark"] #work-panel,
+body.navratri[data-theme="dark"] #announcement-panel { padding-top: 36px; }
+
+/* 2. marigold swags tied along every arch (home, about, shop) */
+.arch-garland {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.arch-garland path,
+body[data-theme="dark"] .arch-garland path {
+  fill: none !important;
+  vector-effect: non-scaling-stroke;   /* beads stay round at any width */
+  stroke-linecap: round;
+}
+.arch-garland .g-o { stroke: #F29A1F; stroke-width: 7.4; stroke-dasharray: 0 15; }
+.arch-garland .g-y { stroke: #F7C33C; stroke-width: 7.4; stroke-dasharray: 0 15; stroke-dashoffset: -7.5; }
+.arch-garland .g-c { stroke: #D9711A; stroke-width: 2.4; stroke-dasharray: 0 7.5; opacity: .5; }
+.arch-knot {
+  position: absolute;
+  width: 16px; height: 24px;
+  margin: -6px 0 0 -8px;              /* flower centre sits on the tie point */
+  pointer-events: none;
+  line-height: 0;
+}
+.arch-knot svg { width: 100%; height: 100%; }
+/* tie points at t = .2 .4 .6 .8 on Q(0,110)-(220,-40)-(440,110); % of arch height so it fits 120px and 90px arches */
+.arch-knot.k1 { left: 20%; top: 51.7%; }
+.arch-knot.k2 { left: 40%; top: 31.7%; }
+.arch-knot.k3 { left: 60%; top: 31.7%; }
+.arch-knot.k4 { left: 80%; top: 51.7%; }
+body[data-theme="dark"] .arch-knot path { fill: #5C8A3A !important; }   /* dark theme repaints arch paths */
+
+/* 3. hero smoke: dark orange in light mode, warm marigold in dark mode (home, about, shop) */
+body.navratri .festive .hero-smoke .s1 { background: radial-gradient(circle, rgba(214,84,20,0.70), rgba(214,84,20,0) 68%); }
+body.navratri .festive .hero-smoke .s2 { background: radial-gradient(circle, rgba(226,98,24,0.62), rgba(226,98,24,0) 68%); }
+body.navratri .festive .hero-smoke .s3 { background: radial-gradient(circle, rgba(234,112,30,0.60), rgba(234,112,30,0) 68%); }
+body.navratri .festive .hero-smoke .s4 { background: radial-gradient(circle, rgba(204,74,14,0.58), rgba(204,74,14,0) 70%); }
+/* light mode: lift the home glow back above the arch (it sank when the arch dropped 40px) */
+body.navratri:not([data-theme="dark"]) .hero-ad .hero-smoke { transform: translateY(-40px); }
+body.navratri[data-theme="dark"] .festive .hero-smoke .s1 { background: radial-gradient(circle, rgba(245,150,40,0.30), rgba(245,150,40,0) 68%) !important; }
+body.navratri[data-theme="dark"] .festive .hero-smoke .s2 { background: radial-gradient(circle, rgba(250,120,40,0.28), rgba(250,120,40,0) 68%) !important; }
+body.navratri[data-theme="dark"] .festive .hero-smoke .s3 { background: radial-gradient(circle, rgba(250,185,60,0.26), rgba(250,185,60,0) 68%) !important; }
+body.navratri[data-theme="dark"] .festive .hero-smoke .s4 { background: radial-gradient(circle, rgba(240,135,35,0.26), rgba(240,135,35,0) 70%) !important; }
+
+/* 4. faint bandhani dots (Gujarati tie-dye) on page backgrounds */
+body.navratri .sheet-tex::after,
+body.navratri .arch::after,
+body.navratri .about-arch::after,
+body.navratri .shop-arch::after,
+body.navratri .shop-sheet::before,
+body.navratri #access-panel::before,
+body.navratri #question-panel::before,
+body.navratri #work-panel::before,
+body.navratri #announcement-panel::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 8px 12px,  var(--bd) 1.1px, transparent 1.7px),
+    radial-gradient(circle at 16px 12px, var(--bd) 1.1px, transparent 1.7px),
+    radial-gradient(circle at 12px 8px,  var(--bd) 1.1px, transparent 1.7px),
+    radial-gradient(circle at 12px 16px, var(--bd) 1.1px, transparent 1.7px);
+  background-size: 24px 24px;
+}
+body.navratri .shop-sheet::before,
+body.navratri #access-panel::before,
+body.navratri #question-panel::before,
+body.navratri #work-panel::before,
+body.navratri #announcement-panel::before { z-index: -1; }
+/* dots continue up into the arch domes, clipped to the arch shape and lined up with the sheet below */
+body.navratri .arch::after,
+body.navratri .about-arch::after,
+body.navratri .shop-arch::after {
+  z-index: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 440 120' preserveAspectRatio='none'%3E%3Cpath d='M0,120 L0,110 Q220,-40 440,110 L440,120 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 440 120' preserveAspectRatio='none'%3E%3Cpath d='M0,120 L0,110 Q220,-40 440,110 L440,120 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+body.navratri .arch::after { background-position: 0 -1px; }                 /* 120px arch, sheet overlaps 1px */
+body.navratri .about-arch::after,
+body.navratri .shop-arch::after { background-position: 0 17px; }            /* 90px arch: 89 mod 24 */
+.arch-garland, .arch-knot { z-index: 1; }                                     /* garland stays above the dots */
+
+/* 5. footer greeting replaces "more coming soon" while the theme is on */
+body.navratri .nv-off { display: none; }
+body.navratri .foot-soon .nv-greet { font-size: 0.74rem; letter-spacing: 0.02em; font-weight: 700; color: var(--coral-deep); }
+
+/* 6. three marigold beads after each section title */
+body.navratri .sec-head h2::after,
+body.navratri .shop-sheet .shop-section-head::after {
+  content: "";
+  display: inline-block;
+  width: 21px; height: 6px;
+  margin-left: 8px;
+  vertical-align: middle;
+  background:
+    radial-gradient(circle at 3px 3px,  #F29A1F 2.5px, transparent 3px),
+    radial-gradient(circle at 10.5px 3px, #F7C33C 2.5px, transparent 3px),
+    radial-gradient(circle at 18px 3px, #F29A1F 2.5px, transparent 3px);
+}
+
+/* 7. home hero: garba dancers on the arch slopes */
+/* garba dancers: original pictograms, three per side, feet on the arch slope,
+   behind the photo. Barely visible; a slow step + sway loop. */
+.garba-ring {
+  position: absolute; inset: 0;
+  z-index: 2;
+  color: #C2410C;                     /* dark orange (light mode) */
+  opacity: 0.2;
+  pointer-events: none;
+}
+body[data-theme="dark"] .garba-ring { color: #000; opacity: 0.1; }  /* 1% black is invisible on dark */
+.gd {
+  position: absolute;
+  width: 0;                          /* zero-width anchor = the dancer's feet */
+  height: min(56px, 14.4vw);
+  transform-origin: 0 100%;
+  animation: gbBob 2.2s ease-in-out infinite, gbSway 4.4s ease-in-out infinite;
+}
+.gd svg {
+  position: absolute; left: 0; bottom: 0;
+  height: 100%; width: auto;
+  transform: translateX(-50%);
+  fill: currentColor;
+}
+@keyframes gbBob  { 0%, 100% { translate: 0 0; }    50% { translate: 0 -2px; } }
+@keyframes gbSway { 0%, 100% { rotate: -3deg; }     50% { rotate: 3deg; } }
+@media (prefers-reduced-motion: reduce) { .gd { animation: none; } }
+.gd-l1 { left: 3.5%; bottom: 97px; animation-delay: 0s; }
+.gd-l2 { left: 11.0%; bottom: 116px; animation-delay: -1.1s; }
+.gd-l3 { left: 18.5%; bottom: 132px; animation-delay: -3.3s; }
+.gd-r1 { left: 96.5%; bottom: 97px; animation-delay: -0.55s; }
+.gd-r2 { left: 89.0%; bottom: 116px; animation-delay: -1.65s; }
+.gd-r3 { left: 81.5%; bottom: 132px; animation-delay: -4.4s; }
+
+
+
+/* ============ VIDEO LINKS — every link shared in a video, newest first ============ */
+.vl-list { display: flex; flex-direction: column; gap: 14px; }
+.vl-card {
+  display: flex; gap: 14px;
+  padding: 12px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #FFEDE3 0%, #FFDCCB 100%);
+  border: 1px solid rgba(241,90,36,0.22);
+  box-shadow: 0 10px 24px rgba(241,90,36,0.14);
+}
+.vl-thumb {
+  position: relative;
+  flex: 0 0 96px;
+  align-self: flex-start;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ffe9dd 0%, #ffcbb4 100%);
+}
+.vl-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.vl-sub { font-size: 0.78rem; line-height: 1.45; color: var(--muted); }
+.vl-body { display: flex; flex-direction: column; justify-content: center; gap: 5px; min-width: 0; }
+.vl-tag {
+  align-self: flex-start;
+  font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; background: var(--coral);
+  padding: 3px 8px; border-radius: 999px;
+}
+.vl-title { font-size: 1rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.25; color: var(--ink); }
+.vl-actions { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+.vl-btn {
+  display: flex; align-items: center; justify-content: center;
+  padding: 9px 12px;
+  border-radius: 12px;
+  font-size: 0.82rem; font-weight: 700;
+  text-decoration: none;
+  transition: transform .15s;
+}
+.vl-btn:active { transform: scale(.96); }
+.vl-btn-main { background: var(--coral); color: #fff; }
+.vl-btn-ghost { border: 1px solid rgba(241,90,36,0.35); color: var(--coral-deep); background: #fff; }
+body[data-theme="dark"] .vl-card { background: linear-gradient(160deg, #232323 0%, #1C1C1C 100%); border-color: #3C3C3C; box-shadow: 0 10px 24px rgba(0,0,0,0.35); }
+body[data-theme="dark"] .vl-btn-ghost { background: transparent; }
+body[data-theme="dark"] .vl-thumb { background: linear-gradient(160deg, #3a2a22 0%, #2a201b 100%); }
+
+/* link button beside the stats: solid coral so it can't be missed */
+.offer-btn {
+  background: var(--coral);
+  color: #fff;
+  backdrop-filter: none;
+  box-shadow: 0 6px 16px rgba(241,90,36,0.4);
+}
+.offer-btn svg { width: 18px; height: 18px; stroke-width: 2.4; }
+
+
+/* hair layer: moved by the wind in dark mode (app.js), still in light mode */
+.ad-hair {
+  position: absolute;
+  left: 59.81%; top: 1.99%;
+  width: 13.96%; height: auto;
+  transform-origin: 50% 92.5%;          /* the hairline stays put, the curls blow */
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ============ SERVICE-CENTRE WALL — home hero background (light + dark) ============
+   Painted workshop wall: plain upper wall, yellow band with dark pinstripes at tank height,
+   pale lower wall, and a soft ceiling light. Percentages keep it aligned at every size. */
+.hero.hero-ad {
+  background:
+    radial-gradient(ellipse 70% 32% at 50% 0%, rgba(255,255,255,0.75), rgba(255,255,255,0) 70%),
+    linear-gradient(180deg,
+      #E3E5E6 0%, #D3D7DA 61.4%,
+      #2A2A2A 61.4%, #2A2A2A 61.9%,
+      #EFC53A 61.9%, #EFC53A 65.6%,
+      #2A2A2A 65.6%, #2A2A2A 66%,
+      #EFC53A 66%, #EFC53A 66.9%,
+      #F3F2EE 66.9%, #E6E5E0 100%);
+}
+body[data-theme="dark"] .hero.hero-ad {
+  background:
+    radial-gradient(ellipse 70% 32% at 50% 0%, rgba(255,255,255,0.10), rgba(255,255,255,0) 70%),
+    linear-gradient(180deg,
+      #2E3236 0%, #25292D 61.4%,
+      #0F0F0F 61.4%, #0F0F0F 61.9%,
+      #C9A227 61.9%, #C9A227 65.6%,
+      #0F0F0F 65.6%, #0F0F0F 66%,
+      #C9A227 66%, #C9A227 66.9%,
+      #3A3D40 66.9%, #303336 100%) !important;
+}
+/* the wall replaces the glow behind the home hero in both themes */
+.hero-ad .hero-smoke, .hero-ad .hero-glow { display: none !important; }
+
+/* ============ LOADING SCREEN ============ */
+html.is-loading, html.is-loading body { overflow: hidden; }
+#og-loader {
+  position: fixed; inset: 0;
+  z-index: 10000;
+  display: grid; place-items: center; align-content: center; gap: 14px;
+  background: #ffffff;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+body[data-theme="dark"] #og-loader { background: #181818; }
+#og-loader.done { opacity: 0; visibility: hidden; }
+.ogl-mark {
+  font-family: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  font-size: 3rem; line-height: 1; letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.ogl-bar { width: 72px; height: 3px; border-radius: 3px; background: rgba(0,0,0,0.08); overflow: hidden; }
+body[data-theme="dark"] .ogl-bar { background: rgba(255,255,255,0.1); }
+.ogl-bar span {
+  display: block; width: 40%; height: 100%; border-radius: inherit;
+  background: var(--coral);
+  animation: oglSlide 1s ease-in-out infinite;
+}
+@keyframes oglSlide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+@media (prefers-reduced-motion: reduce) { .ogl-bar span { animation: none; width: 100%; } }
+
+</style>
 <title>OG Ladka — Links</title>
 <meta name="description" content="OG Ladka — bikes, simplified. Gear, guides & links for Indian riders." />
+<link rel="preload" as="image" href="images/33-first-service-checklist-og-ladka.webp?v=e8664f41" fetchpriority="high" />
+<link rel="preload" as="image" href="images/33-first-service-checklist-hair.webp?v=9993ee69" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -23,6 +1353,12 @@
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window,document,"clarity","script","xbnj8ij4lf");
 </script>
+<style id="loader-critical">
+  #og-loader{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;align-content:center;gap:14px;background:#fff;transition:opacity .35s ease,visibility .35s ease}
+  body[data-theme="dark"] #og-loader{background:#181818}
+  #og-loader.done{opacity:0;visibility:hidden}
+  html.is-loading,html.is-loading body{overflow:hidden}
+</style>
 </head>
 <body>
 <!-- Loading screen: covers the page until the hero images and fonts are ready (app.js removes it) -->
@@ -31,7 +1367,9 @@
   /* set the theme before first paint so the loader is the right colour */
   (function () { var hour = new Date().getHours(); var isDay = hour >= 6 && hour < 18;
     document.body.setAttribute("data-theme", isDay ? "light" : "dark");
-    document.documentElement.classList.add("is-loading"); })();
+    document.documentElement.classList.add("is-loading");
+    setTimeout(function () { var l = document.getElementById("og-loader");
+      if (l) { l.classList.add("done"); document.documentElement.classList.remove("is-loading"); } }, 6500); })();
 </script>
 <main class="wrap">
 <div id="home-panel">
@@ -70,8 +1408,8 @@
     </div>
     <span class="hero-glow" aria-hidden="true"></span>
     <div class="ad-figure">
-      <img class="ad-photo" src="images/33-first-service-checklist-og-ladka.webp" alt="Hemansu Singh holding a checklist beside his Royal Enfield Classic 350" />
-      <img class="ad-hair" src="images/33-first-service-checklist-hair.webp" alt="" aria-hidden="true" />
+      <img class="ad-photo" fetchpriority="high" src="images/33-first-service-checklist-og-ladka.webp?v=e8664f41" alt="Hemansu Singh holding a checklist beside his Royal Enfield Classic 350" />
+      <img class="ad-hair" fetchpriority="high" src="images/33-first-service-checklist-hair.webp?v=9993ee69" alt="" aria-hidden="true" />
     </div>
     <nav class="home-socials">
       <a href="https://instagram.com/ogladkaa" target="_blank" rel="noopener" data-label="Social: Instagram" data-category="Social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
@@ -151,15 +1489,15 @@
 
     <div class="bento reveal">
       <a class="tile" href="https://amzn.to/4uI1OPM" target="_blank" rel="noopener sponsored" data-label="Product: Motul Chain Kit" data-category="Shop">
-        <div class="pimg"><img src="images/02-motul-chain-cleaner-and-lube.webp" alt="Motul chain cleaner and lube" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/02-motul-chain-cleaner-and-lube.webp?v=56026986" alt="Motul chain cleaner and lube" /></div>
         <div class="tinfo"><div class="ttl">Motul Chain Kit</div><div class="sub">Cleaner + lube + brush</div></div>
       </a>
       <a class="tile" href="https://amzn.to/4txp7uK" target="_blank" rel="noopener sponsored" data-label="Product: Tank Cover" data-category="Shop">
-        <div class="pimg"><img src="images/03-motorcycle-tank-cover.webp" alt="Motorcycle tank cover" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/03-motorcycle-tank-cover.webp?v=70197c43" alt="Motorcycle tank cover" /></div>
         <div class="tinfo"><div class="ttl">Tank Cover</div><div class="sub">Protect + storage</div></div>
       </a>
       <a class="tile" href="https://shorturl.at/6VX7N" target="_blank" rel="noopener sponsored" data-label="Product: Matte Care Kit" data-category="Shop">
-        <div class="pimg"><img src="images/04-wavex-matte-finish-kit.webp" alt="Wavex matte finish kit" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/04-wavex-matte-finish-kit.webp?v=277048b8" alt="Wavex matte finish kit" /></div>
         <div class="tinfo"><div class="ttl">Matte Care Kit</div><div class="sub">For matte bikes</div></div>
       </a>
     </div>
@@ -192,15 +1530,15 @@
 
     <div class="vids-grid reveal">
       <a class="vid" href="https://www.instagram.com/reel/DVObL38CSEV/" target="_blank" rel="noopener" data-label="Video: Matte Paint Care" data-category="Video">
-        <div class="thumb"><img src="images/05-matte-paint-care-tutorial.webp" alt="Matte Paint Care Tutorial" />
+        <div class="thumb"><img loading="lazy" decoding="async" src="images/05-matte-paint-care-tutorial.webp?v=27d76fef" alt="Matte Paint Care Tutorial" />
           <span class="play"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
       </a>
       <a class="vid" href="https://www.instagram.com/reel/DV82v9BjSC2/" target="_blank" rel="noopener" data-label="Video: How to Ride a New Bike" data-category="Video">
-        <div class="thumb"><img src="images/06-how-to-ride-a-new-bike.webp" alt="How to ride a new bike" />
+        <div class="thumb"><img loading="lazy" decoding="async" src="images/06-how-to-ride-a-new-bike.webp?v=c458e5e6" alt="How to ride a new bike" />
           <span class="play"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
       </a>
       <a class="vid" href="https://www.instagram.com/reel/DUyRCN9Es59/" target="_blank" rel="noopener" data-label="Video: Engine Braking Explained" data-category="Video">
-        <div class="thumb"><img src="images/07-engine-braking-explained.webp" alt="Engine Braking Explained" />
+        <div class="thumb"><img loading="lazy" decoding="async" src="images/07-engine-braking-explained.webp?v=6ee204d4" alt="Engine Braking Explained" />
           <span class="play"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
       </a>
     </div>
@@ -241,7 +1579,7 @@
       <span class="smoke s4"></span>
     </div>
     <span class="hero-glow about-glow-layer" aria-hidden="true"></span>
-    <img class="about-photo" src="images/08-hemansu-singh-og-ladka.webp" alt="Hemansu Singh — OG Ladka" />
+    <img loading="lazy" decoding="async" class="about-photo" src="images/08-hemansu-singh-og-ladka.webp?v=c0bcd503" alt="Hemansu Singh — OG Ladka" />
     <nav class="about-socials">
       <a href="#home" onclick="showHome(event)" data-label="Nav: Back to Home" data-category="Navigation" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
       <a href="https://instagram.com/ogladkaa" target="_blank" rel="noopener" data-label="Social: Instagram" data-category="Social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
@@ -286,15 +1624,15 @@
 
     <div class="ride-grid reveal">
       <div class="ride-card">
-        <div class="ride-img"><img src="images/09-royal-enfield-classic-350.webp" alt="Royal Enfield Classic 350" /></div>
+        <div class="ride-img"><img loading="lazy" decoding="async" src="images/09-royal-enfield-classic-350.webp?v=0b283c0b" alt="Royal Enfield Classic 350" /></div>
         <span class="ride-name">Classic 350</span>
       </div>
       <div class="ride-card">
-        <div class="ride-img"><img src="images/10-bajaj-pulsar-150.webp" alt="Bajaj Pulsar 150" /></div>
+        <div class="ride-img"><img loading="lazy" decoding="async" src="images/10-bajaj-pulsar-150.webp?v=53c7d78a" alt="Bajaj Pulsar 150" /></div>
         <span class="ride-name">Pulsar 150</span>
       </div>
       <div class="ride-card">
-        <div class="ride-img"><img src="images/11-tvs-jupiter-110.webp" alt="TVS Jupiter 110" /></div>
+        <div class="ride-img"><img loading="lazy" decoding="async" src="images/11-tvs-jupiter-110.webp?v=9615b466" alt="TVS Jupiter 110" /></div>
         <span class="ride-name">Jupiter 110</span>
       </div>
     </div>
@@ -315,7 +1653,7 @@
       <span class="smoke s4"></span>
     </div>
     <span class="shop-glow" aria-hidden="true"></span>
-    <img class="shop-photo" src="images/12-hemansu-singh-with-a-package-og-ladka.webp" alt="Hemansu Singh with a package — OG Ladka" />
+    <img loading="lazy" decoding="async" class="shop-photo" src="images/12-hemansu-singh-with-a-package-og-ladka.webp?v=d5fb515f" alt="Hemansu Singh with a package — OG Ladka" />
     <nav class="home-socials shop-socials">
       <a href="#home" onclick="showHome(event)" data-label="Nav: Back to Home" data-category="Navigation" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
       <a href="https://instagram.com/ogladkaa" target="_blank" rel="noopener" data-label="Social: Instagram" data-category="Social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
@@ -372,43 +1710,43 @@
     <h3 class="shop-section-head reveal">Maintenance and Care</h3>
     <div class="bento reveal">
       <a class="tile" href="https://amzn.to/4uI1OPM" target="_blank" rel="noopener sponsored" data-label="Product: Motul Chain Kit" data-category="Shop" data-keywords="bike chain lube chain lube bike chain cleaner chain cleaner bike chain kit chain spray chain oil bike chain maintenance motorcycle chain lube chain cleaning motul">
-        <div class="pimg"><img src="images/02-motul-chain-cleaner-and-lube.webp" alt="Motul Chain Kit" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/02-motul-chain-cleaner-and-lube.webp?v=56026986" alt="Motul Chain Kit" /></div>
         <div class="tinfo"><div class="ttl">Motul Chain Kit</div><div class="sub">Cleaner + lube + brush</div></div>
       </a>
       <a class="tile" href="https://amzn.to/3Q7p23c" target="_blank" rel="noopener sponsored" data-label="Product: Aerol Silicone Spray" data-category="Shop" data-keywords="silicone spray silicone spray for bike bike silicone spray rubber spray bike polish spray plastic polish spray silicone lubricant bike maintenance spray rubber care spray silicone oil spray aerol shine gloss bike shine">
-        <div class="pimg"><img src="images/13-aerol-silicone-spray.webp" alt="Aerol Silicone Spray" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/13-aerol-silicone-spray.webp?v=381526c8" alt="Aerol Silicone Spray" /></div>
         <div class="tinfo"><div class="ttl">Aerol Silicone Spray</div><div class="sub">Multipurpose shine</div></div>
       </a>
       <a class="tile" href="https://shorturl.at/6VX7N" target="_blank" rel="noopener sponsored" data-label="Product: Matte Care Kit" data-category="Shop" data-keywords="matte bike polish matte bike cleaner matte paint care matte bike care matte polish matte paint cleaner bike polish for matte paint matte finish cleaner matte bike polish kit bike care kit matte shampoo shampoo bike shampoo wash bike wash">
-        <div class="pimg"><img src="images/04-wavex-matte-finish-kit.webp" alt="Matte Care Kit" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/04-wavex-matte-finish-kit.webp?v=277048b8" alt="Matte Care Kit" /></div>
         <div class="tinfo"><div class="ttl">Matte Care Kit</div><div class="sub">For matte bikes</div></div>
       </a>
       <a class="tile" href="https://link.amazon/B016OZnJB" target="_blank" rel="noopener sponsored" data-label="Product: Fuel Additive" data-category="Shop" data-keywords="fuel additive bike fuel additive petrol additive fuel cleaner petrol cleaner engine cleaner fuel injector cleaner bike fuel cleaner petrol treatment fuel treatment liqui moly">
-        <div class="pimg"><img src="images/14-fuel-additive.webp" alt="Fuel Additive" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/14-fuel-additive.webp?v=e1d37dee" alt="Fuel Additive" /></div>
         <div class="tinfo"><div class="ttl">Fuel Additive</div><div class="sub">System cleaner</div></div>
       </a>
       <a class="tile" href="https://link.amazon/B01gHJSXr" target="_blank" rel="noopener sponsored" data-label="Product: WD-40" data-category="Shop" data-keywords="wd40 wd 40 wd40 spray wd40 for bike bike wd40 wd40 uses wd40 lubricant wd40 chain wd40 rust remover wd40 spray for bike rust">
-        <div class="pimg"><img src="images/15-wd-40.webp" alt="WD-40" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/15-wd-40.webp?v=238630e4" alt="WD-40" /></div>
         <div class="tinfo"><div class="ttl">WD-40</div><div class="sub">Multi-use spray</div></div>
       </a>
       <a class="tile" href="https://amzn.to/4eBTNag" target="_blank" rel="noopener sponsored" data-label="Product: 3M Bike Care Kit" data-category="Shop" data-keywords="bike care kit bike cleaning kit bike polish bike cleaner motorcycle cleaning kit bike polish kit bike cleaning products bike wash kit bike maintenance kit motorcycle care kit 3m gloss shampoo bike shampoo wash bike wash shine bike shine">
-        <div class="pimg"><img src="images/16-3m-bike-care-kit.jpg" alt="3M Bike Care Kit" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/16-3m-bike-care-kit.jpg?v=3bcbc375" alt="3M Bike Care Kit" /></div>
         <div class="tinfo"><div class="ttl">3M Bike Care Kit</div><div class="sub">Only for gloss bikes</div></div>
       </a>
       <a class="tile" href="https://car101.in/products/car-shampoo" target="_blank" rel="noopener sponsored" data-label="Product: Foam Shampoo" data-category="Shop" data-keywords="bike foam shampoo bike shampoo car foam shampoo bike wash shampoo foam wash bike cleaner bike washing shampoo snow foam motorcycle shampoo bike wash shampoo car101">
-        <div class="pimg"><img src="images/23-car101-super-foam-wash.png" alt="Foam Shampoo" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/23-car101-super-foam-wash.png?v=a0d07f80" alt="Foam Shampoo" /></div>
         <div class="tinfo"><div class="ttl">Foam Shampoo</div><div class="sub">Snow foam concentrate</div></div>
       </a>
       <a class="tile" href="https://car101.in/products/helmet-and-gear-cleaner" target="_blank" rel="noopener sponsored" data-label="Product: Helmet Cleaner" data-category="Shop" data-keywords="helmet cleaner helmet cleaning helmet cleaning spray helmet wash helmet cleaner spray helmet cleaning kit helmet interior cleaner helmet padding cleaner helmet foam cleaner how to clean helmet car101">
-        <div class="pimg"><img src="images/24-car101-helmet-cleaner.png" alt="Helmet Cleaner" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/24-car101-helmet-cleaner.png?v=344ac1b5" alt="Helmet Cleaner" /></div>
         <div class="tinfo"><div class="ttl">Helmet Cleaner</div><div class="sub">Anti-bacterial + cloth</div></div>
       </a>
       <a class="tile" href="https://car101.in/products/car01-graphene-ceramic-coating-300ml" target="_blank" rel="noopener sponsored" data-label="Product: Graphene Ceramic Coating" data-category="Shop" data-keywords="bike ceramic coating ceramic coating graphene coating bike coating ceramic coating for bike bike paint coating graphene ceramic coating bike ceramic coating price bike coating kit ceramic coating kit car101 shine gloss bike shine wax polish bike polish">
-        <div class="pimg"><img src="images/25-car101-graphene-ceramic-coating.png" alt="Graphene Ceramic Coating" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/25-car101-graphene-ceramic-coating.png?v=8ec462fa" alt="Graphene Ceramic Coating" /></div>
         <div class="tinfo"><div class="ttl">Graphene Ceramic Coating</div><div class="sub">Gloss + protection</div></div>
       </a>
       <a class="tile" href="https://car101.in/products/car101-automotive-microfibre-towels-for-car-bike-cleaning-polishing-washing-detailing" target="_blank" rel="noopener sponsored" data-label="Product: Microfibre Cloth" data-category="Shop" data-keywords="microfiber cloth microfibre cloth bike cleaning cloth car cleaning cloth microfiber towel bike polish cloth cleaning cloth microfiber cloth for bike car microfiber cloth bike cleaning towel car101">
-        <div class="pimg"><img src="images/26-car101-microfibre-cloth.png" alt="Microfibre Cloth" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/26-car101-microfibre-cloth.png?v=6bcc594c" alt="Microfibre Cloth" /></div>
         <div class="tinfo"><div class="ttl">Microfibre Cloth</div><div class="sub">550 GSM, pack of 2</div></div>
       </a>
     </div>
@@ -416,15 +1754,15 @@
     <h3 class="shop-section-head reveal">Tools and Kits</h3>
     <div class="bento reveal">
       <a class="tile" href="https://link.amazon/B0dEwTdGo" target="_blank" rel="noopener sponsored" data-label="Product: Tyre Inflator" data-category="Shop" data-keywords="bike tyre inflator tyre inflator portable tyre inflator bike air pump tyre air pump electric tyre inflator bike tyre pump portable air pump tyre pump car tyre inflator tire">
-        <div class="pimg"><img src="images/17-tyre-inflator.webp" alt="Tyre Inflator" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/17-tyre-inflator.webp?v=3b7c5172" alt="Tyre Inflator" /></div>
         <div class="tinfo"><div class="ttl">Tyre Inflator</div><div class="sub">Portable, digital</div></div>
       </a>
       <a class="tile" href="https://link.amazon/B0cfZ5Rf7" target="_blank" rel="noopener sponsored" data-label="Product: Puncture Kit" data-category="Shop" data-keywords="bike puncture kit tubeless puncture kit puncture repair kit bike puncture repair tubeless puncture repair tyre puncture kit puncture kit for bike tubeless repair kit tyre repair kit bike tyre repair">
-        <div class="pimg"><img src="images/18-puncture-kit.webp" alt="Puncture Kit" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/18-puncture-kit.webp?v=3dd9de0c" alt="Puncture Kit" /></div>
         <div class="tinfo"><div class="ttl">Puncture Kit</div><div class="sub">Roadside fix</div></div>
       </a>
       <a class="tile" href="https://link.amazon/B0cZU0jyj" target="_blank" rel="noopener sponsored" data-label="Product: Tool Kit" data-category="Shop" data-keywords="bike tool kit motorcycle tool kit bike repair kit bike tools motorcycle tools bike toolkit bike repair tools bike mechanic tools bike maintenance tools bike tool set socket">
-        <div class="pimg"><img src="images/19-tool-kit.webp" alt="Tool Kit" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/19-tool-kit.webp?v=b18e9edd" alt="Tool Kit" /></div>
         <div class="tinfo"><div class="ttl">Tool Kit</div><div class="sub">46-pc socket set</div></div>
       </a>
     </div>
@@ -432,15 +1770,15 @@
     <h3 class="shop-section-head reveal">Riding Gears</h3>
     <div class="bento reveal">
       <a class="tile" href="https://amzn.to/3Pjt08w" target="_blank" rel="noopener sponsored" data-label="Product: RE Riding Jacket" data-category="Shop" data-keywords="royal enfield riding jacket re riding jacket bike riding jacket motorcycle riding jacket riding jacket riding gear royal enfield jacket riding jacket for men bike jacket motorcycle jacket">
-        <div class="pimg"><img src="images/20-re-riding-jacket.webp" alt="RE Riding Jacket" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/20-re-riding-jacket.webp?v=9592466a" alt="RE Riding Jacket" /></div>
         <div class="tinfo"><div class="ttl">RE Riding Jacket</div><div class="sub">All-season</div></div>
       </a>
       <a class="tile" href="https://link.amazon/B01JRESSp" target="_blank" rel="noopener sponsored" data-label="Product: SMK Helmet" data-category="Shop" data-keywords="smk helmet smk helmets smk helmet price smk full face helmet smk helmet review smk bike helmet smk helmet visor smk helmet size smk helmet india best smk helmet">
-        <div class="pimg"><img src="images/21-smk-helmet.webp" alt="SMK Helmet" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/21-smk-helmet.webp?v=3df4fb09" alt="SMK Helmet" /></div>
         <div class="tinfo"><div class="ttl">SMK Helmet</div><div class="sub">Full-face, matte</div></div>
       </a>
       <a class="tile" href="https://link.amazon/B0e4g5lO8" target="_blank" rel="noopener sponsored" data-label="Product: Riding Shoes" data-category="Shop" data-keywords="riding shoes bike riding shoes motorcycle riding shoes riding boots bike shoes motorcycle shoes riding shoes for men waterproof riding shoes riding boots for men best riding shoes">
-        <div class="pimg"><img src="images/22-riding-shoes.webp" alt="Riding Shoes" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/22-riding-shoes.webp?v=abcefae7" alt="Riding Shoes" /></div>
         <div class="tinfo"><div class="ttl">Riding Shoes</div><div class="sub">All-weather</div></div>
       </a>
     </div>
@@ -448,7 +1786,7 @@
     <h3 class="shop-section-head reveal">Accessories</h3>
     <div class="bento reveal">
       <a class="tile" href="https://amzn.to/4txp7uK" target="_blank" rel="noopener sponsored" data-label="Product: Tank Cover" data-category="Shop" data-keywords="bike tank cover fuel tank cover tank cover for bike motorcycle tank cover bike tank protector tank protection bike tank protector cover fuel tank protector bike tank pad tank pad">
-        <div class="pimg"><img src="images/03-motorcycle-tank-cover.webp" alt="Tank Cover" /></div>
+        <div class="pimg"><img loading="lazy" decoding="async" src="images/03-motorcycle-tank-cover.webp?v=70197c43" alt="Tank Cover" /></div>
         <div class="tinfo"><div class="ttl">Tank Cover</div><div class="sub">Protect + storage</div></div>
       </a>
     </div>
@@ -507,7 +1845,7 @@
   <div class="vl-list">
 
     <article class="vl-card reveal">
-      <a class="vl-thumb" href="https://www.instagram.com/reel/Deo7svjpq50/" target="_blank" rel="noopener" data-label="Video Links: Insurance Mods Email - Thumbnail" data-category="Video Links" aria-label="Watch: Email them to save money"><img src="images/29-reel-email-insurance-mods.webp" alt="Reel cover: Email them to save money" loading="lazy" /></a>
+      <a class="vl-thumb" href="https://www.instagram.com/reel/Deo7svjpq50/" target="_blank" rel="noopener" data-label="Video Links: Insurance Mods Email - Thumbnail" data-category="Video Links" aria-label="Watch: Email them to save money"><img src="images/29-reel-email-insurance-mods.webp?v=9fc3b5fd" alt="Reel cover: Email them to save money" loading="lazy" /></a>
       <div class="vl-body">
         <span class="vl-tag">Latest</span>
         <h3 class="vl-title">Email them to save money</h3>
@@ -520,7 +1858,7 @@
     </article>
 
     <article class="vl-card reveal">
-      <a class="vl-thumb" href="https://www.instagram.com/reel/DeXGaTtprFi/" target="_blank" rel="noopener" data-label="Video Links: Microfibre Cloth - Thumbnail" data-category="Video Links" aria-label="Watch: Don't use this cloth"><img src="images/30-reel-dont-use-this-cloth.webp" alt="Reel cover: Don't use this cloth" loading="lazy" /></a>
+      <a class="vl-thumb" href="https://www.instagram.com/reel/DeXGaTtprFi/" target="_blank" rel="noopener" data-label="Video Links: Microfibre Cloth - Thumbnail" data-category="Video Links" aria-label="Watch: Don't use this cloth"><img src="images/30-reel-dont-use-this-cloth.webp?v=71779410" alt="Reel cover: Don't use this cloth" loading="lazy" /></a>
       <div class="vl-body">
         <h3 class="vl-title">Don't use this cloth</h3>
         <p class="vl-sub">Picking the right cloth to keep your paint scratch-free.</p>
@@ -532,7 +1870,7 @@
     </article>
 
     <article class="vl-card reveal">
-      <a class="vl-thumb" href="https://www.instagram.com/reel/DdMNz_6pp-P/" target="_blank" rel="noopener" data-label="Video Links: Tyre Polish - Thumbnail" data-category="Video Links" aria-label="Watch: Best tyre polish?"><img src="images/31-reel-best-tyre-polish.webp" alt="Reel cover: Best tyre polish?" loading="lazy" /></a>
+      <a class="vl-thumb" href="https://www.instagram.com/reel/DdMNz_6pp-P/" target="_blank" rel="noopener" data-label="Video Links: Tyre Polish - Thumbnail" data-category="Video Links" aria-label="Watch: Best tyre polish?"><img src="images/31-reel-best-tyre-polish.webp?v=68609b2d" alt="Reel cover: Best tyre polish?" loading="lazy" /></a>
       <div class="vl-body">
         <h3 class="vl-title">Best tyre polish?</h3>
         <p class="vl-sub">Keeping tyres and trims looking new, the right way.</p>
@@ -549,6 +1887,644 @@
 </main>
 
 
-<script src="app.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function onReady(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  /* ---------- GA4 click tracking ---------- */
+  function track(label, url, category, eventName) {
+    if (typeof gtag === "function") {
+      gtag("event", eventName || "link_click", {
+        click_label: label || "unknown",
+        link_url: url || "",
+        click_category: category || "General"
+      });
+    }
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("[data-label]");
+    if (!a) return;
+    track(a.getAttribute("data-label"), a.getAttribute("href") || "", a.getAttribute("data-category") || "General");
+  });
+
+  /* ---------- Panel switching ---------- */
+  var home = null, access = null, about = null, shop = null, question = null, work = null, announcement = null;
+  function panels() {
+    home = home || document.getElementById("home-panel");
+    access = access || document.getElementById("access-panel");
+    about = about || document.getElementById("about-panel");
+    shop = shop || document.getElementById("shop-panel");
+    question = question || document.getElementById("question-panel");
+    work = work || document.getElementById("work-panel");
+    announcement = announcement || document.getElementById("announcement-panel");
+  }
+  function hideAll() {
+    panels();
+    if (access) access.classList.remove("active");
+    if (about) about.classList.remove("active");
+    if (shop) shop.classList.remove("active");
+    if (question) question.classList.remove("active");
+    if (work) work.classList.remove("active");
+    if (announcement) announcement.classList.remove("active");
+    if (home) home.style.display = "none";
+  }
+
+  function revealIn(panel) {
+    if (!panel) return;
+    panel.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+  }
+
+  window.showAccess = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (access) { access.classList.add("active"); revealIn(access); }
+    window.scrollTo(0, 0);
+  };
+  window.showHome = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (home) home.style.display = "";
+    window.scrollTo(0, 0);
+  };
+  window.showAbout = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (about) { about.classList.add("active"); revealIn(about); }
+    window.scrollTo(0, 0);
+  };
+  window.showShop = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (shop) { shop.classList.add("active"); revealIn(shop); startShopAutoScroll(); }
+    window.scrollTo(0, 0);
+  };
+
+  /* ---------- Shop product search ---------- */
+  window.toggleShopSearch = function (e) {
+    if (e) e.preventDefault();
+    var row = document.getElementById("shopSearchRow");
+    var btn = document.getElementById("shopSearchBtn");
+    var input = document.getElementById("shopSearchInput");
+    var hot = document.getElementById("shopHot");
+    if (!row) return;
+    var open = row.classList.toggle("open");
+    if (btn) btn.classList.toggle("active", open);
+    if (hot) hot.classList.toggle("open", open);
+    if (open && input) { input.focus(); }
+    else { clearShopSearch(); }
+  };
+
+  window.filterShopProducts = function () {
+    var input = document.getElementById("shopSearchInput");
+    if (!input) return;
+    var q = input.value.trim().toLowerCase();
+    var terms = q.split(/\s+/).filter(Boolean);
+    var shopPanel = document.getElementById("shop-panel");
+    if (!shopPanel) return;
+    var tiles = shopPanel.querySelectorAll(".shop-sheet .tile");
+    var visible = 0;
+    tiles.forEach(function (t) {
+      var ttl = t.querySelector(".ttl");
+      var sub = t.querySelector(".sub");
+      var name = (ttl ? ttl.textContent : "").toLowerCase();
+      var subt = (sub ? sub.textContent : "").toLowerCase();
+      var keys = (t.getAttribute("data-keywords") || "").toLowerCase();
+      var haystack = name + " " + subt + " " + keys;
+      // every search term must appear somewhere (AND match) so multi-word stays precise
+      var match = terms.length === 0 || terms.every(function (term) {
+        return haystack.indexOf(term) !== -1;
+      });
+      t.style.display = match ? "" : "none";
+      if (match) visible++;
+    });
+    // Hide category headings + rows that have no visible tiles
+    var heads = shopPanel.querySelectorAll(".shop-section-head");
+    heads.forEach(function (h) {
+      var bento = h.nextElementSibling;
+      while (bento && !bento.classList.contains("bento")) bento = bento.nextElementSibling;
+      if (!bento) return;
+      var anyVisible = Array.prototype.some.call(bento.querySelectorAll(".tile"), function (t) {
+        return t.style.display !== "none";
+      });
+      h.classList.toggle("hide-sec", !anyVisible);
+      bento.classList.toggle("hide-sec", !anyVisible);
+    });
+    var nr = document.getElementById("shopNoResults");
+    if (nr) nr.classList.toggle("show", visible === 0 && q !== "");
+    // Pause the auto-scroll while searching and snap rows to the left so matches are visible
+    window.__shopSearching = q !== "";
+    var sheet = shopPanel.querySelector(".shop-sheet");
+    if (sheet) sheet.classList.toggle("searching", q !== "");
+    var rows = shopPanel.querySelectorAll(".shop-sheet .bento");
+    if (q !== "") {
+      var snap = function () {
+        rows.forEach(function (row) { row.scrollLeft = 0; });
+      };
+      snap();
+      requestAnimationFrame(snap);
+      requestAnimationFrame(function () { requestAnimationFrame(snap); });
+    }
+  };
+
+  window.clearShopSearch = function () {
+    var input = document.getElementById("shopSearchInput");
+    if (input) input.value = "";
+    filterShopProducts();
+  };
+
+  window.hotSearch = function (term) {
+    var row = document.getElementById("shopSearchRow");
+    var btn = document.getElementById("shopSearchBtn");
+    var input = document.getElementById("shopSearchInput");
+    var hot = document.getElementById("shopHot");
+    if (row && !row.classList.contains("open")) { row.classList.add("open"); if (btn) btn.classList.add("active"); }
+    if (hot) hot.classList.add("open");
+    if (input) { input.value = term; input.focus(); }
+    filterShopProducts();
+  };
+
+  window.showQuestion = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (question) { question.classList.add("active"); revealIn(question); }
+    window.scrollTo(0, 0);
+  };
+
+  window.showWork = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (work) { work.classList.add("active"); revealIn(work); }
+    window.scrollTo(0, 0);
+  };
+
+  window.showAnnouncement = function (e) {
+    if (e) e.preventDefault();
+    hideAll();
+    if (announcement) { announcement.classList.add("active"); revealIn(announcement); }
+    window.scrollTo(0, 0);
+  };
+
+  /* ---------- Shop auto-scroll (one row per category) ---------- */
+  var shopScrollStarted = false;
+  function startShopAutoScroll() {
+    if (shopScrollStarted) return;
+    shopScrollStarted = true;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    var rows = document.querySelectorAll("#shop-panel .shop-sheet .bento");
+    rows.forEach(function (row) {
+      var SPEED = 0.35;       // px per frame — gentle drift
+      var paused = false;
+      var resumeTimer = null;
+      var pos = 0;            // float accumulator (scrollLeft rounds to int)
+
+      function pause() {
+        paused = true;
+        if (resumeTimer) clearTimeout(resumeTimer);
+      }
+      function scheduleResume() {
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(function () { paused = false; }, 1600);
+      }
+
+      // pause on hover / touch / manual scroll, resume shortly after
+      row.addEventListener("mouseenter", pause);
+      row.addEventListener("mouseleave", scheduleResume);
+      row.addEventListener("touchstart", pause, { passive: true });
+      row.addEventListener("touchend", scheduleResume, { passive: true });
+      row.addEventListener("wheel", function () { pause(); scheduleResume(); }, { passive: true });
+      // keep accumulator in sync when the user scrolls by hand
+      row.addEventListener("scroll", function () {
+        if (paused) pos = row.scrollLeft;
+      }, { passive: true });
+
+      function step() {
+        var max = row.scrollWidth - row.clientWidth;
+        if (window.__shopSearching) {
+          if (row.scrollLeft !== 0) { row.scrollLeft = 0; }
+          pos = 0;
+        } else if (max > 4 && !paused) {
+          pos += SPEED;
+          if (pos >= max) pos = 0;        // loop back to start
+          row.scrollLeft = pos;
+        }
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  /* ---------- Guide form ---------- */
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvF9Lx6miwV5zAsrTmnCc4iYcVccFUsxEMVjUksIGckqbJQsxL01Gl23QqBCY_QUE/exec";
+
+  function fieldWrap(id) { var el = document.getElementById(id); return el ? el.closest(".field") : null; }
+  function validName() { var v = (document.getElementById("f-name")||{}).value || ""; return v.trim().length > 0; }
+  function validEmail() { var v = (document.getElementById("f-email")||{}).value || ""; return /^[^\s@]+@gmail\.com$/i.test(v.trim()); }
+  function validBike() { var v = (document.getElementById("f-bike")||{}).value || ""; return v.trim().length > 0; }
+
+  function refreshSubmit() {
+    var btn = document.getElementById("f-submit");
+    if (btn) btn.disabled = !(validName() && validEmail() && validBike());
+  }
+
+  window.submitAccess = function () {
+    var okN = validName(), okE = validEmail(), okB = validBike();
+    var fN = fieldWrap("f-name"), fE = fieldWrap("f-email"), fB = fieldWrap("f-bike");
+    if (fN) fN.classList.toggle("invalid", !okN);
+    if (fE) fE.classList.toggle("invalid", !okE);
+    if (fB) fB.classList.toggle("invalid", !okB);
+    if (!(okN && okE && okB)) return;
+
+    var name = document.getElementById("f-name").value.trim();
+    var email = document.getElementById("f-email").value.trim();
+    var bike = document.getElementById("f-bike").value.trim();
+
+    var btn = document.getElementById("f-submit");
+    if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
+
+    track("Guide: Form Submitted", email, "Guide", "form_submit");
+
+    var fd = new FormData();
+    fd.append("name", name); fd.append("email", email); fd.append("bike", bike);
+
+    fetch(APPS_SCRIPT_URL, { method: "POST", body: fd, mode: "no-cors" })
+      .catch(function(){})
+      .finally(function () {
+        var form = document.getElementById("access-form");
+        var succ = document.getElementById("access-success");
+        var em = document.getElementById("success-email");
+        if (em) em.textContent = email;
+        if (form) form.classList.add("hide");
+        if (succ) succ.classList.add("show");
+      });
+  };
+
+  /* ---------- Question form ---------- */
+  // PASTE your deployed Apps Script Web App URL here (ends in /exec):
+  var QUESTIONS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGUkqKKwlbGIvoOKzlWQqO7twRH_WLyTOC4-0hIK3VJplPzNwFwiWcBKOr5JhMLJ7gOw/exec";
+
+  function qWrap(id) { var el = document.getElementById(id); return el ? el.closest(".field") : null; }
+  function validQName() { var v = (document.getElementById("q-name") || {}).value || ""; return v.trim().length > 0; }
+  function validQText() { var v = (document.getElementById("q-question") || {}).value || ""; return v.trim().length > 0; }
+
+  function refreshQSubmit() {
+    var btn = document.getElementById("q-submit");
+    if (btn) btn.disabled = !(validQName() && validQText());
+  }
+
+  window.submitQuestion = function () {
+    var okN = validQName(), okQ = validQText();
+    var fN = qWrap("q-name"), fQ = qWrap("q-question");
+    if (fN) fN.classList.toggle("invalid", !okN);
+    if (fQ) fQ.classList.toggle("invalid", !okQ);
+    if (!(okN && okQ)) return;
+
+    var name = document.getElementById("q-name").value.trim();
+    var text = document.getElementById("q-question").value.trim();
+    var contact = (document.getElementById("q-contact") || {}).value || "";
+    contact = contact.trim();
+
+    var btn = document.getElementById("q-submit");
+    if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
+
+    track("Question: Form Submitted", contact || name, "Question", "form_submit");
+
+    var fd = new FormData();
+    fd.append("name", name);
+    fd.append("question", text);
+    fd.append("contact", contact);
+
+    fetch(QUESTIONS_SCRIPT_URL, { method: "POST", body: fd, mode: "no-cors" })
+      .catch(function () {})
+      .finally(function () {
+        var form = document.getElementById("question-form");
+        var succ = document.getElementById("question-success");
+        if (form) form.classList.add("hide");
+        if (succ) succ.classList.add("show");
+      });
+  };
+
+  /* ---------- Confetti popper ---------- */
+  function fireConfetti() {
+    var anchor = document.querySelector(".id-stats");
+    if (!anchor) return;
+    var rect = anchor.getBoundingClientRect();
+    var originX = rect.left + rect.width / 2;
+    var originY = rect.top + rect.height / 2 - 4;
+
+    var colors = ["#ff5100", "#ff8a3d", "#ffd23f", "#f15a24", "#ffffff", "#ff3b30"];
+    var container = document.createElement("div");
+    container.style.cssText = "position:fixed;top:" + originY + "px;left:" + originX + "px;width:0;height:0;z-index:9999;pointer-events:none;";
+    document.body.appendChild(container);
+
+    var N = 40;
+    for (var i = 0; i < N; i++) {
+      var piece = document.createElement("span");
+      var size = 5 + Math.random() * 6;
+      var color = colors[Math.floor(Math.random() * colors.length)];
+      var angle = (Math.random() - 0.5) * 1.4; // spread left/right
+      var vx = angle * (80 + Math.random() * 80);
+      var vy = -(340 + Math.random() * 160); // strong upward launch
+      var rot = (Math.random() - 0.5) * 720;
+      var dur = 1300 + Math.random() * 500;
+      piece.style.cssText =
+        "position:absolute;top:0;left:0;width:" + size + "px;height:" + (size * (Math.random() > .5 ? 1 : 0.5)) + "px;" +
+        "background:" + color + ";border-radius:" + (Math.random() > .5 ? "50%" : "1px") + ";opacity:1;will-change:transform,opacity;";
+      container.appendChild(piece);
+
+      (function (el, vx, vy, rot, dur) {
+        var start = null;
+        var g = 620; // gravity
+        function frame(ts) {
+          if (start === null) start = ts;
+          var t = (ts - start) / 1000;
+          var x = vx * t;
+          var y = vy * t + 0.5 * g * t * t;
+          var p = (ts - start) / dur;
+          el.style.transform = "translate(" + x + "px," + y + "px) rotate(" + (rot * t) + "deg)";
+          el.style.opacity = String(Math.max(0, 1 - p * p));
+          if (p < 1) requestAnimationFrame(frame);
+          else if (el.parentNode) el.parentNode.removeChild(el);
+        }
+        requestAnimationFrame(frame);
+      })(piece, vx, vy, rot, dur);
+    }
+    setTimeout(function () { if (container.parentNode) container.parentNode.removeChild(container); }, 2100);
+  }
+
+  /* ---------- Stat count-up animation ---------- */
+  function animateCounts() {
+    var els = document.querySelectorAll(".count");
+    if (!els.length) return;
+    var DURATION = 1000;
+    var done = 0;
+    els.forEach(function (el) {
+      var target = parseFloat(el.getAttribute("data-target")) || 0;
+      var suffix = el.getAttribute("data-suffix") || "";
+      var div = parseFloat(el.getAttribute("data-div")) || 1;
+      var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+      var start = null;
+      function fmt(v) {
+        var n = v / div;
+        return (decimals ? n.toFixed(decimals) : Math.round(n)) + suffix;
+      }
+      function step(ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / DURATION, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(target * eased);
+        if (p < 1) requestAnimationFrame(step);
+        else {
+          el.textContent = fmt(target);
+          done++;
+        }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  // scroll-reveal: cards swift up as they enter the viewport
+  function initReveal() {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var items = document.querySelectorAll(".reveal");
+    if (reduce || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+    items.forEach(function (el, i) {
+      el.style.transitionDelay = (Math.min(i, 6) * 40) + "ms";
+      io.observe(el);
+    });
+
+    // Anything already on screen at load must reveal immediately - on tall
+    // displays there may be no scroll to trigger the observer.
+    function revealInView() {
+      items.forEach(function (el) {
+        if (el.classList.contains("in")) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          el.classList.add("in");
+          io.unobserve(el);
+        }
+      });
+    }
+    revealInView();
+    window.addEventListener("load", revealInView);
+    window.addEventListener("resize", revealInView);
+    setTimeout(revealInView, 500);
+  }
+
+  // live follower counter: rapid climb 0 -> base, then +step every interval
+  function startLiveCount() {
+    var el = document.querySelector(".live-count");
+    if (!el) return;
+    var base = parseInt(el.getAttribute("data-start"), 10) || 0;
+    var step = parseInt(el.getAttribute("data-step"), 10) || 1;
+    var interval = parseInt(el.getAttribute("data-interval"), 10) || 5000;
+
+    // Phase 1: rapid count-up 0 -> base (~1.1s ease-out)
+    var CLIMB = 1100;
+    var climbStart = null;
+    function climb(ts) {
+      if (climbStart === null) climbStart = ts;
+      var p = Math.min((ts - climbStart) / CLIMB, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(base * eased).toLocaleString("en-US");
+      if (p < 1) {
+        requestAnimationFrame(climb);
+      } else {
+        el.textContent = base.toLocaleString("en-US");
+        // Phase 2: slow tick from the moment climb finishes
+        var tickStart = Date.now();
+        setInterval(function () {
+          var ticks = Math.floor((Date.now() - tickStart) / interval);
+          el.textContent = (base + ticks * step).toLocaleString("en-US");
+        }, interval);
+      }
+    }
+    requestAnimationFrame(climb);
+  }
+
+  /* ---------- Time-based theme (light 6am-6pm, dark otherwise) ---------- */
+  function initTimeTheme() {
+    // Uses the visitor's local time. Re-checks every minute so the page
+    // flips automatically if it stays open across the transition.
+    function applyTheme() {
+      var hour = new Date().getHours();
+      var isDay = hour >= 6 && hour < 18;
+      document.body.setAttribute("data-theme", isDay ? "light" : "dark");
+    }
+    applyTheme();
+    setInterval(applyTheme, 60 * 1000);
+  }
+
+  onReady(function () {
+    initTimeTheme();
+    ["f-name", "f-email", "f-bike"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("input", refreshSubmit);
+    });
+    refreshSubmit();
+
+    ["q-name", "q-question"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("input", refreshQSubmit);
+    });
+    refreshQSubmit();
+
+    // reveal cards on scroll into view
+    initReveal();
+
+    // Count-up + follower climb (confetti burst removed Oct 2026).
+    // Fires on first scroll, OR immediately if the stats are already on screen
+    // (tall displays / tablets have no scroll to trigger, so the old
+    //  scroll-only trigger left the counters stuck at 0).
+    var counted = false;
+    function triggerCounts() {
+      if (counted) return;
+      counted = true;
+      animateCounts();
+      startLiveCount();
+    }
+    window.addEventListener("scroll", function () { triggerCounts(); }, { passive: true });
+
+    function statsInView() {
+      var el = document.querySelector(".id-stats");
+      if (!el) return false;
+      var r = el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0;
+    }
+    function loading() { return document.documentElement.classList.contains("is-loading"); }
+    function checkStats() { if (!loading() && statsInView()) triggerCounts(); }
+    window.addEventListener("og:ready", checkStats);
+
+    checkStats();                                  // already visible on load?
+    window.addEventListener("load", checkStats);   // and once images settle
+    window.addEventListener("resize", checkStats); // and on rotate / resize
+    setTimeout(checkStats, 600);                   // and as a final backstop
+    setTimeout(function () {                       // absolute fallback: never leave 0
+      if (loading()) window.addEventListener("og:ready", triggerCounts); else triggerCounts();
+    }, 2500);
+  });
+
+  /* iOS safety net: if the IntersectionObserver never fires (some iOS Safari
+     cases), force any still-hidden .reveal card to fade in after a moment.
+     The animation still plays normally when the observer works. */
+  onReady(function () {
+    setTimeout(function () {
+      document.querySelectorAll(".reveal").forEach(function (el) {
+        if (!el.classList.contains("in")) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight + 400) el.classList.add("in");
+        }
+      });
+    }, 1200);
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        document.querySelectorAll(".reveal").forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight + 400) el.classList.add("in");
+        });
+      }, 300);
+    });
+  });
+
+})();
+
+/* ---------- Navratri: warm string lights (only while <body class="navratri">) ---------- */
+(function () {
+  "use strict";
+  if (!document.body.classList.contains("navratri")) return;
+  function lightsSVG(gid) {
+    var W = 390, n = 5, sw = W / n, sag = 11, wire = [], bulbs = [];
+    for (var k = 0; k < n; k++) {
+      var x0 = k * sw, x1 = x0 + sw;
+      wire.push("M" + x0.toFixed(1) + ",2 Q" + ((x0 + x1) / 2).toFixed(1) + "," + (2 + 2 * sag) + " " + x1.toFixed(1) + ",2");
+      for (var j = 1; j < 8; j++) {
+        var u = j / 8, x = x0 + u * sw, y = 2 + sag * 4 * u * (1 - u), by = y + 4.2, i = bulbs.length;
+        bulbs.push('<g class="lb lb' + (i % 2) + '">' +
+          '<circle cx="' + x.toFixed(1) + '" cy="' + by.toFixed(1) + '" r="7" fill="url(#' + gid + ')"/>' +
+          '<path d="M' + x.toFixed(1) + " " + y.toFixed(1) + "V" + (by - 2.2).toFixed(1) + '" stroke="currentColor" stroke-width="1.6"/>' +
+          '<ellipse cx="' + x.toFixed(1) + '" cy="' + by.toFixed(1) + '" rx="2.3" ry="2.9" fill="#FFC75A"/>' +
+          '<circle cx="' + (x - 0.7).toFixed(1) + '" cy="' + (by - 0.9).toFixed(1) + '" r="0.9" fill="#FFF3D1"/></g>');
+      }
+    }
+    return '<svg viewBox="0 0 390 22" aria-hidden="true"><defs><radialGradient id="' + gid + '">' +
+      '<stop offset="0" stop-color="#FFB547" stop-opacity=".75"/><stop offset="1" stop-color="#FFB547" stop-opacity="0"/>' +
+      '</radialGradient></defs><path d="' + wire.join(" ") + '" fill="none" stroke="currentColor" stroke-width="1"/>' +
+      bulbs.join("") + "</svg>";
+  }
+  var slots = document.querySelectorAll(".nv-lights");
+  for (var i = 0; i < slots.length; i++) slots[i].innerHTML = lightsSVG("nvGlow" + i);
+})();
+
+/* ---------- Hero hair sway (dark mode only; still in light mode) ---------- */
+(function () {
+  "use strict";
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var hairEl = document.querySelector(".ad-hair");
+  if (!hairEl) return;
+  var running = false, t0 = performance.now();
+  function isDark() { return document.body.getAttribute("data-theme") === "dark"; }
+  function gust(t) { var g = 0.35 + 0.15 * Math.sin(t * 0.6) + 0.08 * Math.sin(t * 1.7 + 1); return Math.max(0.1, Math.min(0.6, g)); }
+  function frame(now) {
+    if (!isDark()) { hairEl.style.transform = ""; running = false; return; }
+    var t = (now - t0) / 1000, g = gust(t);
+    var sk = -(1 + 4 * g + 1 * Math.sin(t * 4.5));
+    hairEl.style.transform = "skewX(" + sk.toFixed(2) + "deg) translateX(" + (0.6 * g).toFixed(2) + "px)";
+    requestAnimationFrame(frame);
+  }
+  function start() { if (!running && isDark()) { running = true; requestAnimationFrame(frame); } }
+  start();
+  setInterval(start, 1000);
+})();
+
+/* ---------- Loading screen: reveal the page only when the home images and fonts are ready ---------- */
+(function () {
+  "use strict";
+  var loader = document.getElementById("og-loader");
+  if (!loader) return;
+  var done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    loader.classList.add("done");
+    document.documentElement.classList.remove("is-loading");
+    setTimeout(function () { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 450);
+    window.dispatchEvent(new Event("og:ready"));
+  }
+  function decoded(img) { return img.decode ? img.decode().catch(function () {}) : Promise.resolve(); }
+  function ready(img) {
+    return new Promise(function (res) {
+      if (img.complete && img.naturalWidth) { decoded(img).then(res); return; }
+      img.addEventListener("load", function () { decoded(img).then(res); }, { once: true });
+      img.addEventListener("error", res, { once: true });
+    });
+  }
+  // wait only for what is on the first screen (hero + anything visible); the rest loads lazily
+  var vh = window.innerHeight || 800;
+  var imgs = [].slice.call(document.querySelectorAll("#home-panel img")).filter(function (img) {
+    var r = img.getBoundingClientRect(); return r.width && r.top < vh * 1.05;
+  });
+  var fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  Promise.all(imgs.map(ready).concat([fonts])).then(function () { requestAnimationFrame(finish); });
+  setTimeout(finish, 6000);                    // never keep a slow connection waiting forever
+})();
+
+</script>
 </body>
 </html>

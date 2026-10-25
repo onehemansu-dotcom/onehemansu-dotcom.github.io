@@ -3,10 +3,15 @@
 Live site: https://onehemansu-dotcom.github.io
 
 ## Structure
-- `index.html` — markup (single page, panels toggled by JS)
-- `style.css`  — all styling, both themes
-- `app.js`     — panel switching, forms, animations, tracking
-- `images/`    — all photos and product images
+- `index.html` — **generated, self-contained page** (CSS + JS inlined). This is what GitHub Pages serves.
+- `src/index.html`, `src/style.css`, `src/app.js` — the editable source the page is built from
+- `images/`    — all photos and product images (linked with `?v=<fingerprint>` so updates always show)
+
+## Why one file (Instagram browser)
+The Instagram in-app browser caches files separately and can pair a new page with an old
+stylesheet, which breaks the layout. With CSS and JS inside index.html, whatever page loads is
+always complete and consistent. Image links carry a content fingerprint, so a changed image
+always reloads. To deploy: upload `index.html` and `images/` (plus `src/` to keep the source).
 
 The GA4 and Clarity snippets stay inline in `index.html` on purpose —
 they must load before anything else.
