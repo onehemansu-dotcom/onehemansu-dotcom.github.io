@@ -1037,6 +1037,8 @@ body[data-theme="dark"] .work-email { color: #FF6B35 !important; }
   z-index: 3;
 }
 .ad-photo { display: block; width: 100%; height: 100%; }
+/* "Do you trust this book?" hero: upper-body shot, a little smaller so the head clears the button */
+.ad-figure--book { width: min(340px, 87vw); bottom: max(37px, calc(198px - 41.4vw)); }   /* head clears the button, book clears the arch */
 
 /* light mode: no glow behind the home hero */
 body:not([data-theme="dark"]) .hero-ad .hero-smoke,
@@ -1334,8 +1336,7 @@ body[data-theme="dark"] .ogl-bar { background: rgba(255,255,255,0.1); }
 </style>
 <title>OG Ladka — Links</title>
 <meta name="description" content="OG Ladka — bikes, simplified. Gear, guides & links for Indian riders." />
-<link rel="preload" as="image" href="images/33-first-service-checklist-og-ladka.webp?v=e8664f41" fetchpriority="high" />
-<link rel="preload" as="image" href="images/33-first-service-checklist-hair.webp?v=9993ee69" />
+<link rel="preload" as="image" href="images/34-trust-this-book-og-ladka.webp?v=06695c65" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -1390,12 +1391,12 @@ body[data-theme="dark"] .ogl-bar { background: rgba(255,255,255,0.1); }
     </div>
     <!-- HERO = latest video. Change the headline, image and reel link for each new video (ad-top--left = left-aligned type),
          and add the video to the Video Links page. -->
-    <div class="ad-top ad-top--left">
+    <div class="ad-top">
       <p class="ad-head">
-        <span class="ad-l1">Your first service</span>
-        <span class="ad-l2">checklist</span>
+        <span class="ad-l1">Do you trust</span>
+        <span class="ad-l2">this book?</span>
       </p>
-      <a class="ad-cta" href="https://www.instagram.com/reel/De69I2npkMJ/" target="_blank" rel="noopener" data-label="Hero: Watch Latest Reel" data-category="Hero">
+      <a class="ad-cta" href="https://www.instagram.com/reel/DfkQR4FtLWE/" target="_blank" rel="noopener" data-label="Hero: Watch Latest Reel" data-category="Hero">
         Watch latest reel
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
       </a>
@@ -1407,9 +1408,8 @@ body[data-theme="dark"] .ogl-bar { background: rgba(255,255,255,0.1); }
       <span class="smoke s4"></span>
     </div>
     <span class="hero-glow" aria-hidden="true"></span>
-    <div class="ad-figure">
-      <img class="ad-photo" fetchpriority="high" src="images/33-first-service-checklist-og-ladka.webp?v=e8664f41" alt="Hemansu Singh holding a checklist beside his Royal Enfield Classic 350" />
-      <img class="ad-hair" fetchpriority="high" src="images/33-first-service-checklist-hair.webp?v=9993ee69" alt="" aria-hidden="true" />
+    <div class="ad-figure ad-figure--book">
+      <img class="ad-photo" fetchpriority="high" src="images/34-trust-this-book-og-ladka.webp?v=06695c65" alt="Hemansu Singh scratching his head while reading the Royal Enfield owner's manual" />
     </div>
     <nav class="home-socials">
       <a href="https://instagram.com/ogladkaa" target="_blank" rel="noopener" data-label="Social: Instagram" data-category="Social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>

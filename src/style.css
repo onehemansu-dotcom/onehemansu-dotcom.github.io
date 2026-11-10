@@ -1030,6 +1030,8 @@ body[data-theme="dark"] .work-email { color: #FF6B35 !important; }
   z-index: 3;
 }
 .ad-photo { display: block; width: 100%; height: 100%; }
+/* "Do you trust this book?" hero: upper-body shot, a little smaller so the head clears the button */
+.ad-figure--book { width: min(340px, 87vw); bottom: max(37px, calc(198px - 41.4vw)); }   /* head clears the button, book clears the arch */
 
 /* light mode: no glow behind the home hero */
 body:not([data-theme="dark"]) .hero-ad .hero-smoke,
